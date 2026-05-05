@@ -66,16 +66,23 @@ export function TaiwanCountyMap({
   const c = colors(activeTab);
   const displayCity = hoverCity ?? activeCity;
 
-  const activeFocus =
+  const DEFAULT_FOCUS = { scale: 1, x: 0, y: 0 };
+  const rawFocus =
     activeCity != null
       ? TAIWAN_COUNTY_PATHS.find((p) => p.name === activeCity)?.focus ?? null
       : null;
-  const transform = activeFocus
-    ? `translate(${activeFocus.x}px, ${activeFocus.y}px) scale(${activeFocus.scale})`
-    : "translate(0px, 0px) scale(1)";
+  const safeFocus = rawFocus ?? DEFAULT_FOCUS;
+  const safeScale = Math.min(Math.max(safeFocus.scale ?? 1, 1), 2.2);
+  // Prevent accidental huge translate that can move the whole map out of view.
+  const clamp = (v: number, min: number, max: number) =>
+    Math.max(min, Math.min(max, v));
+  const safeX = clamp(Number(safeFocus.x ?? 0) * 0.5, -180, 180);
+  const safeY = clamp(Number(safeFocus.y ?? 0) * 0.5, -200, 200);
+
+  const transform = `translate(${safeX}px, ${safeY}px) scale(${safeScale})`;
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative h-[390px] w-full overflow-hidden sm:h-[430px] md:h-[540px] lg:h-[620px]">
       {/* Background scan / rings */}
       <div
         aria-hidden
@@ -91,14 +98,28 @@ export function TaiwanCountyMap({
 
       <svg
         viewBox="0 0 600 760"
-        className="relative block h-[390px] w-full max-w-full select-none sm:h-[430px] md:h-[540px] lg:h-[620px] map-float"
+        preserveAspectRatio="xMidYMid meet"
+        className="relative block h-full w-full max-w-full select-none map-float"
         role="img"
-        aria-label="台灣互動地圖"
+        aria-label="台灣縣市服務地圖"
         onClick={(e) => {
           // click background to clear hover (optional)
           if (e.currentTarget === e.target) onLeaveCity();
         }}
       >
+        {TAIWAN_COUNTY_PATHS.length === 0 ? (
+          <g className="pointer-events-none">
+            <text
+              x={300}
+              y={380}
+              textAnchor="middle"
+              fontSize={14}
+              fill="rgba(248,243,234,0.78)"
+            >
+              地圖資料載入中
+            </text>
+          </g>
+        ) : null}
         {activeCity ? (
           <g className="md:hidden">
             <rect
@@ -165,23 +186,31 @@ export function TaiwanCountyMap({
             const isHover = hoverCity === county.name;
             const isDim = Boolean(displayCity) && displayCity !== county.name;
 
-            const disabledFill = "rgba(248,243,234,0.055)";
-            const disabledStroke = "rgba(248,243,234,0.16)";
+            // Debug-safe baseline styles: map must always be visible.
+            const disabledFill = "rgba(248,243,234,0.10)";
+            const disabledStroke = "rgba(248,243,234,0.35)";
+
+            const enabledFill =
+              activeTab === "dropin"
+                ? "rgba(139,191,159,0.22)"
+                : "rgba(205,162,116,0.25)";
+            const enabledStroke = activeTab === "dropin" ? "#8bbf9f" : "#e7c79c";
 
             const fill = isActive
-              ? c.soft
+              ? enabledFill
               : enabled
-                ? c.soft
+                ? enabledFill
                 : disabledFill;
 
-            const stroke = isActive || isHover
-              ? c.glow
+            const stroke = isActive
+              ? enabledStroke
               : enabled
-                ? c.glow
+                ? enabledStroke
                 : disabledStroke;
 
-            const disabledHoverStroke = "rgba(248,243,234,0.26)";
-            const hoverStroke = enabled ? c.glow : disabledHoverStroke;
+            const hoverStroke = enabled
+              ? enabledStroke
+              : "rgba(248,243,234,0.55)";
             const off = LABEL_OFFSET[county.name] ?? { dx: 10, dy: -34 };
 
             return (
@@ -197,21 +226,21 @@ export function TaiwanCountyMap({
                   onSelectCity(county.name);
                 }}
                 style={{ cursor: enabled ? "pointer" : "not-allowed" }}
-                opacity={isDim ? 0.55 : 1}
+                opacity={isDim ? 0.82 : 1}
               >
                 {(isActive || isHover) ? (
                   <path
                     d={county.d}
-                    fill={enabled ? c.glowSoft : "rgba(255,255,255,0.06)"}
-                    opacity={0.85}
-                    filter="url(#cityGlow)"
+                    fill={enabled ? (activeTab === "dropin" ? "rgba(139,191,159,0.32)" : "rgba(205,162,116,0.35)") : "rgba(255,255,255,0.10)"}
+                    opacity={0.9}
+                    filter={isActive ? "url(#cityGlow)" : undefined}
                   />
                 ) : null}
                 <path
                   d={county.d}
                   fill={fill}
                   stroke={isHover ? hoverStroke : stroke}
-                  strokeWidth={isActive ? 2.4 : isHover ? 1.7 : enabled ? 1.25 : 1.1}
+                  strokeWidth={isActive ? 2 : isHover ? 1.4 : enabled ? 1.4 : 1}
                 />
 
                 {(isHover || isActive) ? (
