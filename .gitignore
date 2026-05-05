@@ -39,3 +39,6 @@ yarn-error.log*
 
 # extracted reference materials (do not commit)
 docs/_ref-headless-store/
+
+# local preprocessing artifacts
+.tmp-*.geo.json

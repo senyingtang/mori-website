@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import type { Location, MapCitySetting, MapTabType, Session } from "@/types/cms";
 import { LocationHoverCard } from "@/components/home/LocationHoverCard";
 import { TaiwanCountyMap } from "@/components/home/TaiwanCountyMap";
-import type { TaiwanCityKey } from "@/components/home/taiwan-map-data";
+import type { TaiwanCountyName } from "@/components/home/taiwan-county-paths";
+import { TAIWAN_COUNTY_PATHS } from "@/components/home/taiwan-county-paths";
 
 type Props = {
   mapCities: MapCitySetting[];
@@ -12,60 +13,64 @@ type Props = {
   sessions: Session[];
 };
 
-const SUPPORTED_CITY_KEYS: TaiwanCityKey[] = [
-  "台北市",
-  "新北市",
-  "桃園市",
-  "宜蘭縣",
-  "台中市",
-  "高雄市",
-];
+function normalizeCountyName(name: string) {
+  return name.replace("臺", "台").trim();
+}
 
-function toCityKey(s: string): TaiwanCityKey | null {
-  return (SUPPORTED_CITY_KEYS as readonly string[]).includes(s)
-    ? (s as TaiwanCityKey)
-    : null;
+const ALL_COUNTIES = TAIWAN_COUNTY_PATHS.map((p) => p.name);
+
+function toCountyName(s: string): TaiwanCountyName | null {
+  const n = normalizeCountyName(s);
+  return (ALL_COUNTIES as readonly string[]).includes(n) ? (n as TaiwanCountyName) : null;
 }
 
 export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
   const [activeTab, setActiveTab] = useState<MapTabType>("teaching");
-  const [activeCity, setActiveCity] = useState<TaiwanCityKey | null>(null);
-  const [hoverCity, setHoverCity] = useState<TaiwanCityKey | null>(null);
+  const [activeCity, setActiveCity] = useState<TaiwanCountyName | null>(null);
+  const [hoverCity, setHoverCity] = useState<TaiwanCountyName | null>(null);
 
   const filteredCities = useMemo(() => {
     return mapCities
       .filter((c) => c.is_enabled && c.tab_type === activeTab)
-      .map((c) => ({ ...c, cityKey: toCityKey(c.city) }))
-      .filter((c) => c.cityKey != null)
+      .map((c) => ({ ...c, countyName: toCountyName(c.city) }))
+      .filter((c) => c.countyName != null)
       .sort((a, b) => a.sort_order - b.sort_order) as Array<
-      MapCitySetting & { cityKey: TaiwanCityKey }
+      MapCitySetting & { countyName: TaiwanCountyName }
     >;
   }, [mapCities, activeTab]);
 
   const supportedCities = useMemo(() => {
-    return filteredCities.map((c) => c.cityKey);
+    return filteredCities.map((c) => c.countyName);
   }, [filteredCities]);
 
-  const displayCity = hoverCity ?? activeCity;
+  const displayCity =
+    hoverCity && supportedCities.includes(hoverCity) ? hoverCity : activeCity;
 
   const activeSetting = useMemo(() => {
     if (!displayCity) return null;
-    return filteredCities.find((c) => c.cityKey === displayCity) ?? null;
+    return filteredCities.find((c) => c.countyName === displayCity) ?? null;
   }, [filteredCities, displayCity]);
 
   useEffect(() => {
     // 初始化：activeTab=teaching，activeCity=第一個 enabled city
     if (!activeCity) {
-      setActiveCity(filteredCities[0]?.cityKey ?? null);
+      setActiveCity(filteredCities[0]?.countyName ?? null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     // 切換 tab：切到該 tab 第一個 enabled city
-    setActiveCity(filteredCities[0]?.cityKey ?? null);
+    setActiveCity(filteredCities[0]?.countyName ?? null);
     setHoverCity(null);
   }, [activeTab, filteredCities]);
+
+  useEffect(() => {
+    // 若 activeCity 不在本 tab 的 enabled counties，改成第一個 enabled
+    if (activeCity && supportedCities.length > 0 && !supportedCities.includes(activeCity)) {
+      setActiveCity(supportedCities[0] ?? null);
+    }
+  }, [activeCity, supportedCities]);
 
   const theme =
     activeTab === "teaching"
@@ -134,12 +139,16 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
         {/* Desktop floating card */}
         <div
           className={`pointer-events-none absolute hidden w-[min(340px,42%)] md:block ${
-            activeCity === "高雄市" ? "top-5 right-5" : "bottom-5 right-5"
+            activeCity && ["高雄市", "台南市", "屏東縣"].includes(activeCity)
+              ? "top-5 right-5"
+              : activeCity && ["台北市", "新北市", "基隆市", "宜蘭縣"].includes(activeCity)
+                ? "bottom-5 right-5"
+                : "bottom-5 right-5"
           }`}
         >
           <div className="pointer-events-auto">
             {activeSetting ? (
-              <div className="max-h-[calc(100%-2.5rem)] overflow-y-auto">
+              <div className="max-h-[min(520px,calc(100%-2.5rem))] overflow-y-auto">
                 <LocationHoverCard
                   citySetting={activeSetting}
                   locations={locations}

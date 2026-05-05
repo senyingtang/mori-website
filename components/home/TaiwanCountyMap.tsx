@@ -1,43 +1,58 @@
 "use client";
 
 import type { MapTabType } from "@/types/cms";
-import type { TaiwanCityKey } from "@/components/home/taiwan-map-data";
-import {
-  TAIWAN_CITY_LABELS,
-  TAIWAN_CITY_OVERLAYS,
-  TAIWAN_CITY_POINTS,
-  TAIWAN_SILHOUETTE_PATH,
-} from "@/components/home/taiwan-map-data";
-import { TAIWAN_CITY_FOCUS } from "@/components/home/taiwan-map-focus";
+import type { TaiwanCountyName } from "@/components/home/taiwan-county-paths";
+import { TAIWAN_COUNTY_PATHS } from "@/components/home/taiwan-county-paths";
 
 type Props = {
   activeTab: MapTabType;
-  activeCity: TaiwanCityKey | null;
-  hoverCity: TaiwanCityKey | null;
-  cities: TaiwanCityKey[];
-  onHoverCity: (city: TaiwanCityKey) => void;
+  activeCity: TaiwanCountyName | null;
+  hoverCity: TaiwanCountyName | null;
+  cities: TaiwanCountyName[];
+  onHoverCity: (city: TaiwanCountyName) => void;
   onLeaveCity: () => void;
-  onSelectCity: (city: TaiwanCityKey) => void;
+  onSelectCity: (city: TaiwanCountyName) => void;
 };
 
 function colors(activeTab: MapTabType) {
   if (activeTab === "dropin") {
     return {
       glow: "#8bbf9f",
-      soft: "rgba(139,191,159,0.30)",
+      glowSoft: "rgba(139,191,159,0.32)",
+      soft: "rgba(139,191,159,0.20)",
       soft2: "rgba(139,191,159,0.16)",
     };
   }
   return {
-    glow: "#cda274",
-    soft: "rgba(205,162,116,0.32)",
+    glow: "#e7c79c",
+    glowSoft: "rgba(205,162,116,0.35)",
+    soft: "rgba(205,162,116,0.22)",
     soft2: "rgba(205,162,116,0.16)",
   };
 }
 
-function isActiveCity(city: TaiwanCityKey, activeCity: TaiwanCityKey | null) {
-  return activeCity === city;
+function isActiveCounty(
+  county: TaiwanCountyName,
+  activeCounty: TaiwanCountyName | null
+) {
+  return activeCounty === county;
 }
+
+function normalizeCountyName(name: string) {
+  return name.replace("臺", "台").trim();
+}
+
+const LABEL_OFFSET: Partial<Record<TaiwanCountyName, { dx: number; dy: number }>> =
+  {
+    // North cluster: avoid overlaps
+    "台北市": { dx: 14, dy: -44 },
+    "新北市": { dx: 20, dy: -20 },
+    "基隆市": { dx: 20, dy: -52 },
+    "桃園市": { dx: 8, dy: -12 },
+    "新竹市": { dx: 12, dy: -18 },
+    "新竹縣": { dx: 6, dy: -10 },
+    "宜蘭縣": { dx: 18, dy: -10 },
+  };
 
 export function TaiwanCountyMap({
   activeTab,
@@ -49,12 +64,15 @@ export function TaiwanCountyMap({
   onSelectCity,
 }: Props) {
   const c = colors(activeTab);
-  const focus = activeCity ? TAIWAN_CITY_FOCUS[activeCity] : null;
   const displayCity = hoverCity ?? activeCity;
 
-  const transform = focus
-    ? `translate(${focus.x} ${focus.y}) scale(${focus.scale})`
-    : "translate(0 0) scale(1)";
+  const activeFocus =
+    activeCity != null
+      ? TAIWAN_COUNTY_PATHS.find((p) => p.name === activeCity)?.focus ?? null
+      : null;
+  const transform = activeFocus
+    ? `translate(${activeFocus.x}px, ${activeFocus.y}px) scale(${activeFocus.scale})`
+    : "translate(0px, 0px) scale(1)";
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -81,9 +99,25 @@ export function TaiwanCountyMap({
           if (e.currentTarget === e.target) onLeaveCity();
         }}
       >
+        {activeCity ? (
+          <g className="md:hidden">
+            <rect
+              x={16}
+              y={16}
+              width={130}
+              height={28}
+              rx={12}
+              fill="rgba(0,0,0,0.38)"
+              stroke="rgba(255,255,255,0.10)"
+            />
+            <text x={28} y={35} fontSize={12} fill="rgba(248,243,234,0.92)">
+              {normalizeCountyName(activeCity)}
+            </text>
+          </g>
+        ) : null}
         <defs>
-          <linearGradient id="twOutlineFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.06)" />
+          <linearGradient id="twCountyFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
             <stop offset="100%" stopColor="rgba(0,0,0,0.30)" />
           </linearGradient>
           <filter id="cityGlow" x="-40%" y="-40%" width="180%" height="180%">
@@ -103,90 +137,109 @@ export function TaiwanCountyMap({
             transform,
           }}
         >
-          {/* Taiwan silhouette */}
-          <path
-            d={TAIWAN_SILHOUETTE_PATH}
-            fill="url(#twOutlineFill)"
-            stroke="rgba(255,255,255,0.14)"
-            strokeWidth="2"
-          />
+          {/* Island inset frame (Penghu / Kinmen / Lienchiang) */}
+          <g className="pointer-events-none">
+            <rect
+              x={42}
+              y={548}
+              width={200}
+              height={190}
+              rx={18}
+              fill="rgba(0,0,0,0.18)"
+              stroke="rgba(248,243,234,0.18)"
+              strokeWidth={1.2}
+            />
+            <text
+              x={58}
+              y={574}
+              fontSize={12}
+              fill="rgba(248,243,234,0.72)"
+            >
+              離島
+            </text>
+          </g>
 
-          {/* City overlays */}
-          {cities.map((city) => {
-            const isActive = isActiveCity(city, activeCity);
-            const isHover = hoverCity === city;
-            const isDim = Boolean(displayCity) && displayCity !== city;
-            const overlay = TAIWAN_CITY_OVERLAYS[city];
-            const p = TAIWAN_CITY_POINTS[city];
+          {TAIWAN_COUNTY_PATHS.map((county) => {
+            const enabled = cities.includes(county.name);
+            const isActive = isActiveCounty(county.name, activeCity);
+            const isHover = hoverCity === county.name;
+            const isDim = Boolean(displayCity) && displayCity !== county.name;
+
+            const disabledFill = "rgba(248,243,234,0.055)";
+            const disabledStroke = "rgba(248,243,234,0.16)";
+
+            const fill = isActive
+              ? c.soft
+              : enabled
+                ? c.soft
+                : disabledFill;
+
+            const stroke = isActive || isHover
+              ? c.glow
+              : enabled
+                ? c.glow
+                : disabledStroke;
+
+            const disabledHoverStroke = "rgba(248,243,234,0.26)";
+            const hoverStroke = enabled ? c.glow : disabledHoverStroke;
+            const off = LABEL_OFFSET[county.name] ?? { dx: 10, dy: -34 };
 
             return (
               <g
-                key={city}
-                onMouseEnter={() => onHoverCity(city)}
+                key={county.name}
+                onMouseEnter={() => {
+                  onHoverCity(county.name);
+                }}
                 onMouseLeave={() => onLeaveCity()}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onSelectCity(city);
+                  if (!enabled) return;
+                  onSelectCity(county.name);
                 }}
-                style={{ cursor: "pointer" }}
-                opacity={isDim ? 0.42 : 1}
+                style={{ cursor: enabled ? "pointer" : "not-allowed" }}
+                opacity={isDim ? 0.55 : 1}
               >
-                {/* soft halo */}
-                {(isActive || isHover) && (
+                {(isActive || isHover) ? (
                   <path
-                    d={overlay}
-                    fill={c.soft}
+                    d={county.d}
+                    fill={enabled ? c.glowSoft : "rgba(255,255,255,0.06)"}
                     opacity={0.85}
                     filter="url(#cityGlow)"
                   />
-                )}
-                {/* solid overlay */}
+                ) : null}
                 <path
-                  d={overlay}
-                  fill={isActive || isHover ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.06)"}
-                  stroke={isActive || isHover ? c.glow : "rgba(255,255,255,0.10)"}
-                  strokeWidth={isActive || isHover ? 2 : 1}
+                  d={county.d}
+                  fill={fill}
+                  stroke={isHover ? hoverStroke : stroke}
+                  strokeWidth={isActive ? 2.4 : isHover ? 1.7 : enabled ? 1.25 : 1.1}
                 />
 
-                {/* marker (secondary) */}
-                <g transform={`translate(${p.x} ${p.y})`}>
-                  <circle
-                    r={isActive ? 7.5 : 6}
-                    fill={c.glow}
-                    opacity={0.9}
-                  />
-                  <circle
-                    r={isActive ? 16 : 14}
-                    fill="none"
-                    stroke={c.glow}
-                    strokeWidth="1.2"
-                    opacity={isActive ? 0.55 : 0.25}
-                    className={isActive ? "pulse-glow" : undefined}
-                  />
-                </g>
-
-                {/* hover label */}
-                {(isHover || isActive) && (
-                  <g transform={`translate(${p.x + 18} ${p.y - 34})`}>
+                {(isHover || isActive) ? (
+                  <g
+                    className="hidden md:block"
+                    transform={`translate(${county.label.x + off.dx} ${county.label.y + off.dy})`}
+                  >
                     <rect
                       x={0}
                       y={0}
-                      width={86}
-                      height={22}
+                      width={112}
+                      height={30}
                       rx={10}
                       fill="rgba(0,0,0,0.38)"
                       stroke="rgba(255,255,255,0.10)"
                     />
-                    <text
-                      x={10}
-                      y={15}
-                      fontSize={12}
-                      fill="#f8f3ea"
-                    >
-                      {TAIWAN_CITY_LABELS[city]}
+                    <text x={10} y={14} fontSize={12} fill="#f8f3ea">
+                      {normalizeCountyName(county.name)}
+                    </text>
+                    <text x={10} y={26} fontSize={11} fill="rgba(248,243,234,0.68)">
+                      {enabled
+                        ? activeTab === "dropin"
+                          ? "查看臨打場次"
+                          : "查看教學據點"
+                        : "尚未開放據點"}
                     </text>
                   </g>
-                )}
+                ) : null}
               </g>
             );
           })}
