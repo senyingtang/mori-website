@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0b0618;
+  --foreground: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(109, 40, 217, 0.35), transparent 55%),
+    linear-gradient(180deg, #1e103d 0%, #0b0618 42%, #05030d 100%);
+  min-height: 100vh;
+}

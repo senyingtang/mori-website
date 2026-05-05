@@ -1,0 +1,329 @@
+"use client";
+
+import { useMemo, useState, useTransition } from "react";
+import { upsertSiteSettings } from "@/app/admin/actions";
+import { asRecord } from "@/lib/cms/home-content";
+import { canManageSiteSettings } from "@/lib/auth/roles";
+import { UploadField } from "@/components/admin/UploadField";
+
+type Row = {
+  key: string;
+  value: unknown;
+};
+
+function pretty(v: unknown): string {
+  try {
+    return JSON.stringify(v ?? {}, null, 2);
+  } catch {
+    return "{}";
+  }
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  disabled,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-white/55">{label}</label>
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        disabled={disabled}
+        className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white placeholder:text-white/25 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+      />
+    </div>
+  );
+}
+
+function isRow(x: unknown): x is Row {
+  if (!x || typeof x !== "object") return false;
+  const r = x as Record<string, unknown>;
+  return typeof r.key === "string";
+}
+
+export function SiteSettingsEditor({
+  rows,
+  role,
+}: {
+  rows: unknown[];
+  role: string | null;
+}) {
+  const map = useMemo(() => {
+    const m = new Map<string, unknown>();
+    for (const r of rows.filter(isRow)) m.set(r.key, (r as Row).value);
+    return m;
+  }, [rows]);
+
+  const canEdit = canManageSiteSettings(role);
+
+  const brand = asRecord(map.get("brand"));
+  const links = asRecord(map.get("links"));
+  const contact = asRecord(map.get("contact"));
+  const theme = asRecord(map.get("theme"));
+
+  const [brandSiteName, setBrandSiteName] = useState(
+    (brand?.["site_name"] as string | undefined) ?? ""
+  );
+  const [brandTagline, setBrandTagline] = useState(
+    (brand?.["tagline"] as string | undefined) ??
+      (brand?.["slogan"] as string | undefined) ??
+      ""
+  );
+  const [brandLogoUrl, setBrandLogoUrl] = useState(
+    (brand?.["logo_url"] as string | undefined) ?? ""
+  );
+
+  const [linksLine, setLinksLine] = useState(
+    (links?.["line_official"] as string | undefined) ?? ""
+  );
+  const [linksFb, setLinksFb] = useState(
+    (links?.["facebook"] as string | undefined) ?? ""
+  );
+  const [linksIg, setLinksIg] = useState(
+    (links?.["instagram"] as string | undefined) ?? ""
+  );
+
+  const [contactEmail, setContactEmail] = useState(
+    (contact?.["email"] as string | undefined) ??
+      (contact?.["support_email"] as string | undefined) ??
+      ""
+  );
+
+  const [themePrimary, setThemePrimary] = useState(
+    (theme?.["primary_purple"] as string | undefined) ?? ""
+  );
+  const [themeDeep, setThemeDeep] = useState(
+    (theme?.["deep_purple"] as string | undefined) ?? ""
+  );
+  const [themeNeon, setThemeNeon] = useState(
+    (theme?.["neon_purple"] as string | undefined) ?? ""
+  );
+  const [themeBlue, setThemeBlue] = useState(
+    (theme?.["electric_blue"] as string | undefined) ?? ""
+  );
+  const [themeRed, setThemeRed] = useState(
+    (theme?.["energy_red"] as string | undefined) ?? ""
+  );
+
+  const [status, setStatus] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  function save(key: string, obj: unknown) {
+    setStatus(null);
+    startTransition(async () => {
+      const res = await upsertSiteSettings(key, pretty(obj));
+      setStatus(res.success ? "已儲存。" : `儲存失敗：${res.error}`);
+    });
+  }
+
+  return (
+    <div className="space-y-6">
+      {!canEdit ? (
+        <div className="rounded-xl border border-purple-400/25 bg-brand-purple/10 px-4 py-3 text-sm text-white/80">
+          你目前是 <span className="font-semibold">editor</span> 權限，可查看全站設定，但不可修改。請聯繫{" "}
+          <span className="font-semibold">admin</span> 或{" "}
+          <span className="font-semibold">super_admin</span>。
+        </div>
+      ) : null}
+      {status ? (
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+          {status}
+        </div>
+      ) : null}
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white">brand</h2>
+            <p className="mt-1 text-sm text-white/55">站名、標語、Logo URL</p>
+          </div>
+          <button
+            type="button"
+            disabled={pending || !canEdit}
+            onClick={() =>
+              save("brand", {
+                site_name: brandSiteName,
+                tagline: brandTagline,
+                logo_url: brandLogoUrl || null,
+              })
+            }
+            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          >
+            儲存
+          </button>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <Field
+            label="site_name"
+            value={brandSiteName}
+            onChange={setBrandSiteName}
+            disabled={!canEdit}
+          />
+          <Field
+            label="tagline"
+            value={brandTagline}
+            onChange={setBrandTagline}
+            disabled={!canEdit}
+          />
+          <div className="md:col-span-2 space-y-3">
+            <UploadField
+              label="Logo 圖片（上傳至 Storage）"
+              value={brandLogoUrl}
+              bucket="public-assets"
+              pathPrefix="logo"
+              onUploaded={setBrandLogoUrl}
+              helperText="PNG / JPG / WebP / SVG；最多 5MB。"
+              disabled={!canEdit}
+            />
+            <Field
+              label="logo_url（可手動貼上或由上傳填入）"
+              value={brandLogoUrl}
+              onChange={setBrandLogoUrl}
+              placeholder="https://... 或 /storage/v1/object/public/..."
+              disabled={!canEdit}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white">links</h2>
+            <p className="mt-1 text-sm text-white/55">LINE/FB/IG</p>
+          </div>
+          <button
+            type="button"
+            disabled={pending || !canEdit}
+            onClick={() =>
+              save("links", {
+                line_official: linksLine || null,
+                facebook: linksFb || null,
+                instagram: linksIg || null,
+              })
+            }
+            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          >
+            儲存
+          </button>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="md:col-span-2">
+            <Field
+              label="line_official"
+              value={linksLine}
+              onChange={setLinksLine}
+              disabled={!canEdit}
+            />
+          </div>
+          <Field
+            label="facebook"
+            value={linksFb}
+            onChange={setLinksFb}
+            disabled={!canEdit}
+          />
+          <Field
+            label="instagram"
+            value={linksIg}
+            onChange={setLinksIg}
+            disabled={!canEdit}
+          />
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white">contact</h2>
+            <p className="mt-1 text-sm text-white/55">客服信箱</p>
+          </div>
+          <button
+            type="button"
+            disabled={pending || !canEdit}
+            onClick={() => save("contact", { email: contactEmail })}
+            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          >
+            儲存
+          </button>
+        </div>
+        <div className="mt-6">
+          <Field
+            label="email"
+            value={contactEmail}
+            onChange={setContactEmail}
+            disabled={!canEdit}
+          />
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white">theme</h2>
+            <p className="mt-1 text-sm text-white/55">主要色票</p>
+          </div>
+          <button
+            type="button"
+            disabled={pending || !canEdit}
+            onClick={() =>
+              save("theme", {
+                primary_purple: themePrimary,
+                deep_purple: themeDeep,
+                neon_purple: themeNeon,
+                electric_blue: themeBlue,
+                energy_red: themeRed,
+              })
+            }
+            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          >
+            儲存
+          </button>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <Field
+            label="primary_purple"
+            value={themePrimary}
+            onChange={setThemePrimary}
+            disabled={!canEdit}
+          />
+          <Field
+            label="deep_purple"
+            value={themeDeep}
+            onChange={setThemeDeep}
+            disabled={!canEdit}
+          />
+          <Field
+            label="neon_purple"
+            value={themeNeon}
+            onChange={setThemeNeon}
+            disabled={!canEdit}
+          />
+          <Field
+            label="electric_blue"
+            value={themeBlue}
+            onChange={setThemeBlue}
+            disabled={!canEdit}
+          />
+          <Field
+            label="energy_red"
+            value={themeRed}
+            onChange={setThemeRed}
+            disabled={!canEdit}
+          />
+        </div>
+      </section>
+    </div>
+  );
+}
+
