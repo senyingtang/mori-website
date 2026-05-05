@@ -2,10 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdminUser } from "@/lib/auth/permissions";
-import { canManageContent, canManageSiteSettings } from "@/lib/auth/roles";
+import { canManageContent, canManageSiteSettings, canManageUsers } from "@/lib/auth/roles";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type ActionResult = { success: true } | { success: false; error: string };
+type UserRole = "super_admin" | "admin" | "editor" | "coach" | "member";
 
 function parseJsonOrError(raw: string): { ok: true; value: unknown } | { ok: false; error: string } {
   try {
@@ -911,6 +912,65 @@ export async function updateContactSubmission(
   if (error) return { success: false, error: error.message };
 
   revalidatePath("/admin/contact-submissions");
+  return { success: true };
+}
+
+export async function updateUserRole(
+  userId: string,
+  nextRole: UserRole
+): Promise<ActionResult> {
+  const { profile } = await requireAdminUser();
+  if (!canManageUsers(profile?.role)) {
+    return { success: false, error: "只有 super_admin 可以調整使用者角色。" };
+  }
+
+  const id = userId.trim();
+  if (!id || !UUID_RE.test(id)) {
+    return { success: false, error: "userId 不合法。" };
+  }
+
+  const allowed: UserRole[] = ["super_admin", "admin", "editor", "coach", "member"];
+  if (!allowed.includes(nextRole)) {
+    return { success: false, error: "role 不合法。" };
+  }
+
+  const supabase = await createSupabaseServerClient();
+
+  // Do not allow demoting the last super_admin.
+  if (nextRole !== "super_admin") {
+    const { data: me, error: meErr } = await supabase
+      .from("profiles")
+      .select("id, role")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (meErr) return { success: false, error: meErr.message };
+
+    const currentRole =
+      me && typeof me === "object" && me !== null && "role" in me
+        ? String((me as Record<string, unknown>).role)
+        : null;
+
+    if (currentRole === "super_admin") {
+      const { count, error: cErr } = await supabase
+        .from("profiles")
+        .select("id", { count: "exact", head: true })
+        .eq("role", "super_admin");
+      if (cErr) return { success: false, error: cErr.message };
+      if ((count ?? 0) <= 1) {
+        return { success: false, error: "系統需至少保留一位 super_admin，無法降級最後一位。" };
+      }
+    }
+  }
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ role: nextRole, updated_at: new Date().toISOString() })
+    .eq("id", id);
+
+  if (error) return { success: false, error: error.message };
+
+  revalidatePath("/admin/users");
   return { success: true };
 }
 

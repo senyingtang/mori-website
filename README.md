@@ -42,6 +42,21 @@ npm run dev
 
 - `supabase/seeds/demo_seed.sql`
 
+## 建立第一個後台管理員（super_admin）
+
+1. 前往 `/register` 註冊第一個管理員帳號：
+   - email：`senyingtang2025@gmail.com`
+   - 密碼：**請自行設定**（不要寫入文件、migration、seed、或任何 `.env`）
+2. 到 Supabase SQL Editor 執行：
+
+```sql
+select public.bootstrap_super_admin('senyingtang2025@gmail.com');
+```
+
+3. 登出再登入後，Header 應出現「後台」，可進入：
+   - `/admin`
+   - `/admin/users`（僅限 super_admin 管理其他使用者角色）
+
 ## 部署
 
 完整步驟、Vercel 變數、Auth Redirect、Storage 驗收見：

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { canManageUsers } from "@/lib/auth/roles";
 
 type Item = {
   label: string;
@@ -9,6 +10,7 @@ type Item = {
 
 const ITEMS: Item[] = [
   { label: "總覽", href: "/admin" },
+  { label: "使用者", href: "/admin/users" },
   { label: "全站設定", href: "/admin/site-settings" },
   { label: "首頁區塊", href: "/admin/home-sections" },
   { label: "SEO 設定", href: "/admin/seo-settings" },
@@ -22,14 +24,18 @@ const ITEMS: Item[] = [
   { label: "商品", href: "/admin/products" },
 ];
 
-export function AdminSidebar() {
+export function AdminSidebar({ role }: { role: string }) {
+  const filtered = ITEMS.filter((it) => {
+    if (it.href === "/admin/users") return canManageUsers(role);
+    return true;
+  });
   return (
     <aside className="rounded-2xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-md">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/45">
         管理模組
       </p>
       <nav className="flex flex-col gap-1">
-        {ITEMS.map((item) =>
+        {filtered.map((item) =>
           item.disabled ? (
             <div
               key={item.href}

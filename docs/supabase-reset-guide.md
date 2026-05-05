@@ -75,16 +75,18 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ## 5. 建立第一個管理員
 
-1. 本機啟動網站後，前往 **`/register`** 註冊一個帳號（會寫入 Supabase Auth 與 `profiles`）。
+1. 本機啟動網站後，前往 **`/register`** 註冊第一個管理員帳號：
+   - email：`senyingtang2025@gmail.com`
+   - 密碼：**請自行設定**（不要寫入文件、migration、seed、或任何 `.env`）
 2. 到 Supabase **SQL Editor** 執行（將 email 改成您註冊的信箱）：
 
    ```sql
-   select public.bootstrap_super_admin('你的 email');
+   select public.bootstrap_super_admin('senyingtang2025@gmail.com');
    ```
 
 3. **登出**後再**重新登入**（讓前端取得更新後的角色）。
 4. 頁首應出現 **「後台」** 連結。
-5. 應可進入 **`/admin`**。
+5. 應可進入 **`/admin`**，並可進入 **`/admin/users`** 管理其他使用者角色。
 
 **提醒：**
 

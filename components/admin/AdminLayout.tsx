@@ -30,7 +30,7 @@ export function AdminLayout({ userName, role, children }: Props) {
             </div>
           </div>
 
-          <AdminSidebar />
+          <AdminSidebar role={role} />
         </div>
 
         <div className="min-w-0">{children}</div>
