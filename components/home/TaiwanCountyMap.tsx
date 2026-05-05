@@ -3,6 +3,7 @@
 import type { MapTabType } from "@/types/cms";
 import type { TaiwanCountyName } from "@/components/home/taiwan-county-paths";
 import { TAIWAN_COUNTY_PATHS } from "@/components/home/taiwan-county-paths";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   activeTab: MapTabType;
@@ -42,6 +43,10 @@ function normalizeCountyName(name: string) {
   return name.replace("臺", "台").trim();
 }
 
+function clampPan(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
 const LABEL_OFFSET: Partial<Record<TaiwanCountyName, { dx: number; dy: number }>> =
   {
     // North cluster: avoid overlaps
@@ -66,6 +71,29 @@ export function TaiwanCountyMap({
   const c = colors(activeTab);
   const displayCity = hoverCity ?? activeCity;
 
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef({
+    pointerId: null as number | null,
+    startX: 0,
+    startY: 0,
+    panX: 0,
+    panY: 0,
+    moved: false,
+  });
+
+  useEffect(() => {
+    // Switching tab should reset user pan so focus stays predictable.
+    setPan({ x: 0, y: 0 });
+    dragStartRef.current.moved = false;
+  }, [activeTab]);
+
+  useEffect(() => {
+    // Selecting a county should re-center to its focus.
+    setPan({ x: 0, y: 0 });
+    dragStartRef.current.moved = false;
+  }, [activeCity]);
+
   const DEFAULT_FOCUS = { scale: 1, x: 0, y: 0 };
   const rawFocus =
     activeCity != null
@@ -79,10 +107,13 @@ export function TaiwanCountyMap({
   const safeX = clamp(Number(safeFocus.x ?? 0) * 0.5, -180, 180);
   const safeY = clamp(Number(safeFocus.y ?? 0) * 0.5, -200, 200);
 
-  const transform = `translate(${safeX}px, ${safeY}px) scale(${safeScale})`;
+  const panLimit = 80 + (safeScale - 1) * 120;
+  const panX = clampPan(pan.x, -panLimit, panLimit);
+  const panY = clampPan(pan.y, -panLimit, panLimit);
+  const transform = `translate(${safeX + panX}px, ${safeY + panY}px) scale(${safeScale})`;
 
   return (
-    <div className="relative h-[390px] w-full overflow-hidden sm:h-[430px] md:h-[540px] lg:h-[620px]">
+    <div className="relative h-[390px] w-full overflow-hidden touch-none sm:h-[430px] md:h-[540px] lg:h-[620px]">
       {/* Background scan / rings */}
       <div
         aria-hidden
@@ -99,9 +130,73 @@ export function TaiwanCountyMap({
       <svg
         viewBox="0 0 600 760"
         preserveAspectRatio="xMidYMid meet"
-        className="relative block h-full w-full max-w-full select-none map-float"
+        className={[
+          "relative block h-full w-full max-w-full select-none map-float",
+          isDragging ? "cursor-grabbing" : "cursor-grab",
+        ].join(" ")}
         role="img"
         aria-label="台灣縣市服務地圖"
+        onPointerDown={(e) => {
+          // Only react to primary pointer button (mouse left) / touch.
+          if (e.pointerType === "mouse" && e.button !== 0) return;
+          setIsDragging(true);
+
+          dragStartRef.current.pointerId = e.pointerId;
+          dragStartRef.current.startX = e.clientX;
+          dragStartRef.current.startY = e.clientY;
+          dragStartRef.current.panX = panX;
+          dragStartRef.current.panY = panY;
+          dragStartRef.current.moved = false;
+
+          try {
+            e.currentTarget.setPointerCapture(e.pointerId);
+          } catch {
+            // ignore
+          }
+        }}
+        onPointerMove={(e) => {
+          const ds = dragStartRef.current;
+          if (!isDragging) return;
+          if (ds.pointerId == null || ds.pointerId !== e.pointerId) return;
+
+          const dx = e.clientX - ds.startX;
+          const dy = e.clientY - ds.startY;
+          const DRAG_THRESHOLD = 5;
+          if (Math.abs(dx) + Math.abs(dy) > DRAG_THRESHOLD) ds.moved = true;
+
+          const nextX = clampPan(ds.panX + dx, -panLimit, panLimit);
+          const nextY = clampPan(ds.panY + dy, -panLimit, panLimit);
+          setPan({ x: nextX, y: nextY });
+        }}
+        onPointerUp={(e) => {
+          const ds = dragStartRef.current;
+          if (ds.pointerId === e.pointerId) {
+            ds.pointerId = null;
+          }
+          setIsDragging(false);
+          try {
+            e.currentTarget.releasePointerCapture(e.pointerId);
+          } catch {
+            // ignore
+          }
+          // Let click handlers run first, then clear moved.
+          setTimeout(() => {
+            dragStartRef.current.moved = false;
+          }, 0);
+        }}
+        onPointerCancel={(e) => {
+          const ds = dragStartRef.current;
+          if (ds.pointerId === e.pointerId) {
+            ds.pointerId = null;
+          }
+          setIsDragging(false);
+          try {
+            e.currentTarget.releasePointerCapture(e.pointerId);
+          } catch {
+            // ignore
+          }
+          dragStartRef.current.moved = false;
+        }}
         onClick={(e) => {
           // click background to clear hover (optional)
           if (e.currentTarget === e.target) onLeaveCity();
@@ -120,6 +215,33 @@ export function TaiwanCountyMap({
             </text>
           </g>
         ) : null}
+
+        {/* Small hint + reset button */}
+        <g className="pointer-events-none hidden md:block">
+          <text x={20} y={734} fontSize={12} fill="rgba(248,243,234,0.68)">
+            拖拉地圖可查看細節
+          </text>
+        </g>
+        <g className="pointer-events-none md:hidden">
+          <text x={20} y={734} fontSize={12} fill="rgba(248,243,234,0.68)">
+            可拖拉地圖查看縣市輪廓
+          </text>
+        </g>
+
+        <foreignObject x={468} y={16} width={120} height={40}>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setPan({ x: 0, y: 0 });
+              }}
+              className="pointer-events-auto rounded-full border border-[rgba(255,255,255,0.10)] bg-[rgba(0,0,0,0.28)] px-3 py-1 text-xs text-[rgba(248,243,234,0.92)] backdrop-blur hover:border-[rgba(205,162,116,0.45)]"
+            >
+              重置視角
+            </button>
+          </div>
+        </foreignObject>
         {activeCity ? (
           <g className="md:hidden">
             <rect
@@ -222,6 +344,7 @@ export function TaiwanCountyMap({
                 onMouseLeave={() => onLeaveCity()}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (dragStartRef.current.moved) return;
                   if (!enabled) return;
                   onSelectCity(county.name);
                 }}
