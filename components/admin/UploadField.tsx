@@ -77,7 +77,7 @@ export function UploadField({
   }
 
   return (
-    <div className="rounded-xl border border-purple-500/25 bg-black/20 px-4 py-3">
+    <div className="rounded-xl border border-[rgba(255,255,255,0.10)] bg-black/20 px-4 py-3">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-medium text-white/55">{label}</p>
@@ -89,7 +89,7 @@ export function UploadField({
           type="button"
           disabled={disabled || uploading}
           onClick={() => inputRef.current?.click()}
-          className="rounded-lg border border-purple-400/35 bg-brand-purple/15 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-brand-purple/25 disabled:opacity-50"
+          className="rounded-lg border border-[rgba(255,255,255,0.12)] bg-brand-purple/15 px-3 py-1.5 text-xs font-semibold text-white/90 hover:border-[rgba(205,162,116,0.45)] hover:bg-brand-purple/25 disabled:opacity-50"
         >
           {uploading ? "上傳中…" : "選擇檔案"}
         </button>

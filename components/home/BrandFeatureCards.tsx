@@ -57,7 +57,7 @@ export function BrandFeatureCards({ section }: Props) {
 
   return (
     <section className="relative scroll-mt-24 py-16 md:py-20">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(205,162,116,0.45)] to-transparent" />
       <div className="mx-auto max-w-3xl text-center">
         <h2 className="text-2xl font-bold text-white md:text-3xl">
           不是傳統接龍，是更有系統的羽球體驗
@@ -70,9 +70,9 @@ export function BrandFeatureCards({ section }: Props) {
         {items.map((item) => (
           <article
             key={item.title}
-            className="group rounded-2xl border border-white/10 bg-white/[0.05] p-5 shadow-[0_0_40px_rgba(168,85,247,0.12)] backdrop-blur-md transition hover:border-purple-400/40 hover:shadow-[0_0_48px_rgba(168,85,247,0.28)]"
+            className="group rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-5 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]"
           >
-            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-lg ring-1 ring-white/10 transition group-hover:ring-purple-400/35">
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-lg ring-1 ring-white/10 transition group-hover:ring-[rgba(205,162,116,0.45)]">
               <span aria-hidden>{item.emoji}</span>
             </div>
             <h3 className="text-base font-semibold text-white">{item.title}</h3>

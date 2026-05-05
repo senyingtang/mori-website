@@ -29,7 +29,7 @@ type Props = {
 
 export function Footer({ siteName, tagline, logoUrl }: Props) {
   return (
-    <footer className="border-t border-purple-500/20 bg-[rgba(14,9,28,0.85)] backdrop-blur-md">
+    <footer className="border-t border-white/10 bg-[rgba(20,15,13,0.88)] backdrop-blur-md">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           {logoUrl?.trim() ? (

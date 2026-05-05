@@ -22,7 +22,7 @@ export function PublicFAQSection({ title, description, faqs }: Props) {
         {faqs.map((f) => (
           <details
             key={f.id}
-            className="group rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur-md open:border-purple-400/30 open:shadow-[0_0_32px_rgba(168,85,247,0.15)]"
+            className="group rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-5 py-4 backdrop-blur-md open:border-[rgba(205,162,116,0.45)] open:shadow-[0_0_32px_rgba(205,162,116,0.18)]"
           >
             <summary className="cursor-pointer list-none text-left text-base font-semibold text-white marker:content-none [&::-webkit-details-marker]:hidden">
               <span className="flex items-start justify-between gap-3">

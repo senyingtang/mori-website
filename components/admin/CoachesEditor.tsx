@@ -16,6 +16,7 @@ type CoachRow = {
   description: string | null;
   line_contact_url: string | null;
   is_featured: boolean;
+  is_main_featured?: boolean;
   sort_order: number;
   is_active: boolean;
 };
@@ -45,6 +46,7 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
         description: c.description ?? "",
         line_contact_url: c.line_contact_url ?? "",
         is_featured: Boolean(c.is_featured),
+        is_main_featured: Boolean((c as unknown as { is_main_featured?: boolean }).is_main_featured),
         sort_order: c.sort_order ?? 0,
         is_active: Boolean(c.is_active),
       })),
@@ -57,6 +59,7 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
 
   const [newName, setNewName] = useState("");
   const [newCoachAvatarUrl, setNewCoachAvatarUrl] = useState("");
+  const [newIsMainFeatured, setNewIsMainFeatured] = useState(false);
 
   function patch(id: string, next: Partial<(typeof items)[number]>) {
     setItems((prev) => prev.map((x) => (x.id === id ? { ...x, ...next } : x)));
@@ -78,6 +81,7 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
         description: row.description,
         line_contact_url: row.line_contact_url,
         is_featured: row.is_featured,
+        is_main_featured: row.is_main_featured,
         sort_order: row.sort_order,
         is_active: row.is_active,
       });
@@ -91,11 +95,13 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
       const res = await createCoach({
         name: newName,
         avatar_url: newCoachAvatarUrl.trim() || undefined,
+        is_main_featured: newIsMainFeatured,
       });
       setStatus(res.success ? "已新增。" : `新增失敗：${res.error}`);
       if (res.success) {
         setNewName("");
         setNewCoachAvatarUrl("");
+        setNewIsMainFeatured(false);
       }
     });
   }
@@ -129,6 +135,25 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
               onUploaded={setNewCoachAvatarUrl}
               helperText="PNG／JPG／WebP；最多 5MB。建立後可改為 coaches/{id} 路徑再上傳。"
             />
+          </div>
+          <div className="md:col-span-3 rounded-xl border border-white/10 bg-black/15 px-4 py-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white/90">首頁主教練</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-white/45">
+                  首頁只會取第一位主教練；若勾選此教練為主教練，其他教練會自動取消主教練，並建議同時列為首頁精選。
+                </p>
+              </div>
+              <label className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
+                <input
+                  type="checkbox"
+                  checked={newIsMainFeatured}
+                  onChange={(e) => setNewIsMainFeatured(e.target.checked)}
+                  className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
+                />
+                設為主教練
+              </label>
+            </div>
           </div>
         </div>
         <button
@@ -164,6 +189,31 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2 rounded-xl border border-white/10 bg-black/15 px-4 py-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-white/90">首頁主教練</p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-white/45">
+                    首頁只會取第一位主教練；若設定這位為主教練，其他教練會自動取消主教練。
+                  </p>
+                </div>
+                <label className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(row.is_main_featured)}
+                    onChange={(e) => {
+                      const next = e.target.checked;
+                      patch(row.id, {
+                        is_main_featured: next,
+                        is_featured: next ? true : row.is_featured,
+                      });
+                    }}
+                    className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
+                  />
+                  首頁主教練
+                </label>
+              </div>
+            </div>
             <div className="md:col-span-2">
               <label className="block text-xs font-medium text-white/55">name *</label>
               <input

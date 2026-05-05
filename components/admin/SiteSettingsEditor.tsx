@@ -40,7 +40,7 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white placeholder:text-white/25 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+        className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white placeholder:text-white/25 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.30)]"
       />
     </div>
   );
@@ -130,7 +130,7 @@ export function SiteSettingsEditor({
   return (
     <div className="space-y-6">
       {!canEdit ? (
-        <div className="rounded-xl border border-purple-400/25 bg-brand-purple/10 px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(255,255,255,0.10)] bg-brand-purple/10 px-4 py-3 text-sm text-white/80">
           你目前是 <span className="font-semibold">editor</span> 權限，可查看全站設定，但不可修改。請聯繫{" "}
           <span className="font-semibold">admin</span> 或{" "}
           <span className="font-semibold">super_admin</span>。

@@ -121,7 +121,7 @@ export function RegisterForm({ redirectTo }: Props) {
         </div>
       ) : null}
       {info ? (
-        <div className="rounded-xl border border-sky-400/35 bg-sky-500/10 px-4 py-3 text-sm text-sky-50/95">
+        <div className="rounded-xl border border-[rgba(205,162,116,0.45)] bg-brand-purple/10 px-4 py-3 text-sm text-[#f8f3ea]/90">
           {info}
         </div>
       ) : null}
@@ -138,7 +138,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="王小明"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -153,7 +153,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -168,7 +168,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="09xxxxxxxx（選填）"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -183,7 +183,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder="例：桃園市（選填）"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -195,13 +195,13 @@ export function RegisterForm({ redirectTo }: Props) {
           name="badminton_level"
           value={badmintonLevel}
           onChange={(e) => setBadmintonLevel(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         >
           <option value="" disabled>
             請選擇
           </option>
           {LEVEL_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="bg-[#1a1028]">
+            <option key={opt} value={opt} className="bg-[#140f0d]">
               {opt}
             </option>
           ))}
@@ -219,7 +219,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -237,7 +237,7 @@ export function RegisterForm({ redirectTo }: Props) {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="再次輸入密碼"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
 
@@ -248,7 +248,7 @@ export function RegisterForm({ redirectTo }: Props) {
           type="checkbox"
           checked={agreeTerms}
           onChange={(e) => setAgreeTerms(e.target.checked)}
-          className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-brand-neon-purple/50"
+          className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
         />
         <label htmlFor="reg-agree" className="text-sm leading-relaxed text-white/70">
           我已閱讀並同意{" "}
@@ -276,7 +276,7 @@ export function RegisterForm({ redirectTo }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple py-3 text-sm font-semibold text-white shadow-[0_0_28px_rgba(168,85,247,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-brand-purple py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_28px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "建立中…" : "建立帳號"}
       </button>

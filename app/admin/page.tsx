@@ -15,7 +15,7 @@ function QuickCard({
   return (
     <Link
       href={href}
-      className="group rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_30px_rgba(168,85,247,0.10)] backdrop-blur-md transition hover:border-purple-400/35 hover:bg-white/[0.07]"
+      className="group rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_30px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:bg-white/[0.08]"
     >
       <p className="text-lg font-semibold text-white">{title}</p>
       <p className="mt-2 text-sm text-white/60">{description}</p>

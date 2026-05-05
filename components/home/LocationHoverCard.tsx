@@ -27,7 +27,7 @@ export function LocationHoverCard({ citySetting, locations, sessions }: Props) {
   }
 
   return (
-    <div className="w-full rounded-2xl border border-white/10 bg-white/[0.08] p-5 shadow-[0_0_40px_rgba(168,85,247,0.18)] backdrop-blur-md">
+    <div className="w-full rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-5 shadow-[0_0_40px_rgba(31,20,16,0.14)] backdrop-blur-md">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
@@ -116,7 +116,7 @@ export function LocationHoverCard({ citySetting, locations, sessions }: Props) {
           return (
         <Link
           href={href}
-          className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] transition hover:brightness-110"
+          className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-5 py-2.5 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
         >
           {citySetting.cta_text}
         </Link>

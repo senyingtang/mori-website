@@ -86,7 +86,7 @@ export function LoginForm({ redirectTo }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <div>
@@ -104,13 +104,13 @@ export function LoginForm({ redirectTo }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/40"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple py-3 text-sm font-semibold text-white shadow-[0_0_28px_rgba(168,85,247,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-brand-purple py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_28px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "登入中…" : "登入"}
       </button>

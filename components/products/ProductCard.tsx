@@ -27,7 +27,7 @@ function statusTone(s: ProductStatusDb): string {
       return "bg-amber-500/10 text-amber-100 ring-1 ring-amber-400/20";
     case "coming_soon":
     default:
-      return "bg-brand-purple/15 text-brand-neon-purple/95 ring-1 ring-purple-400/25";
+      return "bg-brand-purple/15 text-brand-neon-purple/95 ring-1 ring-[rgba(205,162,116,0.35)]";
   }
 }
 
@@ -50,7 +50,7 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
         : "已售完";
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_0_36px_rgba(168,85,247,0.14)] backdrop-blur-md transition hover:border-purple-400/35 hover:shadow-[0_0_48px_rgba(168,85,247,0.22)]">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] shadow-[0_0_36px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]">
       <div className="relative aspect-[4/3] bg-gradient-to-br from-white/5 to-transparent">
         <SafeCoverImage
           src={product.image_url}
@@ -105,7 +105,7 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
                     )}`
                   : "/contact"
               }
-              className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] transition hover:brightness-110"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-brand-purple px-5 py-2.5 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
             >
               {ctaLabel}
             </Link>

@@ -36,3 +36,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# extracted reference materials (do not commit)
+docs/_ref-headless-store/

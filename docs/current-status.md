@@ -9,6 +9,7 @@
 | 區間 | 主題 |
 |------|------|
 | 001～004 | Supabase schema、Auth trigger、Storage、bootstrap、contact_submissions |
+| 020-C（本階段） | FeaturedCoaches 主教練版型、`coaches.is_main_featured`、後台主教練設定 |
 | 005～014 | 前台首頁／地圖 MVP、據點場次、教練商品、SEO／FAQ、聯絡表單與後台 |
 | 015～016 | contact 表單、後台篩選、honeybot、最短送出時間 |
 | 017 | Launch checklist、demo seed SQL |
@@ -21,7 +22,7 @@
 
 - **前台**：首頁區塊、據點／場次／教練／商品／聯絡／政策頁；Taiwan SVG 地圖 MVP；RWD  
 - **Auth**：Email／Password 註冊登入；會員／LINE 綁定頁保護；Header 依角色顯示後台  
-- **後台**：site／home sections／SEO／policy／map cities／locations／sessions／coaches／products／FAQs／contact submissions；權限（site_settings 僅 admin 階級可改）  
+- **後台**：site／home sections／SEO／policy／map cities／locations／sessions／coaches（含「首頁主教練」設定）／products／FAQs／contact submissions；權限（site_settings 僅 admin 階級可改）  
 - **SEO**：`seo_settings`、`buildPageMetadata`、JSON-LD（首頁／列表等）、canonical／noindex  
 - **聯絡**：表單寫入 DB、後台篩選與狀態  
 - **Storage**：後台上傳 Logo／OG／頭像／商品圖；前台顯示與 OG 預設圖邏輯  

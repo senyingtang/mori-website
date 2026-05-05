@@ -118,14 +118,14 @@ export function ContactForm({
 
   if (success) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-10 text-center text-sm text-white/80 shadow-[0_0_40px_rgba(168,85,247,0.12)] backdrop-blur-md">
+      <div className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-6 py-10 text-center text-sm text-white/80 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md">
         已收到你的訊息，我們會盡快與你聯繫。
       </div>
     );
   }
 
   return (
-    <div className="relative rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_40px_rgba(168,85,247,0.12)] backdrop-blur-md">
+    <div className="relative rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md">
       {error ? (
         <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-100/90">
           {error}
@@ -231,7 +231,7 @@ export function ContactForm({
         type="button"
         disabled={pending}
         onClick={submit}
-        className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-3 text-sm font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] disabled:opacity-60"
+        className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-brand-purple px-6 py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] hover:bg-[#e7c79c] disabled:opacity-60"
       >
         送出
       </button>

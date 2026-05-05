@@ -34,7 +34,7 @@ export default async function MemberDashboardPage() {
 
   return (
     <div className="pb-16">
-      <div className="relative mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-8 shadow-[0_0_40px_rgba(168,85,247,0.14)] backdrop-blur-md md:px-10">
+      <div className="relative mb-8 overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-6 py-8 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md md:px-10">
         <h1 className="text-2xl font-bold text-white md:text-3xl">會員中心</h1>
         <p className="mt-2 text-sm text-white/55">
           骨架頁面：後續將擴充報名、候補、預約與訂單模組。
@@ -42,7 +42,7 @@ export default async function MemberDashboardPage() {
       </div>
 
       <div className="mx-auto max-w-4xl space-y-6">
-        <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_32px_rgba(168,85,247,0.1)] backdrop-blur-md md:p-8">
+        <section className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_32px_rgba(31,20,16,0.10)] backdrop-blur-md md:p-8">
           <h2 className="text-lg font-semibold text-white">基本資料</h2>
           <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
             <div>

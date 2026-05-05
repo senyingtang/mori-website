@@ -613,6 +613,7 @@ SET is_enabled = excluded.is_enabled,
 -- ---------------------------------------------------------------------------
 -- coaches（固定 UUID；先刪同名再插入）
 -- ---------------------------------------------------------------------------
+-- 注意：此段包含欄位 `is_main_featured`，需先套用 migration 005（005_coach_main_featured.sql）後再執行。
 DELETE FROM public.coaches
 WHERE name IN ('Jason 教練', 'Allen 教練', 'Mina 教練', 'Yilan Coach');
 
@@ -629,6 +630,7 @@ INSERT INTO public.coaches (
   description,
   line_contact_url,
   is_featured,
+  is_main_featured,
   sort_order,
   is_active
 )
@@ -646,6 +648,7 @@ VALUES
     '擅長雙打輪轉與前後場銜接，協助你打出有效進攻節奏。',
     null,
     true,
+    true,
     10,
     true
   ),
@@ -662,6 +665,7 @@ VALUES
     '從步伐與發力打底，循序強化進攻與防守。',
     null,
     true,
+    false,
     20,
     true
   ),
@@ -678,6 +682,7 @@ VALUES
     '適合剛起步與想打好雙打的球友，注重基本功與場上默契。',
     null,
     true,
+    false,
     30,
     true
   ),
@@ -693,6 +698,7 @@ VALUES
     ARRAY['穩定輸出', '節奏控制']::text[],
     '協助你在臨打前建立穩定手感與站位選擇。',
     null,
+    false,
     false,
     40,
     true

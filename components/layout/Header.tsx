@@ -45,7 +45,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-purple-500/25 bg-[rgba(30,16,61,0.72)] backdrop-blur-[16px]">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[rgba(20,15,13,0.78)] backdrop-blur-[16px]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <Link
             href="/"
@@ -102,7 +102,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
             {isLoggedIn && canSeeAdmin ? (
               <Link
                 href="/admin"
-                className="rounded-lg border border-purple-400/30 bg-brand-purple/15 px-3 py-2 text-sm font-semibold text-brand-neon-purple/95 hover:bg-brand-purple/20"
+                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-semibold text-brand-neon-purple/95 hover:bg-white/10"
                 title="後台管理"
               >
                 後台

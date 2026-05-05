@@ -33,26 +33,26 @@ export function HeroSection({
 
   return (
     <section
-      className="relative isolate min-h-[80vh] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#1E103D]/90 via-[#0f0824]/95 to-[#050208] px-6 py-14 shadow-[0_0_60px_rgba(168,85,247,0.18)] backdrop-blur-md md:px-10 md:py-16"
+      className="relative isolate min-h-[80vh] overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.10)] bg-gradient-to-br from-[#241816]/92 via-[#140f0d]/96 to-[#0b0706] px-6 py-14 shadow-[0_0_60px_rgba(31,20,16,0.22)] backdrop-blur-md md:px-10 md:py-16"
       aria-labelledby="hero-heading"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-brand-blue/25 blur-[100px]"
+        className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-brand-blue/18 blur-[100px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-brand-red/20 blur-[110px]"
+        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-brand-red/18 blur-[110px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-px w-[120%] -translate-x-1/2 bg-gradient-to-r from-transparent via-purple-400/40 to-transparent"
+        className="pointer-events-none absolute left-1/2 top-0 h-px w-[120%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[rgba(205,162,116,0.45)] to-transparent"
       />
 
-      <div className="relative grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div className="relative grid gap-12 lg:grid-cols-2 lg:items-start">
         <div className="space-y-6">
-          <p className="inline-flex items-center gap-2 rounded-full border border-purple-400/30 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-brand-neon-purple/95 shadow-[0_0_24px_rgba(168,85,247,0.25)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-neon-purple shadow-[0_0_8px_#A855F7]" />
+          <p className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-brand-neon-purple/95 shadow-[0_0_24px_rgba(205,162,116,0.22)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-purple shadow-[0_0_10px_rgba(205,162,116,0.70)]" />
             {badge}
           </p>
 
@@ -69,13 +69,13 @@ export function HeroSection({
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/sessions?type=dropin"
-              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-3 text-sm font-semibold text-white shadow-[0_0_32px_rgba(168,85,247,0.45)] transition hover:brightness-110 hover:shadow-[0_0_48px_rgba(168,85,247,0.55)]"
+              className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-6 py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_32px_rgba(205,162,116,0.35)] transition hover:bg-[#e7c79c] hover:shadow-[0_0_48px_rgba(205,162,116,0.50)]"
             >
               查看臨打場次
             </Link>
             <Link
               href="/sessions?type=teaching"
-              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-brand-blue/40 hover:bg-brand-blue/10"
+              className="inline-flex items-center justify-center rounded-xl border border-[rgba(255,255,255,0.12)] bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-[#cda274]/50 hover:bg-white/10"
             >
               預約羽球教學
             </Link>
@@ -86,14 +86,35 @@ export function HeroSection({
               LINE 綁定
             </Link>
           </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {[
+              { label: "教學", tone: "border-[rgba(205,162,116,0.45)] bg-brand-purple/15 text-[#f8f3ea]" },
+              { label: "臨打", tone: "border-[rgba(139,191,159,0.55)] bg-[rgba(139,191,159,0.12)] text-[#f8f3ea]" },
+              { label: "據點資訊", tone: "border-[rgba(255,255,255,0.12)] bg-white/5 text-[#f8f3ea]" },
+              { label: "後台可控", tone: "border-[rgba(255,255,255,0.12)] bg-white/5 text-[#f8f3ea]" },
+            ].map((chip) => (
+              <span
+                key={chip.label}
+                className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${chip.tone}`}
+              >
+                {chip.label}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="relative flex min-h-[280px] flex-col items-center justify-center lg:min-h-[360px]">
-          <div
-            className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-blue/15 via-transparent to-brand-red/15 blur-2xl"
-            aria-hidden
-          />
-          <div className="relative w-full max-w-xl">
+        <div className="relative">
+          <div className="rounded-[2rem] border border-[rgba(255,255,255,0.10)] bg-[rgba(20,15,13,0.55)] shadow-[0_0_70px_rgba(0,0,0,0.34)] backdrop-blur-md">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[2rem]"
+              style={{
+                background:
+                  "radial-gradient(circle at 35% 25%, rgba(205,162,116,0.22), transparent 55%)",
+              }}
+            />
+            <div className="relative overflow-hidden rounded-[2rem] p-5 sm:p-6 lg:min-h-[620px]">
             {mapCities.length > 0 ? (
               <TaiwanServiceMap
                 mapCities={mapCities}
@@ -101,7 +122,7 @@ export function HeroSection({
                 sessions={mapSessions}
               />
             ) : (
-              <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(168,85,247,0.25)] backdrop-blur-md">
+              <div className="rounded-3xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(205,162,116,0.18)] backdrop-blur-md">
                 <p className="text-sm text-white/70">
                   目前尚未開放據點，請稍後再回來查看。
                 </p>
@@ -110,6 +131,7 @@ export function HeroSection({
                 </p>
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>

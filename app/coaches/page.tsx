@@ -31,6 +31,7 @@ const FALLBACK: Coach[] = [
     description: "教練資料建置中，歡迎先到聯絡我們洽詢。",
     line_contact_url: null,
     is_featured: false,
+    is_main_featured: false,
     sort_order: 0,
     is_active: true,
     created_at: null,

@@ -78,6 +78,7 @@ export type Coach = {
   description: string | null;
   line_contact_url: string | null;
   is_featured: boolean;
+  is_main_featured: boolean;
   sort_order: number;
   is_active: boolean;
   created_at: string | null;

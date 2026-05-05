@@ -171,6 +171,7 @@ function mapCoachRow(c: Record<string, unknown>): Coach {
     line_contact_url:
       c.line_contact_url != null ? String(c.line_contact_url) : null,
     is_featured: Boolean(c.is_featured),
+    is_main_featured: Boolean((c as Record<string, unknown>).is_main_featured),
     sort_order:
       typeof c.sort_order === "number" ? c.sort_order : Number(c.sort_order),
     is_active: Boolean(c.is_active),
@@ -310,32 +311,43 @@ export async function getFeaturedCoaches(): Promise<Coach[]> {
   if (!hasSupabaseConfig()) return [];
 
   const supabase = await createSupabaseServerClient();
-  const { data: featured, error: fErr } = await supabase
+  const selectWithMain =
+    "id,auth_user_id,name,avatar_url,city,experience_years,specialties,level_tags,teaching_styles,description,line_contact_url,is_featured,is_main_featured,sort_order,is_active,created_at,updated_at";
+
+  // Prefer main-featured + featured, and keep stable ordering.
+  // If the DB hasn't applied migration 005 yet, selecting `is_main_featured`
+  // will error; we fall back to selecting without that column.
+  const { data: rows, error } = await supabase
     .from("coaches")
-    .select("*")
+    .select(selectWithMain)
     .eq("is_active", true)
-    .eq("is_featured", true)
-    .order("sort_order", { ascending: true });
-
-  if (fErr) {
-    console.error("[getFeaturedCoaches] featured", fErr.message);
-  }
-
-  const list = ((featured ?? []) as Record<string, unknown>[]).map(mapCoachRow);
-  if (list.length > 0) return list.slice(0, 3);
-
-  const { data: anyThree, error: aErr } = await supabase
-    .from("coaches")
-    .select("*")
-    .eq("is_active", true)
+    .order("is_main_featured", { ascending: false })
+    .order("is_featured", { ascending: false })
     .order("sort_order", { ascending: true })
-    .limit(3);
+    .order("created_at", { ascending: true });
 
-  if (aErr) {
-    console.error("[getFeaturedCoaches] fallback", aErr.message);
-    return [];
+  if (error) {
+    console.error("[getFeaturedCoaches] coaches", error.message);
+
+    const { data: fallbackRows, error: fbErr } = await supabase
+      .from("coaches")
+      .select("*")
+      .eq("is_active", true)
+      .order("is_featured", { ascending: false })
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true });
+
+    if (fbErr) {
+      console.error("[getFeaturedCoaches] fallback", fbErr.message);
+      return [];
+    }
+    return ((fallbackRows ?? []) as Record<string, unknown>[]).map((r) => ({
+      ...mapCoachRow(r),
+      is_main_featured: false,
+    }));
   }
-  return ((anyThree ?? []) as Record<string, unknown>[]).map(mapCoachRow);
+
+  return ((rows ?? []) as Record<string, unknown>[]).map(mapCoachRow);
 }
 
 /**

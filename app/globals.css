@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0b0618;
-  --foreground: #f8fafc;
+  --background: #140f0d;
+  --foreground: #f6f1e8;
 }
 
 html {
@@ -14,7 +14,57 @@ html {
 body {
   color: var(--foreground);
   background:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(109, 40, 217, 0.35), transparent 55%),
-    linear-gradient(180deg, #1e103d 0%, #0b0618 42%, #05030d 100%);
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(205, 162, 116, 0.22), transparent 55%),
+    linear-gradient(180deg, #241816 0%, #140f0d 55%, #0b0706 100%);
   min-height: 100vh;
+}
+
+@keyframes map-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes orbit-scan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.map-float {
+  animation: map-float 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.pulse-glow {
+  animation: pulse-glow 1.8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.orbit-scan {
+  animation: orbit-scan 14s linear infinite;
+  transform-origin: center;
+  will-change: transform;
 }

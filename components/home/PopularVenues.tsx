@@ -83,7 +83,7 @@ export function PopularVenues({
             return (
               <article
                 key={loc.id}
-                className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_40px_rgba(168,85,247,0.12)] backdrop-blur-md transition hover:border-purple-400/35 hover:shadow-[0_0_48px_rgba(168,85,247,0.22)]"
+                className="flex flex-col rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]"
               >
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-lg font-semibold text-white">{loc.name}</h3>

@@ -49,7 +49,7 @@ export function TestimonialsCarousel({ section }: Props) {
         {items.map((item, i) => (
           <blockquote
             key={`${item.author}-${i}`}
-            className="min-w-[260px] max-w-sm shrink-0 rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_32px_rgba(168,85,247,0.12)] backdrop-blur-md md:min-w-0 md:flex-1"
+            className="min-w-[260px] max-w-sm shrink-0 rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_32px_rgba(31,20,16,0.12)] backdrop-blur-md md:min-w-0 md:flex-1"
           >
             <p className="text-sm leading-relaxed text-white/80">
               「{item.quote}」

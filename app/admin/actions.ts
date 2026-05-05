@@ -540,6 +540,7 @@ export async function updateCoach(
     description: string;
     line_contact_url: string;
     is_featured: boolean;
+    is_main_featured?: boolean;
     sort_order: number;
     is_active: boolean;
   }
@@ -553,6 +554,16 @@ export async function updateCoach(
   if (!name) return { success: false, error: "name 不可空白。" };
 
   const supabase = await createSupabaseServerClient();
+  const wantsMain = patch.is_main_featured === true;
+
+  if (wantsMain) {
+    const { error: clearErr } = await supabase
+      .from("coaches")
+      .update({ is_main_featured: false })
+      .neq("id", id);
+    if (clearErr) return { success: false, error: clearErr.message };
+  }
+
   const { error } = await supabase
     .from("coaches")
     .update({
@@ -565,7 +576,10 @@ export async function updateCoach(
       teaching_styles: toTextArray(patch.teaching_styles),
       description: toNullableString(patch.description),
       line_contact_url: toNullableString(patch.line_contact_url),
-      is_featured: patch.is_featured,
+      is_featured: wantsMain ? true : patch.is_featured,
+      ...(patch.is_main_featured === true || patch.is_main_featured === false
+        ? { is_main_featured: patch.is_main_featured }
+        : {}),
       sort_order: Number.isFinite(patch.sort_order) ? patch.sort_order : 0,
       is_active: patch.is_active,
     })
@@ -582,6 +596,7 @@ export async function updateCoach(
 export async function createCoach(payload: {
   name: string;
   avatar_url?: string;
+  is_main_featured?: boolean;
 }): Promise<ActionResult> {
   const { profile } = await requireAdminUser();
   if (!canManageContent(profile?.role)) {
@@ -592,11 +607,22 @@ export async function createCoach(payload: {
   if (!name) return { success: false, error: "name 不可空白。" };
 
   const supabase = await createSupabaseServerClient();
+  const wantsMain = payload.is_main_featured === true;
+
+  if (wantsMain) {
+    const { error: clearErr } = await supabase
+      .from("coaches")
+      .update({ is_main_featured: false })
+      .neq("id", "00000000-0000-0000-0000-000000000000");
+    if (clearErr) return { success: false, error: clearErr.message };
+  }
+
   const { error } = await supabase.from("coaches").insert({
     name,
     avatar_url: toNullableString(payload.avatar_url ?? ""),
     is_active: true,
-    is_featured: false,
+    is_featured: wantsMain ? true : false,
+    is_main_featured: wantsMain ? true : false,
     sort_order: 0,
   });
 

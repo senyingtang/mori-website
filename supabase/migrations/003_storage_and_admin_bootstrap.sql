@@ -57,54 +57,108 @@ set name = excluded.name,
 -- II. Storage policies
 -- =========================
 
--- Ensure RLS is enabled on storage.objects (Supabase enables this by default,
--- but "enable" is idempotent).
-alter table storage.objects enable row level security;
+-- IMPORTANT (Supabase permission model):
+-- In some Supabase projects, `storage.objects` is owned by `supabase_storage_admin`,
+-- and the Dashboard SQL Editor runs as `postgres` which is NOT the table owner.
+-- In that case, ALTER TABLE / CREATE POLICY / DROP POLICY on `storage.objects`
+-- will raise: 42501 must be owner of table objects.
+--
+-- To make this migration runnable in the Dashboard SQL Editor, we keep the
+-- intended policies but guard them so the migration does not hard-fail.
+-- If your project denies these operations, the migration will emit NOTICEs and
+-- you should configure Storage policies via the Storage UI (recommended) or an
+-- admin workflow that runs as the `storage.objects` owner.
 
--- Public read (anon + authenticated) for specific buckets
-drop policy if exists storage_public_read_assets on storage.objects;
-create policy storage_public_read_assets
-on storage.objects
-for select
-to anon, authenticated
-using (bucket_id in ('public-assets','coach-avatars','product-images'));
+DO $$
+BEGIN
+  -- Ensure RLS is enabled on storage.objects (idempotent in Postgres, but may be blocked by ownership).
+  BEGIN
+    EXECUTE 'alter table storage.objects enable row level security';
+  EXCEPTION
+    WHEN insufficient_privilege THEN
+      RAISE NOTICE 'Skipping: enable RLS on storage.objects (insufficient privilege; table owner required).';
+  END;
 
--- Admin/editor write policies (upload/update/delete) for specific buckets
--- Uses existing helper: public.is_editor_or_admin()
+  -- Public read (anon + authenticated) for specific buckets
+  BEGIN
+    EXECUTE 'drop policy if exists storage_public_read_assets on storage.objects';
+    EXECUTE $pol$
+      create policy storage_public_read_assets
+      on storage.objects
+      for select
+      to anon, authenticated
+      using (bucket_id in ('public-assets','coach-avatars','product-images'))
+    $pol$;
+  EXCEPTION
+    WHEN duplicate_object THEN
+      NULL;
+    WHEN insufficient_privilege THEN
+      RAISE NOTICE 'Skipping: storage_public_read_assets policy (insufficient privilege; table owner required).';
+  END;
 
-drop policy if exists storage_editor_insert_assets on storage.objects;
-create policy storage_editor_insert_assets
-on storage.objects
-for insert
-to authenticated
-with check (
-  public.is_editor_or_admin()
-  and bucket_id in ('public-assets','coach-avatars','product-images')
-);
+  -- Admin/editor write policies (upload/update/delete) for specific buckets
+  -- Uses existing helper: public.is_editor_or_admin()
+  BEGIN
+    EXECUTE 'drop policy if exists storage_editor_insert_assets on storage.objects';
+    EXECUTE $pol$
+      create policy storage_editor_insert_assets
+      on storage.objects
+      for insert
+      to authenticated
+      with check (
+        public.is_editor_or_admin()
+        and bucket_id in ('public-assets','coach-avatars','product-images')
+      )
+    $pol$;
+  EXCEPTION
+    WHEN duplicate_object THEN
+      NULL;
+    WHEN insufficient_privilege THEN
+      RAISE NOTICE 'Skipping: storage_editor_insert_assets policy (insufficient privilege; table owner required).';
+  END;
 
-drop policy if exists storage_editor_update_assets on storage.objects;
-create policy storage_editor_update_assets
-on storage.objects
-for update
-to authenticated
-using (
-  public.is_editor_or_admin()
-  and bucket_id in ('public-assets','coach-avatars','product-images')
-)
-with check (
-  public.is_editor_or_admin()
-  and bucket_id in ('public-assets','coach-avatars','product-images')
-);
+  BEGIN
+    EXECUTE 'drop policy if exists storage_editor_update_assets on storage.objects';
+    EXECUTE $pol$
+      create policy storage_editor_update_assets
+      on storage.objects
+      for update
+      to authenticated
+      using (
+        public.is_editor_or_admin()
+        and bucket_id in ('public-assets','coach-avatars','product-images')
+      )
+      with check (
+        public.is_editor_or_admin()
+        and bucket_id in ('public-assets','coach-avatars','product-images')
+      )
+    $pol$;
+  EXCEPTION
+    WHEN duplicate_object THEN
+      NULL;
+    WHEN insufficient_privilege THEN
+      RAISE NOTICE 'Skipping: storage_editor_update_assets policy (insufficient privilege; table owner required).';
+  END;
 
-drop policy if exists storage_editor_delete_assets on storage.objects;
-create policy storage_editor_delete_assets
-on storage.objects
-for delete
-to authenticated
-using (
-  public.is_editor_or_admin()
-  and bucket_id in ('public-assets','coach-avatars','product-images')
-);
+  BEGIN
+    EXECUTE 'drop policy if exists storage_editor_delete_assets on storage.objects';
+    EXECUTE $pol$
+      create policy storage_editor_delete_assets
+      on storage.objects
+      for delete
+      to authenticated
+      using (
+        public.is_editor_or_admin()
+        and bucket_id in ('public-assets','coach-avatars','product-images')
+      )
+    $pol$;
+  EXCEPTION
+    WHEN duplicate_object THEN
+      NULL;
+    WHEN insufficient_privilege THEN
+      RAISE NOTICE 'Skipping: storage_editor_delete_assets policy (insufficient privilege; table owner required).';
+  END;
+END $$;
 
 -- =========================
 -- III. Admin bootstrap helper

@@ -55,7 +55,7 @@ export function ComingSoonProducts({ section, products }: Props) {
           list.map((p) => (
             <article
               key={p.id}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] opacity-95 shadow-[0_0_36px_rgba(168,85,247,0.14)] backdrop-blur-md transition hover:border-purple-400/35 hover:opacity-100"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] opacity-95 shadow-[0_0_36px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:opacity-100"
             >
               <div
                 className={`relative aspect-[4/3] bg-gradient-to-br from-white/5 to-transparent ${

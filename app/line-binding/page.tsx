@@ -28,7 +28,7 @@ export default async function LineBindingPage() {
 
   return (
     <div className="pb-16">
-      <div className="relative mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-8 shadow-[0_0_40px_rgba(168,85,247,0.14)] backdrop-blur-md md:px-10">
+      <div className="relative mb-8 overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-6 py-8 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md md:px-10">
         <h1 className="text-2xl font-bold text-white md:text-3xl">LINE 綁定</h1>
         <p className="mt-2 text-sm text-white/55">
           完成綁定後，可接收報名、候補與重要通知（實際串接將於後續階段實作）。
@@ -58,7 +58,7 @@ export default async function LineBindingPage() {
           </ul>
         </section>
 
-        <section className="rounded-2xl border border-purple-500/25 bg-gradient-to-br from-brand-purple/15 to-transparent p-6 backdrop-blur-md md:p-8">
+        <section className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-[radial-gradient(circle_at_top,_rgba(205,162,116,0.14),_transparent_55%),linear-gradient(135deg,_#140f0d_0%,_#241816_50%,_#33211d_100%)] p-6 backdrop-blur-md md:p-8">
           <p className="text-sm text-white/65">
             LINE Login／OAuth callback 將於後續階段實作；本頁不提供
             Messaging API callback。
@@ -66,7 +66,7 @@ export default async function LineBindingPage() {
           <button
             type="button"
             disabled
-            className="mt-6 w-full cursor-not-allowed rounded-xl bg-gradient-to-r from-brand-purple/60 to-brand-neon-purple/60 px-6 py-3 text-sm font-semibold text-white/80 sm:w-auto"
+            className="mt-6 w-full cursor-not-allowed rounded-xl bg-brand-purple/40 px-6 py-3 text-sm font-semibold text-[#f8f3ea]/80 sm:w-auto"
           >
             開始 LINE 綁定（即將開放）
           </button>

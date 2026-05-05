@@ -36,7 +36,7 @@ export function MobileMenu({
         onClick={onClose}
         aria-label="關閉選單"
       />
-      <div className="absolute right-0 top-0 flex h-full w-[min(100%,320px)] flex-col border-l border-purple-500/25 bg-[rgba(30,16,61,0.95)] p-6 shadow-xl backdrop-blur-md">
+      <div className="absolute right-0 top-0 flex h-full w-[min(100%,320px)] flex-col border-l border-[rgba(255,255,255,0.10)] bg-[rgba(20,15,13,0.96)] p-6 shadow-xl backdrop-blur-md">
         <div className="mb-6 flex items-center justify-between">
           <span className="text-sm font-semibold text-white/90">選單</span>
           <button
@@ -68,7 +68,7 @@ export function MobileMenu({
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg bg-brand-purple/90 px-3 py-2 text-center text-sm font-medium text-white hover:bg-brand-neon-purple/90"
+                className="rounded-lg bg-brand-purple px-3 py-2 text-center text-sm font-semibold text-[#140f0d] hover:bg-[#e7c79c]"
                 onClick={onClose}
               >
                 {item.label}

@@ -29,7 +29,7 @@ export function SessionCard({ session }: { session: SessionWithLocation }) {
   const contactType = session.session_type === "teaching" ? "teaching" : "dropin";
 
   return (
-    <article className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_40px_rgba(168,85,247,0.12)] backdrop-blur-md transition hover:border-purple-400/35 hover:shadow-[0_0_48px_rgba(168,85,247,0.22)]">
+    <article className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-lg font-semibold text-white">
@@ -83,7 +83,7 @@ export function SessionCard({ session }: { session: SessionWithLocation }) {
           href={`/contact?type=${contactType}&source_type=session&source_id=${encodeURIComponent(
             session.id
           )}`}
-          className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] transition hover:brightness-110"
+          className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-5 py-2.5 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
         >
           聯絡報名
         </Link>

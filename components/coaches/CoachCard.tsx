@@ -18,8 +18,8 @@ export function CoachCard({ coach }: { coach: Coach }) {
   const city = coach.city?.trim() ? coach.city : null;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] shadow-[0_0_36px_rgba(168,85,247,0.14)] backdrop-blur-md transition hover:border-purple-400/35 hover:shadow-[0_0_48px_rgba(168,85,247,0.22)]">
-      <div className="relative aspect-[4/3] bg-gradient-to-br from-brand-purple/25 via-brand-deep-purple/45 to-black/40">
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] shadow-[0_0_36px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]">
+      <div className="relative aspect-[4/3] bg-gradient-to-br from-[#33211d]/70 via-[#241816]/70 to-black/45">
         <SafeCoverImage
           src={coach.avatar_url}
           alt={coach.name}
@@ -43,11 +43,18 @@ export function CoachCard({ coach }: { coach: Coach }) {
               {coach.experience_years != null ? ` · ${coach.experience_years} 年資` : ""}
             </p>
           </div>
-          {coach.is_featured ? (
-            <span className="shrink-0 rounded-full border border-purple-400/30 bg-brand-purple/15 px-2.5 py-0.5 text-[11px] font-semibold text-brand-neon-purple/95">
-              Featured
-            </span>
-          ) : null}
+          <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+            {coach.is_main_featured ? (
+              <span className="rounded-full border border-[rgba(205,162,116,0.35)] bg-[rgba(205,162,116,0.12)] px-2.5 py-0.5 text-[11px] font-semibold text-[#e7c79c]">
+                主教練
+              </span>
+            ) : null}
+            {coach.is_featured ? (
+              <span className="rounded-full border border-[rgba(255,255,255,0.12)] bg-white/[0.06] px-2.5 py-0.5 text-[11px] font-semibold text-white/75">
+                精選
+              </span>
+            ) : null}
+          </div>
         </div>
 
         <div className="mt-4 space-y-2">
@@ -100,7 +107,7 @@ export function CoachCard({ coach }: { coach: Coach }) {
         <div className="mt-6 flex items-center justify-between gap-3">
           <a
             href={consultHref}
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] transition hover:brightness-110"
+            className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-5 py-2.5 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
             target={consultHref.startsWith("http") ? "_blank" : undefined}
             rel={consultHref.startsWith("http") ? "noreferrer" : undefined}
           >

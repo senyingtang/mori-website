@@ -38,8 +38,9 @@
 | `002_auth_profile_member_trigger.sql` | `auth.users` 新增使用者時自動建立 `profiles`、`members`；`line_bindings` 狀態同步 |
 | `003_storage_and_admin_bootstrap.sql` | Storage buckets、Storage RLS、`bootstrap_super_admin` 輔助函式 |
 | `004_contact_submissions.sql` | `contact_submissions` 表、索引、RLS（公開 insert、後台讀寫） |
+| `005_coach_main_featured.sql` | `coaches.is_main_featured`（首頁主教練），以及對應索引 |
 
-- [ ] 四支 migration 均已成功套用，無錯誤遺留
+- [ ] 五支 migration 均已成功套用，無錯誤遺留
 
 ---
 
@@ -96,6 +97,7 @@
 | `/admin/contact-submissions` |
 
 - [ ] 未授權使用者無法進入；各頁可載入且表單／列表可用
+- [ ] `/admin/coaches` 可設定「首頁主教練」（只會有一位；設定後其他教練會自動取消主教練）
 
 ---
 
