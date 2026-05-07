@@ -58,7 +58,7 @@ export async function getCurrentUser(): Promise<CurrentUserBundle> {
     try {
       const { data: p, error: pErr } = await supabase
         .from("profiles")
-        .select("id, role, display_name, created_at, updated_at")
+        .select("id, role, display_name")
         .eq("id", user.id)
         .maybeSingle();
 
@@ -66,6 +66,8 @@ export async function getCurrentUser(): Promise<CurrentUserBundle> {
         console.error("[getCurrentUser] profiles", {
           userId: user.id,
           message: pErr.message,
+          code: pErr.code,
+          details: pErr.details,
         });
       else if (p) profile = mapProfile(p as Record<string, unknown>);
     } catch (e) {
