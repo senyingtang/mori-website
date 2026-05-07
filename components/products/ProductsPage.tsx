@@ -34,8 +34,8 @@ export function ProductsPage({ products, categories }: Props) {
         subtitle="球團限定商品 Coming Soon；未來將推出球衣、毛巾、羽球配件與限定周邊。"
       />
 
-      <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-6 text-sm text-white/65 backdrop-blur-md">
-        <p className="font-semibold text-white/80">球團限定商品 Coming Soon</p>
+      <div className="mb-6 rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-6 text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <p className="font-semibold text-[#3A2A1E]">球團限定商品 Coming Soon</p>
         <p className="mt-2">
           目前不提供購物車與線上結帳；若想搶先了解開賣時間與尺寸資訊，請先到聯絡我們洽詢。
         </p>
@@ -56,7 +56,7 @@ export function ProductsPage({ products, categories }: Props) {
       />
 
       {filtered.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-12 text-center text-sm text-white/55 backdrop-blur-md">
+        <div className="mt-8 rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-12 text-center text-sm text-[#8B735C] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
           目前沒有符合條件的商品。
         </div>
       ) : (

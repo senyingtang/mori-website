@@ -38,8 +38,8 @@ export function LogoutButton({
 
   const base =
     variant === "mobile"
-      ? "w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2.5 text-center text-sm font-medium text-white/90 hover:bg-white/10"
-      : "rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10";
+      ? "w-full rounded-lg border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-3 py-2.5 text-center text-sm font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)]"
+      : "rounded-lg border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-3 py-2 text-sm font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)]";
 
   return (
     <button

@@ -74,45 +74,45 @@ export default async function ContactPage({
         </div>
 
         <aside className="space-y-4 lg:col-span-2">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-            <h2 className="text-lg font-semibold text-white">聯絡方式</h2>
-            <p className="mt-2 text-sm text-white/55">
+          <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+            <h2 className="text-lg font-semibold text-[#3A2A1E]">聯絡方式</h2>
+            <p className="mt-2 text-sm text-[#6F5A46]">
               {siteName} 客服／合作洽詢
             </p>
-            <div className="mt-4 space-y-2 text-sm text-white/70">
+            <div className="mt-4 space-y-2 text-sm text-[#6F5A46]">
               <p>
-                <span className="text-white/45">LINE</span>：
+                <span className="text-[#8B735C]">LINE</span>：
                 {typeof lineUrl === "string" && lineUrl.trim() ? (
                   <a
                     href={lineUrl}
-                    className="ml-2 font-semibold text-brand-neon-purple/95 hover:underline"
+                    className="ml-2 font-semibold text-[#B98552] hover:underline"
                     target="_blank"
                     rel="noreferrer"
                   >
                     開啟
                   </a>
                 ) : (
-                  <span className="ml-2 text-white/55">（稍後提供）</span>
+                  <span className="ml-2 text-[#9A846E]">（稍後提供）</span>
                 )}
               </p>
               <p>
-                <span className="text-white/45">Email</span>：
+                <span className="text-[#8B735C]">Email</span>：
                 {typeof supportEmail === "string" && supportEmail.trim() ? (
                   <a
                     href={`mailto:${supportEmail}`}
-                    className="ml-2 font-semibold text-brand-neon-purple/95 hover:underline"
+                    className="ml-2 font-semibold text-[#B98552] hover:underline"
                   >
                     {supportEmail}
                   </a>
                 ) : (
-                  <span className="ml-2 text-white/55">support@mori.example</span>
+                  <span className="ml-2 text-[#9A846E]">support@mori.example</span>
                 )}
               </p>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 text-sm text-white/60 backdrop-blur-md">
-            <p className="font-semibold text-white/80">小提醒</p>
+          <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+            <p className="font-semibold text-[#3A2A1E]">小提醒</p>
             <ul className="mt-3 list-disc space-y-1 pl-5">
               <li>請至少留下 Email／手機／LINE ID 其中一種聯絡方式。</li>
               <li>若是臨打報名，建議補充程度、可參加時段與地區。</li>

@@ -25,7 +25,7 @@ export default async function PrivacyPolicyPage() {
   return (
     <div className="pb-16">
       <PageHero title={title} subtitle={subtitle} />
-      <article className="mx-auto max-w-4xl rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-6 py-10 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md md:px-10 md:py-12">
+      <article className="mx-auto max-w-4xl rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:px-10 md:py-12">
         <PolicyProse content={body} />
       </article>
     </div>

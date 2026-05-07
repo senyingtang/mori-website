@@ -39,22 +39,22 @@ export function TestimonialsCarousel({ section }: Props) {
 
   return (
     <section className="scroll-mt-24 py-14 md:py-16">
-      <h2 className="text-center text-2xl font-bold text-white md:text-3xl">
+      <h2 className="text-center text-2xl font-bold text-[#3A2A1E] md:text-3xl">
         球友怎麼說
       </h2>
-      <p className="mx-auto mt-2 max-w-xl text-center text-sm text-white/55">
+      <p className="mx-auto mt-2 max-w-xl text-center text-sm text-[#6F5A46]">
         節錄真實回饋（日後可由 CMS 管理）。
       </p>
       <div className="mt-10 flex gap-4 overflow-x-auto pb-2 md:justify-center md:overflow-visible">
         {items.map((item, i) => (
           <blockquote
             key={`${item.author}-${i}`}
-            className="min-w-[260px] max-w-sm shrink-0 rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_32px_rgba(31,20,16,0.12)] backdrop-blur-md md:min-w-0 md:flex-1"
+            className="min-w-[260px] max-w-sm shrink-0 rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:min-w-0 md:flex-1"
           >
-            <p className="text-sm leading-relaxed text-white/80">
+            <p className="text-sm leading-relaxed text-[#6F5A46]">
               「{item.quote}」
             </p>
-            <footer className="mt-4 text-xs font-medium text-white/45">
+            <footer className="mt-4 text-xs font-semibold text-[#8B735C]">
               — {item.author}
             </footer>
           </blockquote>

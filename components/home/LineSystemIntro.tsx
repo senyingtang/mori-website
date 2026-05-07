@@ -25,14 +25,15 @@ export function LineSystemIntro({ section }: Props) {
   const body = getString(content, "body") ?? DEFAULT_BODY;
 
   return (
-    <section className="relative scroll-mt-24 overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.10)] bg-[radial-gradient(circle_at_top,_rgba(205,162,116,0.18),_transparent_45%),linear-gradient(135deg,_#140f0d_0%,_#241816_45%,_#33211d_100%)] py-14 md:py-16">
+    <section className="relative scroll-mt-24 overflow-hidden rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] py-14 shadow-[0_28px_86px_rgba(90,62,43,0.12)] backdrop-blur-md md:py-16">
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-20 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[rgba(205,162,116,0.18)] blur-[90px]"
+        className="pointer-events-none absolute -left-20 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full blur-[90px]"
+        style={{ background: "rgba(214,168,108,0.28)" }}
       />
       <div className="relative mx-auto max-w-3xl px-2 text-center md:px-6">
-        <h2 className="text-2xl font-bold text-white md:text-3xl">{title}</h2>
-        <p className="mt-4 text-sm leading-relaxed text-white/70 md:text-base">
+        <h2 className="text-2xl font-bold text-[#3A2A1E] md:text-3xl">{title}</h2>
+        <p className="mt-4 text-sm leading-relaxed text-[#6F5A46] md:text-base">
           {body}
         </p>
       </div>
@@ -40,7 +41,7 @@ export function LineSystemIntro({ section }: Props) {
         {FEATURES.map((label) => (
           <div
             key={label}
-            className="rounded-xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-4 py-3 text-center text-sm font-medium text-white/85 shadow-[0_0_24px_rgba(31,20,16,0.10)] backdrop-blur-sm"
+            className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-center text-sm font-semibold text-[#3A2A1E] shadow-[0_16px_44px_rgba(90,62,43,0.10)] backdrop-blur-sm"
           >
             {label}
           </div>
@@ -49,13 +50,13 @@ export function LineSystemIntro({ section }: Props) {
       <div className="relative mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link
           href="/line-binding"
-          className="inline-flex min-w-[200px] items-center justify-center rounded-xl bg-brand-purple px-6 py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_32px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
+          className="inline-flex min-w-[200px] items-center justify-center rounded-xl bg-[#5A3E2B] px-6 py-3 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
         >
           LINE 綁定
         </Link>
         <Link
           href="/contact"
-          className="inline-flex min-w-[200px] items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-white/25"
+          className="inline-flex min-w-[200px] items-center justify-center rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-3 text-sm font-semibold text-[#5A3E2B] shadow-[0_14px_34px_rgba(90,62,43,0.08)] backdrop-blur transition hover:border-[rgba(185,133,82,0.35)]"
         >
           聯絡我們
         </Link>

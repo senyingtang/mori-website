@@ -22,12 +22,12 @@ export default async function RegisterPage({ searchParams }: Props) {
         title="會員註冊"
         subtitle="建立帳號後，將由系統建立會員資料；註冊完成請依信箱指示驗證（若專案已啟用驗證）。"
       />
-      <div className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] px-6 py-10 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md md:px-8">
-        <div className="rounded-xl border border-[rgba(205,162,116,0.35)] bg-brand-purple/10 px-4 py-3 text-sm text-white/80">
-          <span className="font-medium text-brand-neon-purple">
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:px-8">
+        <div className="rounded-xl border border-[rgba(185,133,82,0.28)] bg-[rgba(214,168,108,0.16)] px-4 py-3 text-sm text-[#6F5A46]">
+          <span className="font-semibold text-[#5A3E2B]">
             註冊完成後預設導向：
           </span>
-          <code className="mt-1 block break-all text-xs text-white/70">
+          <code className="mt-1 block break-all text-xs text-[#3A2A1E]">
             {redirectTo}
           </code>
         </div>

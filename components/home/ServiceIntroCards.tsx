@@ -32,22 +32,23 @@ export function ServiceIntroCards({ section }: Props) {
       <div className="grid gap-6 md:grid-cols-2">
         <article
           id="teaching"
-          className="relative overflow-hidden rounded-3xl border border-sky-400/25 bg-gradient-to-br from-brand-blue/20 via-white/[0.04] to-transparent p-8 shadow-[0_0_50px_rgba(37,99,235,0.18)] backdrop-blur-md"
+          className="relative overflow-hidden rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-8 shadow-[0_22px_66px_rgba(90,62,43,0.12)] backdrop-blur-md"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-blue/30 blur-3xl"
+            className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full blur-3xl"
+            style={{ background: "rgba(111,163,123,0.18)" }}
           />
-          <p className="text-xs font-semibold uppercase tracking-wider text-sky-200/90">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#6FA37B]">
             Teaching
           </p>
-          <h2 className="mt-2 text-2xl font-bold text-white">{teachingTitle}</h2>
-          <p className="mt-4 text-sm leading-relaxed text-white/70">
+          <h2 className="mt-2 text-2xl font-bold text-[#3A2A1E]">{teachingTitle}</h2>
+          <p className="mt-4 text-sm leading-relaxed text-[#6F5A46]">
             {teachingDesc}
           </p>
           <Link
             href="/sessions?type=teaching"
-            className="mt-6 inline-flex rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/15 transition hover:bg-white/15"
+            className="mt-6 inline-flex rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
           >
             {teachingCta}
           </Link>
@@ -55,22 +56,23 @@ export function ServiceIntroCards({ section }: Props) {
 
         <article
           id="dropin"
-          className="relative overflow-hidden rounded-3xl border border-rose-400/25 bg-gradient-to-br from-brand-red/20 via-white/[0.04] to-transparent p-8 shadow-[0_0_50px_rgba(239,68,68,0.15)] backdrop-blur-md"
+          className="relative overflow-hidden rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-8 shadow-[0_22px_66px_rgba(90,62,43,0.12)] backdrop-blur-md"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-red/25 blur-3xl"
+            className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full blur-3xl"
+            style={{ background: "rgba(214,168,108,0.22)" }}
           />
-          <p className="text-xs font-semibold uppercase tracking-wider text-rose-200/90">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#B98552]">
             Drop-in
           </p>
-          <h2 className="mt-2 text-2xl font-bold text-white">{dropinTitle}</h2>
-          <p className="mt-4 text-sm leading-relaxed text-white/70">
+          <h2 className="mt-2 text-2xl font-bold text-[#3A2A1E]">{dropinTitle}</h2>
+          <p className="mt-4 text-sm leading-relaxed text-[#6F5A46]">
             {dropinDesc}
           </p>
           <Link
             href="/sessions?type=dropin"
-            className="mt-6 inline-flex rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/15 transition hover:bg-white/15"
+            className="mt-6 inline-flex rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
           >
             {dropinCta}
           </Link>

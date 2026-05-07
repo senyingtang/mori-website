@@ -12,7 +12,7 @@ export function PolicyProse({ content }: Props) {
     .filter(Boolean);
 
   return (
-    <div className="space-y-6 text-sm leading-relaxed text-white/80 md:text-base md:leading-relaxed">
+    <div className="space-y-6 text-sm leading-relaxed text-[#6F5A46] md:text-base md:leading-relaxed">
       {blocks.map((block, i) => (
         <p key={i} className="whitespace-pre-line">
           {block}

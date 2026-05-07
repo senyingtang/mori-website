@@ -219,7 +219,7 @@ export function FeaturedCoaches({ section, coaches }: Props) {
                   <div className="mt-auto flex items-center justify-between gap-3 pt-5">
                     <Link
                       href="/coaches"
-                      className="text-sm font-semibold text-white/80 hover:text-white hover:underline"
+                      className="text-sm font-semibold text-[#5A3E2B] underline-offset-4 hover:underline"
                     >
                       查看教練團 →
                     </Link>

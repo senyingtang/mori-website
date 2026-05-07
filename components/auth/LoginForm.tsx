@@ -65,7 +65,7 @@ export function LoginForm({ redirectTo }: Props) {
       {error ? (
         <div
           role="alert"
-          className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-100/95"
+          className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-900/95"
         >
           {error}
         </div>
@@ -74,7 +74,7 @@ export function LoginForm({ redirectTo }: Props) {
       <div>
         <label
           htmlFor="login-email"
-          className="block text-xs font-medium text-white/50"
+          className="block text-xs font-semibold text-[#8B735C]"
         >
           Email
         </label>
@@ -86,13 +86,13 @@ export function LoginForm({ redirectTo }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
         <label
           htmlFor="login-password"
-          className="block text-xs font-medium text-white/50"
+          className="block text-xs font-semibold text-[#8B735C]"
         >
           密碼
         </label>
@@ -104,22 +104,22 @@ export function LoginForm({ redirectTo }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-brand-purple py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_28px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-[#5A3E2B] py-3 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "登入中…" : "登入"}
       </button>
 
-      <p className="text-center text-sm text-white/50">
+      <p className="text-center text-sm text-[#8B735C]">
         還沒有帳號？{" "}
         <Link
           href={registerHref}
-          className="font-medium text-brand-neon-purple hover:underline"
+          className="font-semibold text-[#B98552] hover:underline"
         >
           立即註冊
         </Link>

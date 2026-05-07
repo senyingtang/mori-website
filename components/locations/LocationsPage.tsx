@@ -49,7 +49,7 @@ export function LocationsPage({ locations, sessionsByLocationId }: Props) {
       />
 
       {filtered.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-12 text-center text-sm text-white/55 backdrop-blur-md">
+        <div className="mt-8 rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-12 text-center text-sm text-[#8B735C] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
           目前沒有符合條件的據點資料。
         </div>
       ) : (

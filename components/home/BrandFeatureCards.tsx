@@ -57,12 +57,12 @@ export function BrandFeatureCards({ section }: Props) {
 
   return (
     <section className="relative scroll-mt-24 py-16 md:py-20">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(205,162,116,0.45)] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(185,133,82,0.35)] to-transparent" />
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="text-2xl font-bold text-white md:text-3xl">
+        <h2 className="text-2xl font-bold text-[#3A2A1E] md:text-3xl">
           不是傳統接龍，是更有系統的羽球體驗
         </h2>
-        <p className="mt-3 text-sm text-white/55 md:text-base">
+        <p className="mt-3 text-sm text-[#6F5A46] md:text-base">
           用流程取代混亂，用資訊取代猜測。
         </p>
       </div>
@@ -70,13 +70,13 @@ export function BrandFeatureCards({ section }: Props) {
         {items.map((item) => (
           <article
             key={item.title}
-            className="group rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-5 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]"
+            className="group rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-5 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md transition hover:border-[rgba(185,133,82,0.35)] hover:shadow-[0_26px_72px_rgba(90,62,43,0.14)]"
           >
-            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-lg ring-1 ring-white/10 transition group-hover:ring-[rgba(205,162,116,0.45)]">
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF8ED]/80 text-lg ring-1 ring-[rgba(90,62,43,0.14)] transition group-hover:ring-[rgba(185,133,82,0.35)]">
               <span aria-hidden>{item.emoji}</span>
             </div>
-            <h3 className="text-base font-semibold text-white">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/65">
+            <h3 className="text-base font-semibold text-[#3A2A1E]">{item.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#6F5A46]">
               {item.description}
             </p>
           </article>

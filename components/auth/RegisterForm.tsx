@@ -115,19 +115,19 @@ export function RegisterForm({ redirectTo }: Props) {
       {error ? (
         <div
           role="alert"
-          className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-100/95"
+          className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-900/95"
         >
           {error}
         </div>
       ) : null}
       {info ? (
-        <div className="rounded-xl border border-[rgba(205,162,116,0.45)] bg-brand-purple/10 px-4 py-3 text-sm text-[#f8f3ea]/90">
+        <div className="rounded-xl border border-[rgba(185,133,82,0.28)] bg-[rgba(214,168,108,0.16)] px-4 py-3 text-sm text-[#6F5A46]">
           {info}
         </div>
       ) : null}
 
       <div>
-        <label htmlFor="reg-name" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-name" className="block text-xs font-semibold text-[#8B735C]">
           姓名
         </label>
         <input
@@ -138,11 +138,11 @@ export function RegisterForm({ redirectTo }: Props) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="王小明"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
-        <label htmlFor="reg-email" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-email" className="block text-xs font-semibold text-[#8B735C]">
           Email
         </label>
         <input
@@ -153,11 +153,11 @@ export function RegisterForm({ redirectTo }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
-        <label htmlFor="reg-phone" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-phone" className="block text-xs font-semibold text-[#8B735C]">
           手機
         </label>
         <input
@@ -168,11 +168,11 @@ export function RegisterForm({ redirectTo }: Props) {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="09xxxxxxxx（選填）"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
-        <label htmlFor="reg-city" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-city" className="block text-xs font-semibold text-[#8B735C]">
           所在地區
         </label>
         <input
@@ -183,11 +183,11 @@ export function RegisterForm({ redirectTo }: Props) {
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder="例：桃園市（選填）"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
-        <label htmlFor="reg-level" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-level" className="block text-xs font-semibold text-[#8B735C]">
           羽球程度
         </label>
         <select
@@ -195,20 +195,20 @@ export function RegisterForm({ redirectTo }: Props) {
           name="badminton_level"
           value={badmintonLevel}
           onChange={(e) => setBadmintonLevel(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         >
           <option value="" disabled>
             請選擇
           </option>
           {LEVEL_OPTIONS.map((opt) => (
-            <option key={opt} value={opt} className="bg-[#140f0d]">
+            <option key={opt} value={opt} className="bg-[#FFF8ED]">
               {opt}
             </option>
           ))}
         </select>
       </div>
       <div>
-        <label htmlFor="reg-password" className="block text-xs font-medium text-white/50">
+        <label htmlFor="reg-password" className="block text-xs font-semibold text-[#8B735C]">
           密碼（至少 {PASSWORD_MIN_LENGTH} 字元）
         </label>
         <input
@@ -219,13 +219,13 @@ export function RegisterForm({ redirectTo }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
       <div>
         <label
           htmlFor="reg-confirm"
-          className="block text-xs font-medium text-white/50"
+          className="block text-xs font-semibold text-[#8B735C]"
         >
           確認密碼
         </label>
@@ -237,24 +237,24 @@ export function RegisterForm({ redirectTo }: Props) {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="再次輸入密碼"
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] focus:border-[rgba(185,133,82,0.35)] focus:outline-none focus:ring-1 focus:ring-[rgba(185,133,82,0.22)]"
         />
       </div>
 
-      <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-black/15 px-4 py-3">
+      <div className="flex items-start gap-3 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3">
         <input
           id="reg-agree"
           name="agree_terms"
           type="checkbox"
           checked={agreeTerms}
           onChange={(e) => setAgreeTerms(e.target.checked)}
-          className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
+          className="mt-1 h-4 w-4 shrink-0 rounded border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 text-[#B98552] focus:ring-[rgba(185,133,82,0.22)]"
         />
-        <label htmlFor="reg-agree" className="text-sm leading-relaxed text-white/70">
+        <label htmlFor="reg-agree" className="text-sm leading-relaxed text-[#6F5A46]">
           我已閱讀並同意{" "}
           <Link
             href="/privacy-policy"
-            className="text-brand-neon-purple hover:underline"
+            className="font-semibold text-[#B98552] hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -263,7 +263,7 @@ export function RegisterForm({ redirectTo }: Props) {
           與{" "}
           <Link
             href="/terms"
-            className="text-brand-neon-purple hover:underline"
+            className="font-semibold text-[#B98552] hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -276,16 +276,16 @@ export function RegisterForm({ redirectTo }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-brand-purple py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_28px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-[#5A3E2B] py-3 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? "建立中…" : "建立帳號"}
       </button>
 
-      <p className="text-center text-sm text-white/50">
+      <p className="text-center text-sm text-[#8B735C]">
         已有帳號？{" "}
         <Link
           href={loginHref}
-          className="font-medium text-brand-neon-purple hover:underline"
+          className="font-semibold text-[#B98552] hover:underline"
         >
           登入
         </Link>
