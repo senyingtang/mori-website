@@ -18,17 +18,17 @@ type Props = {
 function colors(activeTab: MapTabType) {
   if (activeTab === "dropin") {
     return {
-      glow: "#8bbf9f",
-      glowSoft: "rgba(139,191,159,0.32)",
-      soft: "rgba(139,191,159,0.20)",
-      soft2: "rgba(139,191,159,0.16)",
+      glow: "#6FA37B",
+      glowSoft: "rgba(111,163,123,0.26)",
+      soft: "rgba(111,163,123,0.26)",
+      soft2: "rgba(111,163,123,0.18)",
     };
   }
   return {
-    glow: "#e7c79c",
-    glowSoft: "rgba(205,162,116,0.35)",
-    soft: "rgba(205,162,116,0.22)",
-    soft2: "rgba(205,162,116,0.16)",
+    glow: "#B98552",
+    glowSoft: "rgba(214,168,108,0.34)",
+    soft: "rgba(214,168,108,0.34)",
+    soft2: "rgba(214,168,108,0.22)",
   };
 }
 
@@ -117,7 +117,7 @@ export function TaiwanCountyMap({
       {/* Background scan / rings */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(255,255,255,0.08)] opacity-60 blur-[0.2px] orbit-scan md:h-[620px] md:w-[620px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(90,62,43,0.12)] opacity-60 blur-[0.2px] orbit-scan md:h-[620px] md:w-[620px]"
       />
       <div
         aria-hidden
@@ -218,12 +218,12 @@ export function TaiwanCountyMap({
 
         {/* Small hint + reset button */}
         <g className="pointer-events-none hidden md:block">
-          <text x={20} y={734} fontSize={12} fill="rgba(248,243,234,0.68)">
+          <text x={20} y={734} fontSize={12} fill="rgba(111,90,70,0.92)">
             拖拉地圖可查看細節
           </text>
         </g>
         <g className="pointer-events-none md:hidden">
-          <text x={20} y={734} fontSize={12} fill="rgba(248,243,234,0.68)">
+          <text x={20} y={734} fontSize={12} fill="rgba(111,90,70,0.92)">
             可拖拉地圖查看縣市輪廓
           </text>
         </g>
@@ -236,7 +236,7 @@ export function TaiwanCountyMap({
                 e.stopPropagation();
                 setPan({ x: 0, y: 0 });
               }}
-              className="pointer-events-auto rounded-full border border-[rgba(255,255,255,0.10)] bg-[rgba(0,0,0,0.28)] px-3 py-1 text-xs text-[rgba(248,243,234,0.92)] backdrop-blur hover:border-[rgba(205,162,116,0.45)]"
+              className="pointer-events-auto rounded-full border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.86)] px-3 py-1 text-xs font-semibold text-[#5A3E2B] shadow-[0_10px_26px_rgba(90,62,43,0.10)] backdrop-blur transition hover:border-[rgba(185,133,82,0.35)]"
             >
               重置視角
             </button>
@@ -250,10 +250,10 @@ export function TaiwanCountyMap({
               width={130}
               height={28}
               rx={12}
-              fill="rgba(0,0,0,0.38)"
-              stroke="rgba(255,255,255,0.10)"
+              fill="rgba(255,248,237,0.92)"
+              stroke="rgba(90,62,43,0.16)"
             />
-            <text x={28} y={35} fontSize={12} fill="rgba(248,243,234,0.92)">
+            <text x={28} y={35} fontSize={12} fill="#3A2A1E">
               {normalizeCountyName(activeCity)}
             </text>
           </g>
@@ -308,15 +308,15 @@ export function TaiwanCountyMap({
             const isHover = hoverCity === county.name;
             const isDim = Boolean(displayCity) && displayCity !== county.name;
 
-            // Debug-safe baseline styles: map must always be visible.
-            const disabledFill = "rgba(248,243,234,0.10)";
-            const disabledStroke = "rgba(248,243,234,0.35)";
+            // 023 明亮底：disabled 仍需清楚可見
+            const disabledFill = "rgba(90,62,43,0.08)";
+            const disabledStroke = "rgba(90,62,43,0.28)";
 
             const enabledFill =
               activeTab === "dropin"
-                ? "rgba(139,191,159,0.22)"
-                : "rgba(205,162,116,0.25)";
-            const enabledStroke = activeTab === "dropin" ? "#8bbf9f" : "#e7c79c";
+                ? "rgba(111,163,123,0.26)"
+                : "rgba(214,168,108,0.34)";
+            const enabledStroke = activeTab === "dropin" ? "#6FA37B" : "#B98552";
 
             const fill = isActive
               ? enabledFill
@@ -332,7 +332,7 @@ export function TaiwanCountyMap({
 
             const hoverStroke = enabled
               ? enabledStroke
-              : "rgba(248,243,234,0.55)";
+              : "rgba(90,62,43,0.42)";
             const off = LABEL_OFFSET[county.name] ?? { dx: 10, dy: -34 };
 
             return (
@@ -354,7 +354,13 @@ export function TaiwanCountyMap({
                 {(isActive || isHover) ? (
                   <path
                     d={county.d}
-                    fill={enabled ? (activeTab === "dropin" ? "rgba(139,191,159,0.32)" : "rgba(205,162,116,0.35)") : "rgba(255,255,255,0.10)"}
+                    fill={
+                      enabled
+                        ? activeTab === "dropin"
+                          ? "rgba(111,163,123,0.30)"
+                          : "rgba(214,168,108,0.38)"
+                        : "rgba(90,62,43,0.10)"
+                    }
                     opacity={0.9}
                     filter={isActive ? "url(#cityGlow)" : undefined}
                   />
@@ -377,13 +383,13 @@ export function TaiwanCountyMap({
                       width={112}
                       height={30}
                       rx={10}
-                      fill="rgba(0,0,0,0.38)"
-                      stroke="rgba(255,255,255,0.10)"
+                      fill="#FFF8ED"
+                      stroke="rgba(90,62,43,0.16)"
                     />
-                    <text x={10} y={14} fontSize={12} fill="#f8f3ea">
+                    <text x={10} y={14} fontSize={12} fill="#3A2A1E">
                       {normalizeCountyName(county.name)}
                     </text>
-                    <text x={10} y={26} fontSize={11} fill="rgba(248,243,234,0.68)">
+                    <text x={10} y={26} fontSize={11} fill="#6F5A46">
                       {enabled
                         ? activeTab === "dropin"
                           ? "查看臨打場次"

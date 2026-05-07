@@ -29,20 +29,20 @@ type Props = {
 
 export function Footer({ siteName, tagline, logoUrl }: Props) {
   return (
-    <footer className="border-t border-white/10 bg-[rgba(20,15,13,0.88)] backdrop-blur-md">
+    <footer className="border-t border-[rgba(90,62,43,0.12)] bg-[rgba(255,248,237,0.82)] backdrop-blur-md">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           {logoUrl?.trim() ? (
             <FooterBrandLogo logoUrl={logoUrl.trim()} siteName={siteName} />
           ) : null}
-          <p className="text-sm font-semibold text-white">{siteName}</p>
-          <p className="mt-2 text-sm leading-relaxed text-white/65">
+          <p className="text-sm font-semibold text-[#3A2A1E]">{siteName}</p>
+          <p className="mt-2 text-sm leading-relaxed text-[#6F5A46]">
             {tagline ??
               "讓羽球成為一種更有系統、更有溫度的運動生活。"}
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#8B735C]">
             網站導覽
           </p>
           <ul className="mt-3 space-y-2">
@@ -50,7 +50,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/75 hover:text-white"
+                  className="text-sm text-[#6F5A46] transition hover:text-[#B98552]"
                 >
                   {item.label}
                 </Link>
@@ -59,7 +59,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#8B735C]">
             服務項目
           </p>
           <ul className="mt-3 space-y-2">
@@ -67,7 +67,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/75 hover:text-white"
+                  className="text-sm text-[#6F5A46] transition hover:text-[#B98552]"
                 >
                   {item.label}
                 </Link>
@@ -76,7 +76,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#8B735C]">
             政策
           </p>
           <ul className="mt-3 space-y-2">
@@ -84,7 +84,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/75 hover:text-white"
+                  className="text-sm text-[#6F5A46] transition hover:text-[#B98552]"
                 >
                   {item.label}
                 </Link>
@@ -93,7 +93,7 @@ export function Footer({ siteName, tagline, logoUrl }: Props) {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-xs text-white/45">
+      <div className="border-t border-[rgba(90,62,43,0.12)] py-4 text-center text-xs text-[#8B735C]">
         © {new Date().getFullYear()} {siteName}. All rights reserved.
       </div>
     </footer>

@@ -75,18 +75,18 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
   const theme =
     activeTab === "teaching"
       ? {
-          pill: "border-[rgba(205,162,116,0.45)] bg-brand-purple/15 text-brand-neon-purple",
-          glow: "rgba(205,162,116,0.45)",
+          pill: "border-[rgba(185,133,82,0.28)] bg-[rgba(214,168,108,0.22)] text-[#5A3E2B]",
+          glow: "rgba(185,133,82,0.32)",
         }
       : {
-          pill: "border-[rgba(139,191,159,0.55)] bg-[rgba(139,191,159,0.14)] text-[#f8f3ea]",
-          glow: "rgba(139,191,159,0.42)",
+          pill: "border-[rgba(111,163,123,0.26)] bg-[rgba(111,163,123,0.16)] text-[#3A2A1E]",
+          glow: "rgba(111,163,123,0.26)",
         };
 
   if (mapCities.length === 0) {
     return (
-      <div className="rounded-3xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(31,20,16,0.14)] backdrop-blur-md">
-        <p className="text-sm text-white/70">
+      <div className="rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-6 shadow-[0_18px_52px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <p className="text-sm text-[#6F5A46]">
           目前尚未開放據點，請稍後再回來查看。
         </p>
       </div>
@@ -103,8 +103,8 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
           }}
           className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
             activeTab === "teaching"
-              ? "border-[rgba(205,162,116,0.45)] bg-brand-purple/15 text-brand-neon-purple"
-              : "border-white/10 bg-white/5 text-white/55 hover:bg-white/10"
+              ? "border-[rgba(185,133,82,0.28)] bg-[rgba(214,168,108,0.22)] text-[#5A3E2B]"
+              : "border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.62)] text-[#6F5A46] hover:bg-[rgba(255,248,237,0.86)]"
           }`}
         >
           教學
@@ -116,8 +116,8 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
           }}
           className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
             activeTab === "dropin"
-              ? "border-[rgba(139,191,159,0.55)] bg-[rgba(139,191,159,0.14)] text-[#f8f3ea]"
-              : "border-white/10 bg-white/5 text-white/55 hover:bg-white/10"
+              ? "border-[rgba(111,163,123,0.26)] bg-[rgba(111,163,123,0.16)] text-[#3A2A1E]"
+              : "border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.62)] text-[#6F5A46] hover:bg-[rgba(255,248,237,0.86)]"
           }`}
         >
           臨打
@@ -171,7 +171,7 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
               className={`rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
                 activeCity === city
                   ? theme.pill
-                  : "border-white/10 bg-white/5 text-white/70"
+                  : "border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.62)] text-[#5A3E2B]"
               }`}
               style={
                 activeCity === city ? { boxShadow: `0 0 22px ${theme.glow}` } : undefined
@@ -190,7 +190,7 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
               sessions={sessions}
             />
           ) : (
-            <p className="text-sm text-white/55">點選上方縣市以查看據點資訊。</p>
+            <p className="text-sm text-[#6F5A46]">點選上方縣市以查看據點資訊。</p>
           )}
         </div>
       </div>

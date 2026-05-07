@@ -33,55 +33,57 @@ export function HeroSection({
 
   return (
     <section
-      className="relative isolate min-h-[80vh] overflow-hidden rounded-3xl border border-[rgba(255,255,255,0.10)] bg-gradient-to-br from-[#241816]/92 via-[#140f0d]/96 to-[#0b0706] px-6 py-14 shadow-[0_0_60px_rgba(31,20,16,0.22)] backdrop-blur-md md:px-10 md:py-16"
+      className="relative isolate min-h-[76vh] overflow-hidden rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.62)] px-6 py-14 shadow-[0_28px_80px_rgba(90,62,43,0.12)] backdrop-blur-md md:px-10 md:py-16"
       aria-labelledby="hero-heading"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-brand-blue/18 blur-[100px]"
+        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full blur-[110px]"
+        style={{ background: "rgba(214,168,108,0.32)" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-brand-red/18 blur-[110px]"
+        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full blur-[120px]"
+        style={{ background: "rgba(111,163,123,0.20)" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-px w-[120%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[rgba(205,162,116,0.45)] to-transparent"
+        className="pointer-events-none absolute left-1/2 top-0 h-px w-[120%] -translate-x-1/2 bg-gradient-to-r from-transparent via-[rgba(185,133,82,0.45)] to-transparent"
       />
 
       <div className="relative grid gap-12 lg:grid-cols-2 lg:items-start">
         <div className="space-y-6">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.12)] bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-brand-neon-purple/95 shadow-[0_0_24px_rgba(205,162,116,0.22)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-purple shadow-[0_0_10px_rgba(205,162,116,0.70)]" />
+          <p className="inline-flex items-center gap-2 rounded-full border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] px-4 py-1.5 text-xs font-semibold tracking-wide text-[#5A3E2B] shadow-[0_16px_40px_rgba(90,62,43,0.10)]">
+            <span className="h-1.5 w-1.5 rounded-full shadow-[0_0_10px_rgba(185,133,82,0.45)]" style={{ background: "#B98552" }} />
             {badge}
           </p>
 
           <h1
             id="hero-heading"
-            className="text-balance text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.65rem]"
+            className="text-balance text-3xl font-bold leading-tight tracking-tight text-[#3A2A1E] md:text-4xl lg:text-[2.65rem]"
           >
             {title}
           </h1>
-          <p className="max-w-xl text-pretty text-base leading-relaxed text-white/70 md:text-lg">
+          <p className="max-w-xl text-pretty text-base leading-relaxed text-[#6F5A46] md:text-lg">
             {subtitle}
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/sessions?type=dropin"
-              className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-6 py-3 text-sm font-semibold text-[#140f0d] shadow-[0_0_32px_rgba(205,162,116,0.35)] transition hover:bg-[#e7c79c] hover:shadow-[0_0_48px_rgba(205,162,116,0.50)]"
+              className="inline-flex items-center justify-center rounded-xl bg-[#5A3E2B] px-6 py-3 text-sm font-semibold text-[#FFF8ED] shadow-[0_18px_46px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
             >
               查看臨打場次
             </Link>
             <Link
               href="/sessions?type=teaching"
-              className="inline-flex items-center justify-center rounded-xl border border-[rgba(255,255,255,0.12)] bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-[#cda274]/50 hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-xl border border-[rgba(90,62,43,0.18)] bg-[rgba(255,248,237,0.66)] px-6 py-3 text-sm font-semibold text-[#5A3E2B] shadow-[0_14px_34px_rgba(90,62,43,0.08)] backdrop-blur transition hover:border-[rgba(185,133,82,0.35)] hover:bg-[rgba(255,248,237,0.86)]"
             >
               預約羽球教學
             </Link>
             <Link
               href="/line-binding"
-              className="inline-flex items-center justify-center text-sm font-medium text-brand-neon-purple/90 underline-offset-4 hover:underline"
+              className="inline-flex items-center justify-center text-sm font-semibold text-[#5A3E2B] underline-offset-4 hover:underline"
             >
               LINE 綁定
             </Link>
@@ -89,10 +91,10 @@ export function HeroSection({
 
           <div className="mt-6 flex flex-wrap gap-2">
             {[
-              { label: "教學", tone: "border-[rgba(205,162,116,0.45)] bg-brand-purple/15 text-[#f8f3ea]" },
-              { label: "臨打", tone: "border-[rgba(139,191,159,0.55)] bg-[rgba(139,191,159,0.12)] text-[#f8f3ea]" },
-              { label: "據點資訊", tone: "border-[rgba(255,255,255,0.12)] bg-white/5 text-[#f8f3ea]" },
-              { label: "後台可控", tone: "border-[rgba(255,255,255,0.12)] bg-white/5 text-[#f8f3ea]" },
+              { label: "教學", tone: "border-[rgba(185,133,82,0.28)] bg-[rgba(214,168,108,0.22)] text-[#5A3E2B]" },
+              { label: "臨打", tone: "border-[rgba(111,163,123,0.26)] bg-[rgba(111,163,123,0.16)] text-[#3A2A1E]" },
+              { label: "據點資訊", tone: "border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.66)] text-[#5A3E2B]" },
+              { label: "後台可控", tone: "border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.66)] text-[#5A3E2B]" },
             ].map((chip) => (
               <span
                 key={chip.label}
@@ -105,13 +107,13 @@ export function HeroSection({
         </div>
 
         <div className="relative">
-          <div className="rounded-[2rem] border border-[rgba(255,255,255,0.10)] bg-[rgba(20,15,13,0.55)] shadow-[0_0_70px_rgba(0,0,0,0.34)] backdrop-blur-md">
+          <div className="rounded-[2rem] border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] shadow-[0_22px_66px_rgba(90,62,43,0.14)] backdrop-blur-md">
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 rounded-[2rem]"
               style={{
                 background:
-                  "radial-gradient(circle at 35% 25%, rgba(205,162,116,0.22), transparent 55%)",
+                  "radial-gradient(circle at 35% 25%, rgba(214,168,108,0.32), transparent 58%)",
               }}
             />
             <div className="relative overflow-hidden rounded-[2rem] p-5 sm:p-6 lg:min-h-[620px]">
@@ -122,11 +124,11 @@ export function HeroSection({
                 sessions={mapSessions}
               />
             ) : (
-              <div className="rounded-3xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(205,162,116,0.18)] backdrop-blur-md">
-                <p className="text-sm text-white/70">
+              <div className="rounded-3xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.72)] p-6 shadow-[0_18px_52px_rgba(90,62,43,0.10)] backdrop-blur-md">
+                <p className="text-sm text-[#6F5A46]">
                   目前尚未開放據點，請稍後再回來查看。
                 </p>
-                <p className="mt-2 text-[11px] text-white/40">
+                <p className="mt-2 text-[11px] text-[#8B735C]">
                   TaiwanServiceMap SVG MVP 需要 map_city_settings 資料。
                 </p>
               </div>

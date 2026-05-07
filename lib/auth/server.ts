@@ -62,10 +62,14 @@ export async function getCurrentUser(): Promise<CurrentUserBundle> {
         .eq("id", user.id)
         .maybeSingle();
 
-      if (pErr) console.error("[getCurrentUser] profiles", pErr.message);
+      if (pErr)
+        console.error("[getCurrentUser] profiles", {
+          userId: user.id,
+          message: pErr.message,
+        });
       else if (p) profile = mapProfile(p as Record<string, unknown>);
     } catch (e) {
-      console.error("[getCurrentUser] profiles catch", e);
+      console.error("[getCurrentUser] profiles catch", { userId: user.id, error: e });
     }
 
     let member: MemberRow | null = null;
@@ -78,10 +82,14 @@ export async function getCurrentUser(): Promise<CurrentUserBundle> {
         .eq("auth_user_id", user.id)
         .maybeSingle();
 
-      if (mErr) console.error("[getCurrentUser] members", mErr.message);
+      if (mErr)
+        console.error("[getCurrentUser] members", {
+          userId: user.id,
+          message: mErr.message,
+        });
       else if (m) member = mapMember(m as Record<string, unknown>);
     } catch (e) {
-      console.error("[getCurrentUser] members catch", e);
+      console.error("[getCurrentUser] members catch", { userId: user.id, error: e });
     }
 
     return { user, profile, member };

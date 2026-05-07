@@ -45,11 +45,11 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[rgba(20,15,13,0.78)] backdrop-blur-[16px]">
+      <header className="sticky top-0 z-40 border-b border-[rgba(90,62,43,0.12)] bg-[rgba(255,248,237,0.86)] backdrop-blur-[16px]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2.5 text-sm font-semibold text-white md:text-base"
+            className="flex shrink-0 items-center gap-2.5 text-sm font-semibold text-[#3A2A1E] md:text-base"
           >
             {showLogo ? (
               <>
@@ -66,7 +66,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
               </>
             ) : (
               <>
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-purple/40 text-xs font-bold text-white">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[rgba(185,133,82,0.22)] text-xs font-bold text-[#3A2A1E]">
                   M
                 </span>
                 <span className="hidden sm:inline">{siteName}</span>
@@ -79,7 +79,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-lg px-3 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
+                className="rounded-lg px-3 py-2 text-sm text-[#6F5A46] transition hover:bg-[rgba(185,133,82,0.10)] hover:text-[#3A2A1E]"
               >
                 {item.label}
               </Link>
@@ -89,20 +89,20 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
           <div className="hidden items-center gap-2 md:flex">
             <Link
               href="/contact"
-              className="rounded-lg bg-brand-purple px-3 py-2 text-sm font-medium text-white hover:bg-brand-neon-purple"
+              className="rounded-lg bg-[#5A3E2B] px-3 py-2 text-sm font-semibold text-[#FFF8ED] shadow-[0_10px_30px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
             >
               立即報名
             </Link>
             <Link
               href="/line-binding"
-              className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10"
+              className="rounded-lg border border-[rgba(90,62,43,0.18)] bg-[rgba(255,248,237,0.62)] px-3 py-2 text-sm font-semibold text-[#5A3E2B] shadow-[0_12px_28px_rgba(90,62,43,0.08)] transition hover:border-[rgba(185,133,82,0.35)] hover:bg-[rgba(255,248,237,0.86)]"
             >
               LINE 綁定
             </Link>
             {isLoggedIn && canSeeAdmin ? (
               <Link
                 href="/admin"
-                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm font-semibold text-brand-neon-purple/95 hover:bg-white/10"
+                className="rounded-lg border border-[rgba(90,62,43,0.18)] bg-[rgba(255,248,237,0.62)] px-3 py-2 text-sm font-bold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)] hover:bg-[rgba(255,248,237,0.86)]"
                 title="後台管理"
               >
                 後台
@@ -112,7 +112,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
               <>
                 <Link
                   href="/member-dashboard"
-                  className="rounded-lg px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10"
+                  className="rounded-lg px-3 py-2 text-sm font-semibold text-[#5A3E2B] transition hover:bg-[rgba(185,133,82,0.10)]"
                 >
                   會員中心
                 </Link>
@@ -121,7 +121,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
             ) : (
               <Link
                 href="/login"
-                className="rounded-lg px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10"
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-[#5A3E2B] transition hover:bg-[rgba(185,133,82,0.10)]"
               >
                 會員登入
               </Link>
@@ -130,7 +130,7 @@ export function Header({ siteName, logoUrl, isLoggedIn, userRole }: Props) {
 
           <button
             type="button"
-            className="rounded-lg p-2 text-white/90 hover:bg-white/10 md:hidden"
+            className="rounded-lg p-2 text-[#5A3E2B] transition hover:bg-[rgba(185,133,82,0.10)] md:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((v) => !v)}

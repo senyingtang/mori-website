@@ -31,40 +31,40 @@ export function LocationCard({
   const list = sessions.slice(0, 3);
 
   return (
-    <article className="rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_40px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:shadow-[0_0_48px_rgba(205,162,116,0.18)]">
+    <article className="rounded-2xl border border-[rgba(90,62,43,0.12)] bg-[rgba(255,248,237,0.72)] p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md transition hover:border-[rgba(185,133,82,0.35)] hover:shadow-[0_26px_72px_rgba(90,62,43,0.14)]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="text-lg font-semibold text-white">{location.name}</h2>
-          <p className="mt-2 text-sm text-white/55">
+          <h2 className="text-lg font-semibold text-[#3A2A1E]">{location.name}</h2>
+          <p className="mt-2 text-sm text-[#6F5A46]">
             {location.city}
             {location.district ? ` · ${location.district}` : ""}
           </p>
         </div>
-        <span className="shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-white/70">
+        <span className="shrink-0 rounded-full border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.66)] px-2.5 py-0.5 text-[11px] font-semibold text-[#6F5A46]">
           {serviceLabel(location.service_type)}
         </span>
       </div>
 
       {location.address ? (
-        <p className="mt-3 text-sm text-white/65">{location.address}</p>
+        <p className="mt-3 text-sm text-[#6F5A46]">{location.address}</p>
       ) : null}
 
       {location.description ? (
-        <p className="mt-3 text-sm leading-relaxed text-white/55">
+        <p className="mt-3 text-sm leading-relaxed text-[#6F5A46]">
           {location.description}
         </p>
       ) : null}
 
-      <div className="mt-4 rounded-xl border border-white/10 bg-black/20 px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+      <div className="mt-4 rounded-xl border border-[rgba(90,62,43,0.12)] bg-[rgba(255,248,237,0.66)] px-4 py-3">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
           場次摘要
         </p>
         {list.length === 0 ? (
-          <p className="mt-2 text-sm text-white/50">場次資訊即將更新。</p>
+          <p className="mt-2 text-sm text-[#6F5A46]">場次資訊即將更新。</p>
         ) : (
           <ul className="mt-2 space-y-1">
             {list.map((s) => (
-              <li key={s.id} className="text-sm text-white/75">
+              <li key={s.id} className="text-sm text-[#3A2A1E]">
                 {formatSessionLine(s)}
               </li>
             ))}
@@ -75,13 +75,13 @@ export function LocationCard({
       <div className="mt-6 flex items-center justify-between gap-3">
         <Link
           href={`/sessions?location=${encodeURIComponent(location.id)}`}
-          className="inline-flex items-center justify-center rounded-xl bg-brand-purple px-5 py-2.5 text-sm font-semibold text-[#140f0d] shadow-[0_0_24px_rgba(205,162,116,0.30)] transition hover:bg-[#e7c79c]"
+          className="inline-flex items-center justify-center rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-[#FFF8ED] shadow-[0_16px_42px_rgba(90,62,43,0.18)] transition hover:bg-[#B98552]"
         >
           查看場次
         </Link>
         <Link
           href={`/contact?source_type=location&source_id=${encodeURIComponent(location.id)}`}
-          className="text-sm font-medium text-brand-neon-purple/90 underline-offset-4 hover:underline"
+          className="text-sm font-semibold text-[#5A3E2B] underline-offset-4 hover:underline"
         >
           聯絡我們
         </Link>
