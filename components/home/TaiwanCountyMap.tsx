@@ -3,7 +3,7 @@
 import type { MapTabType } from "@/types/cms";
 import type { TaiwanCountyName } from "@/components/home/taiwan-county-paths";
 import { TAIWAN_COUNTY_PATHS } from "@/components/home/taiwan-county-paths";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   activeTab: MapTabType;
@@ -47,6 +47,10 @@ function clampPan(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function clampValue(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
 const LABEL_OFFSET: Partial<Record<TaiwanCountyName, { dx: number; dy: number }>> =
   {
     // North cluster: avoid overlaps
@@ -72,6 +76,7 @@ export function TaiwanCountyMap({
   const displayCity = hoverCity ?? activeCity;
 
   const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [userZoom, setUserZoom] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef({
     pointerId: null as number | null,
@@ -85,12 +90,14 @@ export function TaiwanCountyMap({
   useEffect(() => {
     // Switching tab should reset user pan so focus stays predictable.
     setPan({ x: 0, y: 0 });
+    setUserZoom(1);
     dragStartRef.current.moved = false;
   }, [activeTab]);
 
   useEffect(() => {
     // Selecting a county should re-center to its focus.
     setPan({ x: 0, y: 0 });
+    setUserZoom(1);
     dragStartRef.current.moved = false;
   }, [activeCity]);
 
@@ -101,19 +108,70 @@ export function TaiwanCountyMap({
       : null;
   const safeFocus = rawFocus ?? DEFAULT_FOCUS;
   const safeScale = Math.min(Math.max(safeFocus.scale ?? 1, 1), 2.2);
-  // Prevent accidental huge translate that can move the whole map out of view.
-  const clamp = (v: number, min: number, max: number) =>
-    Math.max(min, Math.min(max, v));
-  const safeX = clamp(Number(safeFocus.x ?? 0) * 0.5, -180, 180);
-  const safeY = clamp(Number(safeFocus.y ?? 0) * 0.5, -200, 200);
+  const safeX = clampValue(Number(safeFocus.x ?? 0) * 0.5, -180, 180);
+  const safeY = clampValue(Number(safeFocus.y ?? 0) * 0.5, -200, 200);
 
-  const panLimit = 80 + (safeScale - 1) * 120;
+  const finalScale = clampValue(safeScale * userZoom, 1, 2.8);
+  const panLimit = 80 + (finalScale - 1) * 140;
   const panX = clampPan(pan.x, -panLimit, panLimit);
   const panY = clampPan(pan.y, -panLimit, panLimit);
-  const transform = `translate(${safeX + panX}px, ${safeY + panY}px) scale(${safeScale})`;
+  const transform = `translate(${safeX + panX}px, ${safeY + panY}px) scale(${finalScale})`;
+
+  const zoomCaps = useMemo(() => {
+    const maxZoom = clampValue(2.8 / Math.max(1, safeScale), 1, 2.8);
+    return { min: 1, max: maxZoom };
+  }, [safeScale]);
 
   return (
     <div className="relative h-[390px] w-full overflow-hidden touch-none sm:h-[430px] md:h-[540px] lg:h-[620px]">
+      {/* Zoom controls (HTML overlay; avoid foreignObject for mobile reliability) */}
+      <div className="absolute right-4 top-4 z-20">
+        <div className="flex items-center gap-2 rounded-full border border-[rgba(90,62,43,0.16)] bg-[#FFF8ED]/85 p-1 text-[#3A2A1E] shadow-sm backdrop-blur">
+          <button
+            type="button"
+            aria-label="放大地圖"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              setUserZoom((z) =>
+                clampValue(Number((z + 0.2).toFixed(2)), zoomCaps.min, zoomCaps.max)
+              );
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition hover:bg-[#F3DFC3]"
+          >
+            ＋
+          </button>
+          <button
+            type="button"
+            aria-label="縮小地圖"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              setUserZoom((z) =>
+                clampValue(Number((z - 0.2).toFixed(2)), zoomCaps.min, zoomCaps.max)
+              );
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition hover:bg-[#F3DFC3]"
+          >
+            －
+          </button>
+          <button
+            type="button"
+            aria-label="重置視角"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              setPan({ x: 0, y: 0 });
+              setUserZoom(1);
+              dragStartRef.current.moved = false;
+            }}
+            className="inline-flex h-9 items-center justify-center rounded-full px-3 text-xs font-semibold transition hover:bg-[#F3DFC3]"
+          >
+            重置
+          </button>
+        </div>
+      </div>
+
       {/* Background scan / rings */}
       <div
         aria-hidden
@@ -228,20 +286,6 @@ export function TaiwanCountyMap({
           </text>
         </g>
 
-        <foreignObject x={468} y={16} width={120} height={40}>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setPan({ x: 0, y: 0 });
-              }}
-              className="pointer-events-auto rounded-full border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.86)] px-3 py-1 text-xs font-semibold text-[#5A3E2B] shadow-[0_10px_26px_rgba(90,62,43,0.10)] backdrop-blur transition hover:border-[rgba(185,133,82,0.35)]"
-            >
-              重置視角
-            </button>
-          </div>
-        </foreignObject>
         {activeCity ? (
           <g className="md:hidden">
             <rect
@@ -288,15 +332,15 @@ export function TaiwanCountyMap({
               width={200}
               height={190}
               rx={18}
-              fill="rgba(0,0,0,0.18)"
-              stroke="rgba(248,243,234,0.18)"
+              fill="rgba(255,248,237,0.78)"
+              stroke="rgba(90,62,43,0.16)"
               strokeWidth={1.2}
             />
             <text
               x={58}
               y={574}
               fontSize={12}
-              fill="rgba(248,243,234,0.72)"
+              fill="rgba(58,42,30,0.92)"
             >
               離島
             </text>

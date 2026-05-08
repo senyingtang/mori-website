@@ -43,6 +43,8 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
     return filteredCities.map((c) => c.countyName);
   }, [filteredCities]);
 
+  const firstEnabledCity = supportedCities[0] ?? null;
+
   const displayCity =
     hoverCity && supportedCities.includes(hoverCity) ? hoverCity : activeCity;
 
@@ -52,25 +54,19 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
   }, [filteredCities, displayCity]);
 
   useEffect(() => {
-    // 初始化：activeTab=teaching，activeCity=第一個 enabled city
-    if (!activeCity) {
-      setActiveCity(filteredCities[0]?.countyName ?? null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    // 切換 tab：切到該 tab 第一個 enabled city
-    setActiveCity(filteredCities[0]?.countyName ?? null);
+    // 切換 tab：重設到該 tab 第一個 enabled city
+    setActiveCity(firstEnabledCity);
     setHoverCity(null);
-  }, [activeTab, filteredCities]);
+  }, [activeTab, firstEnabledCity]);
 
   useEffect(() => {
-    // 若 activeCity 不在本 tab 的 enabled counties，改成第一個 enabled
-    if (activeCity && supportedCities.length > 0 && !supportedCities.includes(activeCity)) {
-      setActiveCity(supportedCities[0] ?? null);
+    // 若 activeCity 為空或不在本 tab 的 enabled counties，才 fallback 到第一個 enabled
+    if (!firstEnabledCity) return;
+    if (!activeCity || !supportedCities.includes(activeCity)) {
+      setActiveCity(firstEnabledCity);
+      setHoverCity(null);
     }
-  }, [activeCity, supportedCities]);
+  }, [activeCity, supportedCities, firstEnabledCity]);
 
   const theme =
     activeTab === "teaching"
@@ -133,7 +129,10 @@ export function TaiwanServiceMap({ mapCities, locations, sessions }: Props) {
           cities={supportedCities}
           onHoverCity={(city) => setHoverCity(city)}
           onLeaveCity={() => setHoverCity(null)}
-          onSelectCity={(city) => setActiveCity(city)}
+          onSelectCity={(city) => {
+            setActiveCity(city);
+            setHoverCity(null);
+          }}
         />
 
         {/* Desktop floating card */}
