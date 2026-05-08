@@ -78,6 +78,25 @@ export function TaiwanCountyMap({
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [userZoom, setUserZoom] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
+
+  const lastInteractionWasDragRef = useRef(false);
+  const pressedCountyRef = useRef<{
+    pointerId: number;
+    name: TaiwanCountyName;
+    enabled: boolean;
+  } | null>(null);
+
+  const pendingPanRef = useRef({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
+
+  const flushPan = () => {
+    if (frameRef.current != null) {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+    setPan(pendingPanRef.current);
+  };
+
   const dragStartRef = useRef({
     pointerId: null as number | null,
     startX: 0,
@@ -90,16 +109,30 @@ export function TaiwanCountyMap({
   useEffect(() => {
     // Switching tab should reset user pan so focus stays predictable.
     setPan({ x: 0, y: 0 });
+    pendingPanRef.current = { x: 0, y: 0 };
     setUserZoom(1);
     dragStartRef.current.moved = false;
+    lastInteractionWasDragRef.current = false;
+    pressedCountyRef.current = null;
   }, [activeTab]);
 
   useEffect(() => {
     // Selecting a county should re-center to its focus.
     setPan({ x: 0, y: 0 });
+    pendingPanRef.current = { x: 0, y: 0 };
     setUserZoom(1);
     dragStartRef.current.moved = false;
+    lastInteractionWasDragRef.current = false;
   }, [activeCity]);
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current != null) {
+        cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+      }
+    };
+  }, []);
 
   const DEFAULT_FOCUS = { scale: 1, x: 0, y: 0 };
   const rawFocus =
@@ -205,6 +238,7 @@ export function TaiwanCountyMap({
           dragStartRef.current.panX = panX;
           dragStartRef.current.panY = panY;
           dragStartRef.current.moved = false;
+          lastInteractionWasDragRef.current = false;
 
           try {
             e.currentTarget.setPointerCapture(e.pointerId);
@@ -219,12 +253,21 @@ export function TaiwanCountyMap({
 
           const dx = e.clientX - ds.startX;
           const dy = e.clientY - ds.startY;
-          const DRAG_THRESHOLD = 5;
-          if (Math.abs(dx) + Math.abs(dy) > DRAG_THRESHOLD) ds.moved = true;
+          const threshold = e.pointerType === "mouse" ? 8 : 10;
+          if (Math.hypot(dx, dy) > threshold) {
+            ds.moved = true;
+            lastInteractionWasDragRef.current = true;
+          }
 
           const nextX = clampPan(ds.panX + dx, -panLimit, panLimit);
           const nextY = clampPan(ds.panY + dy, -panLimit, panLimit);
-          setPan({ x: nextX, y: nextY });
+          pendingPanRef.current = { x: nextX, y: nextY };
+          if (frameRef.current == null) {
+            frameRef.current = requestAnimationFrame(() => {
+              setPan(pendingPanRef.current);
+              frameRef.current = null;
+            });
+          }
         }}
         onPointerUp={(e) => {
           const ds = dragStartRef.current;
@@ -237,10 +280,25 @@ export function TaiwanCountyMap({
           } catch {
             // ignore
           }
-          // Let click handlers run first, then clear moved.
+          flushPan();
+
+          const pressed = pressedCountyRef.current;
+          pressedCountyRef.current = null;
+          if (
+            pressed &&
+            pressed.pointerId === e.pointerId &&
+            !ds.moved &&
+            !lastInteractionWasDragRef.current &&
+            pressed.enabled
+          ) {
+            onSelectCity(pressed.name);
+          }
+
+          // Clear drag flags slightly later to avoid drag->click misfire.
           setTimeout(() => {
+            lastInteractionWasDragRef.current = false;
             dragStartRef.current.moved = false;
-          }, 0);
+          }, 80);
         }}
         onPointerCancel={(e) => {
           const ds = dragStartRef.current;
@@ -253,7 +311,10 @@ export function TaiwanCountyMap({
           } catch {
             // ignore
           }
+          flushPan();
           dragStartRef.current.moved = false;
+          lastInteractionWasDragRef.current = false;
+          pressedCountyRef.current = null;
         }}
         onClick={(e) => {
           // click background to clear hover (optional)
@@ -386,11 +447,13 @@ export function TaiwanCountyMap({
                   onHoverCity(county.name);
                 }}
                 onMouseLeave={() => onLeaveCity()}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (dragStartRef.current.moved) return;
-                  if (!enabled) return;
-                  onSelectCity(county.name);
+                onPointerDown={(e) => {
+                  if (e.pointerType === "mouse" && e.button !== 0) return;
+                  pressedCountyRef.current = {
+                    pointerId: e.pointerId,
+                    name: county.name,
+                    enabled,
+                  };
                 }}
                 style={{ cursor: enabled ? "pointer" : "not-allowed" }}
                 opacity={isDim ? 0.82 : 1}
