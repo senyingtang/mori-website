@@ -1,6 +1,7 @@
 import type { Json } from "@/lib/json";
 import { hasSupabaseConfig } from "@/lib/env";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { asRecord, getString } from "@/lib/cms/home-content";
 import type {
   HomeSectionRow,
   PolicyPageRow,
@@ -14,6 +15,7 @@ import type {
   Location,
   MapCitySetting,
   MapTabType,
+  PublicSiteSettings,
   ProductCategory,
   ProductWithCategory,
   Session,
@@ -40,6 +42,30 @@ export async function fetchPublicSiteSettings(): Promise<SiteSettingsMap> {
     map[row.key] = row.value as Json;
   }
   return map;
+}
+
+/** 前台用的 site settings（只取公開且會顯示於 UI 的欄位） */
+export async function getPublicSiteSettings(): Promise<PublicSiteSettings> {
+  const map = await fetchPublicSiteSettings();
+  const brand = asRecord(map["brand"]);
+  const links = asRecord(map["links"]);
+  const contact = asRecord(map["contact"]);
+
+  return {
+    brand: {
+      site_name: getString(brand, "site_name"),
+      tagline: getString(brand, "tagline"),
+      logo_url: getString(brand, "logo_url"),
+    },
+    links: {
+      line_official: getString(links, "line_official"),
+      facebook: getString(links, "facebook"),
+      instagram: getString(links, "instagram"),
+    },
+    contact: {
+      email: getString(contact, "email"),
+    },
+  };
 }
 
 /** 首頁等區塊：僅 enabled，依 sort_order */

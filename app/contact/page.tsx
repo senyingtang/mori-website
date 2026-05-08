@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { fetchPublicSiteSettings } from "@/lib/cms/public-queries";
+import { fetchPublicSiteSettings, getPublicSiteSettings } from "@/lib/cms/public-queries";
 import { getBrandFromSettings } from "@/lib/cms/brand";
 import { PageHero } from "@/components/layout/PageHero";
 import { ContactForm, type ContactInquiryType } from "@/components/contact/ContactForm";
@@ -40,18 +40,12 @@ export default async function ContactPage({
   const utmMedium = one(sp, "utm_medium") ?? undefined;
   const utmCampaign = one(sp, "utm_campaign") ?? undefined;
 
-  const siteSettings = await fetchPublicSiteSettings();
-  const { siteName } = getBrandFromSettings(siteSettings);
-
-  const contact = siteSettings.contact;
-  const lineUrl =
-    contact && typeof contact === "object" && !Array.isArray(contact)
-      ? (contact as Record<string, unknown>).line_url
-      : null;
-  const supportEmail =
-    contact && typeof contact === "object" && !Array.isArray(contact)
-      ? (contact as Record<string, unknown>).support_email
-      : null;
+  const [settingsMap, publicSettings] = await Promise.all([
+    fetchPublicSiteSettings(),
+    getPublicSiteSettings(),
+  ]);
+  const { siteName } = getBrandFromSettings(settingsMap);
+  const { links, contact } = publicSettings;
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10 md:py-12">
@@ -82,30 +76,56 @@ export default async function ContactPage({
             <div className="mt-4 space-y-2 text-sm text-[#6F5A46]">
               <p>
                 <span className="text-[#8B735C]">LINE</span>：
-                {typeof lineUrl === "string" && lineUrl.trim() ? (
+                {links.line_official ? (
                   <a
-                    href={lineUrl}
+                    href={links.line_official}
                     className="ml-2 font-semibold text-[#B98552] hover:underline"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    開啟
+                    加入 LINE 官方帳號
                   </a>
                 ) : (
-                  <span className="ml-2 text-[#9A846E]">（稍後提供）</span>
+                  <span className="ml-2 text-[#9A846E]">尚未設定</span>
                 )}
               </p>
+              {links.facebook ? (
+                <p>
+                  <span className="text-[#8B735C]">Facebook</span>：
+                  <a
+                    href={links.facebook}
+                    className="ml-2 font-semibold text-[#B98552] hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Facebook
+                  </a>
+                </p>
+              ) : null}
+              {links.instagram ? (
+                <p>
+                  <span className="text-[#8B735C]">Instagram</span>：
+                  <a
+                    href={links.instagram}
+                    className="ml-2 font-semibold text-[#B98552] hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Instagram
+                  </a>
+                </p>
+              ) : null}
               <p>
                 <span className="text-[#8B735C]">Email</span>：
-                {typeof supportEmail === "string" && supportEmail.trim() ? (
+                {contact.email ? (
                   <a
-                    href={`mailto:${supportEmail}`}
+                    href={`mailto:${contact.email}`}
                     className="ml-2 font-semibold text-[#B98552] hover:underline"
                   >
-                    {supportEmail}
+                    {contact.email}
                   </a>
                 ) : (
-                  <span className="ml-2 text-[#9A846E]">support@mori.example</span>
+                  <span className="ml-2 text-[#9A846E]">尚未設定</span>
                 )}
               </p>
             </div>

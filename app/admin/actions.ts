@@ -45,6 +45,7 @@ export async function upsertSiteSettings(
   if (error) return { success: false, error: error.message };
 
   revalidatePath("/");
+  revalidatePath("/contact");
   revalidatePath("/admin/site-settings");
   return { success: true };
 }

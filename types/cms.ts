@@ -151,3 +151,20 @@ export type ContactSubmission = {
 
 /** home_sections.content JSON */
 export type HomeSectionContent = Record<string, unknown>;
+
+/** 前台可公開顯示的全站設定（由 site_settings 組合而成） */
+export type PublicSiteSettings = {
+  brand: {
+    site_name?: string;
+    tagline?: string;
+    logo_url?: string;
+  };
+  links: {
+    line_official?: string;
+    facebook?: string;
+    instagram?: string;
+  };
+  contact: {
+    email?: string;
+  };
+};
