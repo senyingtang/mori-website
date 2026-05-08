@@ -187,40 +187,40 @@ export function ProductsEditor({
   return (
     <div className="space-y-6">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">新增商品</h2>
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">新增商品</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           <div>
-            <label className="block text-xs font-medium text-white/55">name *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">name *</label>
             <input
               value={newProductName}
               onChange={(e) => {
                 setNewProductName(e.target.value);
                 if (!newProductSlug.trim()) setNewProductSlug(slugify(e.target.value));
               }}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               placeholder="球衣 2026"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">slug *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">slug *</label>
             <input
               value={newProductSlug}
               onChange={(e) => setNewProductSlug(slugify(e.target.value))}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               placeholder="jersey-2026"
             />
-            <p className="mt-1 text-[11px] text-white/40">
+            <p className="mt-1 text-[11px] text-[#8B735C]">
               僅小寫英數與 hyphen（自動轉換）。
             </p>
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">status</label>
+            <label className="block text-xs font-medium text-[#8B735C]">status</label>
             <select
               value={newProductStatus}
               onChange={(e) =>
@@ -234,12 +234,12 @@ export function ProductsEditor({
                         : "coming_soon"
                 )
               }
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
             >
-              <option value="draft" className="bg-[#1a1028]">draft</option>
-              <option value="coming_soon" className="bg-[#1a1028]">coming_soon</option>
-              <option value="active" className="bg-[#1a1028]">active</option>
-              <option value="sold_out" className="bg-[#1a1028]">sold_out</option>
+              <option value="draft">draft</option>
+              <option value="coming_soon">coming_soon</option>
+              <option value="active">active</option>
+              <option value="sold_out">sold_out</option>
             </select>
           </div>
           <div className="md:col-span-3">
@@ -257,35 +257,35 @@ export function ProductsEditor({
           type="button"
           disabled={pending}
           onClick={createNewProduct}
-          className="mt-5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className="mt-5 rounded-xl bg-[#5A3E2B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
         >
           新增
         </button>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">商品列表</h2>
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">商品列表</h2>
         <div className="mt-4 space-y-4">
           {items.length === 0 ? (
-            <p className="text-sm text-white/55">目前尚無商品。</p>
+            <p className="text-sm text-[#6F5A46]">目前尚無商品。</p>
           ) : (
             items.map((row) => (
               <div
                 key={row.id}
-                className="rounded-2xl border border-white/10 bg-black/20 p-5"
+                className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] p-5"
               >
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                       {row.name || "（未命名）"} · {row.slug || "（無 slug）"}
                     </p>
-                    <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+                    <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
                   </div>
                   <button
                     type="button"
                     disabled={pending}
                     onClick={() => saveProduct(row.id)}
-                    className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                    className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
                   >
                     儲存
                   </button>
@@ -293,49 +293,53 @@ export function ProductsEditor({
 
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
                   <div>
-                    <label className="block text-xs font-medium text-white/55">name *</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">name *</label>
                     <input
                       value={row.name}
                       onChange={(e) => patchProduct(row.id, { name: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">slug *</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">slug *</label>
                     <input
                       value={row.slug}
                       onChange={(e) => patchProduct(row.id, { slug: slugify(e.target.value) })}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-medium text-white/55">description</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      description
+                    </label>
                     <textarea
                       rows={3}
                       value={row.description}
                       onChange={(e) =>
                         patchProduct(row.id, { description: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">price</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">price</label>
                     <input
                       value={row.price}
                       onChange={(e) => patchProduct(row.id, { price: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                       placeholder="800"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">compare_at_price</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      compare_at_price
+                    </label>
                     <input
                       value={row.compare_at_price}
                       onChange={(e) =>
                         patchProduct(row.id, { compare_at_price: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                       placeholder="990"
                     />
                   </div>
@@ -349,34 +353,38 @@ export function ProductsEditor({
                       helperText="PNG／JPG／WebP；最多 8MB。"
                     />
                     <div>
-                      <label className="block text-xs font-medium text-white/55">image_url（手動）</label>
+                      <label className="block text-xs font-medium text-[#8B735C]">
+                        image_url（手動）
+                      </label>
                       <input
                         value={row.image_url}
                         onChange={(e) => patchProduct(row.id, { image_url: e.target.value })}
-                        className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                        className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                         placeholder="https://..."
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">category</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      category
+                    </label>
                     <select
                       value={row.category_id}
                       onChange={(e) =>
                         patchProduct(row.id, { category_id: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     >
-                      <option value="" className="bg-[#1a1028]">未分類</option>
+                      <option value="">未分類</option>
                       {catList.map((c) => (
-                        <option key={c.id} value={c.id} className="bg-[#1a1028]">
+                        <option key={c.id} value={c.id}>
                           {c.name}
                         </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">status</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">status</label>
                     <select
                       value={row.status}
                       onChange={(e) =>
@@ -391,43 +399,47 @@ export function ProductsEditor({
                                   : "coming_soon",
                         })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     >
-                      <option value="draft" className="bg-[#1a1028]">draft</option>
-                      <option value="coming_soon" className="bg-[#1a1028]">coming_soon</option>
-                      <option value="active" className="bg-[#1a1028]">active</option>
-                      <option value="sold_out" className="bg-[#1a1028]">sold_out</option>
+                      <option value="draft">draft</option>
+                      <option value="coming_soon">coming_soon</option>
+                      <option value="active">active</option>
+                      <option value="sold_out">sold_out</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">stock_quantity</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      stock_quantity
+                    </label>
                     <input
                       value={row.stock_quantity}
                       onChange={(e) =>
                         patchProduct(row.id, { stock_quantity: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                       placeholder="0"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">sort_order</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      sort_order
+                    </label>
                     <input
                       value={String(row.sort_order)}
                       onChange={(e) =>
                         patchProduct(row.id, { sort_order: Number(e.target.value || 0) })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
-                  <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+                  <label className="flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B]">
                     <input
                       type="checkbox"
                       checked={row.is_active}
                       onChange={(e) =>
                         patchProduct(row.id, { is_active: e.target.checked })
                       }
-                      className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+                      className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
                     />
                     is_active
                   </label>
@@ -438,28 +450,28 @@ export function ProductsEditor({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">商品分類</h2>
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">商品分類</h2>
 
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           <div>
-            <label className="block text-xs font-medium text-white/55">name *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">name *</label>
             <input
               value={newCatName}
               onChange={(e) => {
                 setNewCatName(e.target.value);
                 if (!newCatSlug.trim()) setNewCatSlug(slugify(e.target.value));
               }}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               placeholder="球衣"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">slug *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">slug *</label>
             <input
               value={newCatSlug}
               onChange={(e) => setNewCatSlug(slugify(e.target.value))}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               placeholder="jerseys"
             />
           </div>
@@ -468,32 +480,32 @@ export function ProductsEditor({
           type="button"
           disabled={pending}
           onClick={createNewCategory}
-          className="mt-5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className="mt-5 rounded-xl bg-[#5A3E2B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
         >
           新增分類
         </button>
 
         <div className="mt-6 space-y-4">
           {catItems.length === 0 ? (
-            <p className="text-sm text-white/55">目前尚無分類。</p>
+            <p className="text-sm text-[#6F5A46]">目前尚無分類。</p>
           ) : (
             catItems.map((row) => (
               <div
                 key={row.id}
-                className="rounded-2xl border border-white/10 bg-black/20 p-5"
+                className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] p-5"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                       {row.name || "（未命名）"} · {row.slug || "（無 slug）"}
                     </p>
-                    <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+                    <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
                   </div>
                   <button
                     type="button"
                     disabled={pending}
                     onClick={() => saveCategory(row.id)}
-                    className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                    className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
                   >
                     儲存
                   </button>
@@ -501,52 +513,56 @@ export function ProductsEditor({
 
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
                   <div>
-                    <label className="block text-xs font-medium text-white/55">name *</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">name *</label>
                     <input
                       value={row.name}
                       onChange={(e) => patchCategory(row.id, { name: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">slug *</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">slug *</label>
                     <input
                       value={row.slug}
                       onChange={(e) =>
                         patchCategory(row.id, { slug: slugify(e.target.value) })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-medium text-white/55">description</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      description
+                    </label>
                     <textarea
                       rows={2}
                       value={row.description}
                       onChange={(e) =>
                         patchCategory(row.id, { description: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-white/55">sort_order</label>
+                    <label className="block text-xs font-medium text-[#8B735C]">
+                      sort_order
+                    </label>
                     <input
                       value={String(row.sort_order)}
                       onChange={(e) =>
                         patchCategory(row.id, { sort_order: Number(e.target.value || 0) })
                       }
-                      className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                      className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                     />
                   </div>
-                  <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+                  <label className="flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B]">
                     <input
                       type="checkbox"
                       checked={row.is_active}
                       onChange={(e) =>
                         patchCategory(row.id, { is_active: e.target.checked })
                       }
-                      className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+                      className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
                     />
                     is_active
                   </label>

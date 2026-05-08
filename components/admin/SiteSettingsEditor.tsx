@@ -34,13 +34,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-white/55">{label}</label>
+      <label className="block text-xs font-medium text-[#8B735C]">{label}</label>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white placeholder:text-white/25 focus:border-[#cda274]/50 focus:outline-none focus:ring-1 focus:ring-[rgba(205,162,116,0.30)]"
+        className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)] disabled:opacity-60"
       />
     </div>
   );
@@ -130,23 +130,24 @@ export function SiteSettingsEditor({
   return (
     <div className="space-y-6">
       {!canEdit ? (
-        <div className="rounded-xl border border-[rgba(255,255,255,0.10)] bg-brand-purple/10 px-4 py-3 text-sm text-white/80">
-          你目前是 <span className="font-semibold">editor</span> 權限，可查看全站設定，但不可修改。請聯繫{" "}
-          <span className="font-semibold">admin</span> 或{" "}
-          <span className="font-semibold">super_admin</span>。
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm text-[#6F5A46]">
+          你目前是 <span className="font-semibold text-[#3A2A1E]">editor</span>{" "}
+          權限，可查看全站設定，但不可修改。請聯繫{" "}
+          <span className="font-semibold text-[#3A2A1E]">admin</span> 或{" "}
+          <span className="font-semibold text-[#3A2A1E]">super_admin</span>。
         </div>
       ) : null}
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-white">brand</h2>
-            <p className="mt-1 text-sm text-white/55">站名、標語、Logo URL</p>
+            <h2 className="text-lg font-semibold text-[#3A2A1E]">brand</h2>
+            <p className="mt-1 text-sm text-[#6F5A46]">站名、標語、Logo URL</p>
           </div>
           <button
             type="button"
@@ -158,7 +159,7 @@ export function SiteSettingsEditor({
                 logo_url: brandLogoUrl || null,
               })
             }
-            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
           >
             儲存
           </button>
@@ -197,11 +198,11 @@ export function SiteSettingsEditor({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-white">links</h2>
-            <p className="mt-1 text-sm text-white/55">LINE/FB/IG</p>
+            <h2 className="text-lg font-semibold text-[#3A2A1E]">links</h2>
+            <p className="mt-1 text-sm text-[#6F5A46]">LINE/FB/IG</p>
           </div>
           <button
             type="button"
@@ -213,7 +214,7 @@ export function SiteSettingsEditor({
                 instagram: linksIg || null,
               })
             }
-            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
           >
             儲存
           </button>
@@ -242,17 +243,17 @@ export function SiteSettingsEditor({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-white">contact</h2>
-            <p className="mt-1 text-sm text-white/55">客服信箱</p>
+            <h2 className="text-lg font-semibold text-[#3A2A1E]">contact</h2>
+            <p className="mt-1 text-sm text-[#6F5A46]">客服信箱</p>
           </div>
           <button
             type="button"
             disabled={pending || !canEdit}
             onClick={() => save("contact", { email: contactEmail })}
-            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
           >
             儲存
           </button>
@@ -267,11 +268,11 @@ export function SiteSettingsEditor({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md md:p-8">
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md md:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-white">theme</h2>
-            <p className="mt-1 text-sm text-white/55">主要色票</p>
+            <h2 className="text-lg font-semibold text-[#3A2A1E]">theme</h2>
+            <p className="mt-1 text-sm text-[#6F5A46]">主要色票</p>
           </div>
           <button
             type="button"
@@ -285,7 +286,7 @@ export function SiteSettingsEditor({
                 energy_red: themeRed,
               })
             }
-            className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
           >
             儲存
           </button>

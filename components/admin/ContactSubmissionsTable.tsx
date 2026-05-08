@@ -124,146 +124,124 @@ export function ContactSubmissionsTable({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
         <form method="get" action="/admin/contact-submissions" className="space-y-4">
           <div className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="block text-xs font-medium text-white/55">狀態</label>
+              <label className="block text-xs font-medium text-[#8B735C]">狀態</label>
               <select
                 name="status"
                 defaultValue={filters.status}
-                className="mt-1 min-w-[140px] rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-sm text-white"
+                className="mt-1 min-w-[140px] rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               >
-                <option value="all" className="bg-[#1a1028]">
-                  全部
-                </option>
-                <option value="new" className="bg-[#1a1028]">
-                  new
-                </option>
-                <option value="contacted" className="bg-[#1a1028]">
-                  contacted
-                </option>
-                <option value="closed" className="bg-[#1a1028]">
-                  closed
-                </option>
-                <option value="spam" className="bg-[#1a1028]">
-                  spam
-                </option>
+                <option value="all">全部</option>
+                <option value="new">new</option>
+                <option value="contacted">contacted</option>
+                <option value="closed">closed</option>
+                <option value="spam">spam</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">詢問類型</label>
+              <label className="block text-xs font-medium text-[#8B735C]">詢問類型</label>
               <select
                 name="inquiry_type"
                 defaultValue={filters.inquiry_type}
-                className="mt-1 min-w-[160px] rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-sm text-white"
+                className="mt-1 min-w-[160px] rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               >
-                <option value="all" className="bg-[#1a1028]">
-                  全部
-                </option>
-                <option value="dropin" className="bg-[#1a1028]">
-                  臨打報名
-                </option>
-                <option value="teaching" className="bg-[#1a1028]">
-                  羽球教學
-                </option>
-                <option value="product_notify" className="bg-[#1a1028]">
-                  商品通知
-                </option>
-                <option value="venue_partner" className="bg-[#1a1028]">
-                  場地合作
-                </option>
-                <option value="brand_partner" className="bg-[#1a1028]">
-                  品牌合作
-                </option>
-                <option value="system_partner" className="bg-[#1a1028]">
-                  系統合作
-                </option>
-                <option value="other" className="bg-[#1a1028]">
-                  其他
-                </option>
+                <option value="all">全部</option>
+                <option value="dropin">臨打報名</option>
+                <option value="teaching">羽球教學</option>
+                <option value="product_notify">商品通知</option>
+                <option value="venue_partner">場地合作</option>
+                <option value="brand_partner">品牌合作</option>
+                <option value="system_partner">系統合作</option>
+                <option value="other">其他</option>
               </select>
             </div>
             <div className="min-w-[200px] flex-1">
-              <label className="block text-xs font-medium text-white/55">關鍵字</label>
+              <label className="block text-xs font-medium text-[#8B735C]">關鍵字</label>
               <input
                 name="q"
                 type="search"
                 defaultValue={filters.q}
                 placeholder="姓名、電話、Email、主旨、訊息…"
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-sm text-white placeholder:text-white/35"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-3 py-2 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
           </div>
           <div className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="block text-xs font-medium text-white/55">建立日期（起）</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                建立日期（起）
+              </label>
               <input
                 name="date_from"
                 type="date"
                 defaultValue={filters.date_from}
-                className="mt-1 rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-sm text-white"
+                className="mt-1 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-3 py-2 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">建立日期（迄）</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                建立日期（迄）
+              </label>
               <input
                 name="date_to"
                 type="date"
                 defaultValue={filters.date_to}
-                className="mt-1 rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-sm text-white"
+                className="mt-1 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-3 py-2 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
             <button
               type="submit"
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white"
+              className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34]"
             >
               套用篩選
             </button>
             <Link
               href="/admin/contact-submissions"
-              className="rounded-xl border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 hover:bg-white/[0.06]"
+              className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-5 py-2.5 text-sm font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)]"
             >
               清除篩選
             </Link>
           </div>
         </form>
-        <p className="mt-4 text-sm text-white/70">
-          共 <span className="font-semibold text-white">{totalCount}</span> 筆訊息
+        <p className="mt-4 text-sm text-[#6F5A46]">
+          共 <span className="font-semibold text-[#3A2A1E]">{totalCount}</span> 筆訊息
         </p>
       </div>
 
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
       {items.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-12 text-center text-sm text-white/55 backdrop-blur-md">
+        <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-12 text-center text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
           沒有符合條件的聯絡訊息。可調整篩選條件或清除篩選後再試。
         </div>
       ) : (
         items.map((r) => (
           <section
             key={r.id}
-            className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
+            className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md"
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
               <div className="min-w-0 space-y-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <StatusBadge status={r.status} />
-                  <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                     {fmt(r.created_at)} · {inquiryLabel(r.inquiry_type)} · {r.name}
                   </p>
                 </div>
-                <p className="text-xs text-white/35">id: {r.id}</p>
+                <p className="text-xs text-[#8B735C]">id: {r.id}</p>
               </div>
               <button
                 type="button"
                 disabled={pending}
                 onClick={() => save(r.id)}
-                className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
               >
                 儲存
               </button>
@@ -271,7 +249,7 @@ export function ContactSubmissionsTable({
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-xs font-medium text-white/55">status</label>
+                <label className="block text-xs font-medium text-[#8B735C]">status</label>
                 <select
                   value={r.status}
                   onChange={(e) =>
@@ -286,59 +264,53 @@ export function ContactSubmissionsTable({
                               : "new",
                     })
                   }
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 >
-                  <option value="new" className="bg-[#1a1028]">
-                    new
-                  </option>
-                  <option value="contacted" className="bg-[#1a1028]">
-                    contacted
-                  </option>
-                  <option value="closed" className="bg-[#1a1028]">
-                    closed
-                  </option>
-                  <option value="spam" className="bg-[#1a1028]">
-                    spam
-                  </option>
+                  <option value="new">new</option>
+                  <option value="contacted">contacted</option>
+                  <option value="closed">closed</option>
+                  <option value="spam">spam</option>
                 </select>
               </div>
-              <div className="space-y-1 text-sm text-white/70">
+              <div className="space-y-1 text-sm text-[#6F5A46]">
                 <p>
-                  <span className="text-white/45">phone</span>：{r.phone ?? "—"}
+                  <span className="text-[#8B735C]">phone</span>：{r.phone ?? "—"}
                 </p>
                 <p>
-                  <span className="text-white/45">email</span>：{r.email ?? "—"}
+                  <span className="text-[#8B735C]">email</span>：{r.email ?? "—"}
                 </p>
                 <p>
-                  <span className="text-white/45">line_id</span>：{r.line_id ?? "—"}
+                  <span className="text-[#8B735C]">line_id</span>：{r.line_id ?? "—"}
                 </p>
               </div>
               <div className="md:col-span-2">
-                <p className="text-sm text-white/70">
-                  <span className="text-white/45">subject</span>：{r.subject ?? "—"}
+                <p className="text-sm text-[#6F5A46]">
+                  <span className="text-[#8B735C]">subject</span>：{r.subject ?? "—"}
                 </p>
-                <p className="mt-2 whitespace-pre-wrap rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+                <p className="mt-2 whitespace-pre-wrap rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm text-[#6F5A46]">
                   {r.message}
                 </p>
               </div>
-              <div className="md:col-span-2 text-sm text-white/65">
+              <div className="md:col-span-2 text-sm text-[#6F5A46]">
                 <p>
-                  <span className="text-white/45">source</span>：
+                  <span className="text-[#8B735C]">source</span>：
                   {r.source_type ?? "—"} {r.source_id ?? ""}{" "}
                   {r.source_path ? `· ${r.source_path}` : ""}
                 </p>
                 <p className="mt-1">
-                  <span className="text-white/45">utm</span>：
+                  <span className="text-[#8B735C]">utm</span>：
                   {r.utm_source ?? "—"} / {r.utm_medium ?? "—"} / {r.utm_campaign ?? "—"}
                 </p>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-white/55">admin_note</label>
+                <label className="block text-xs font-medium text-[#8B735C]">
+                  admin_note
+                </label>
                 <textarea
                   rows={3}
                   value={r.admin_note ?? ""}
                   onChange={(e) => patch(r.id, { admin_note: e.target.value })}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 />
               </div>
             </div>

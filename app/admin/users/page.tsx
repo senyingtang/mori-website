@@ -42,7 +42,7 @@ export default async function AdminUsersPage() {
 
   if (pErr) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-10 text-sm text-red-200/90 backdrop-blur-md">
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 text-sm text-red-900/90 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
         讀取 profiles 失敗：{pErr.message}
       </div>
     );
@@ -57,7 +57,7 @@ export default async function AdminUsersPage() {
 
   if (mErr) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-10 text-sm text-red-200/90 backdrop-blur-md">
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 text-sm text-red-900/90 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
         讀取 members 失敗：{mErr.message}
       </div>
     );
@@ -85,10 +85,14 @@ export default async function AdminUsersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-8 backdrop-blur-md">
-        <h1 className="text-2xl font-bold text-white">使用者與角色</h1>
-        <p className="mt-2 text-sm text-white/55">
-          僅限 <code className="rounded bg-black/30 px-1">super_admin</code> 管理其他使用者角色。
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-8 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h1 className="text-2xl font-bold text-[#3A2A1E]">使用者與角色</h1>
+        <p className="mt-2 text-sm text-[#6F5A46]">
+          僅限{" "}
+          <code className="rounded bg-[rgba(214,168,108,0.16)] px-1 text-[#5A3E2B]">
+            super_admin
+          </code>{" "}
+          管理其他使用者角色。
           系統會阻擋「最後一位 super_admin」被降級。
         </p>
       </div>

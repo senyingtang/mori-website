@@ -109,20 +109,20 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">新增教練</h2>
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">新增教練</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">name *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">name *</label>
             <input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               placeholder="王小明 教練"
             />
           </div>
@@ -136,20 +136,20 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
               helperText="PNG／JPG／WebP；最多 5MB。建立後可改為 coaches/{id} 路徑再上傳。"
             />
           </div>
-          <div className="md:col-span-3 rounded-xl border border-white/10 bg-black/15 px-4 py-3">
+          <div className="md:col-span-3 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-white/90">首頁主教練</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-white/45">
+                <p className="text-sm font-semibold text-[#3A2A1E]">首頁主教練</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-[#8B735C]">
                   首頁只會取第一位主教練；若勾選此教練為主教練，其他教練會自動取消主教練，並建議同時列為首頁精選。
                 </p>
               </div>
-              <label className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
+              <label className="inline-flex items-center gap-2 text-sm font-semibold text-[#5A3E2B]">
                 <input
                   type="checkbox"
                   checked={newIsMainFeatured}
                   onChange={(e) => setNewIsMainFeatured(e.target.checked)}
-                  className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
+                  className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B] focus:ring-[rgba(185,133,82,0.20)]"
                 />
                 設為主教練
               </label>
@@ -160,7 +160,7 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
           type="button"
           disabled={pending}
           onClick={create}
-          className="mt-5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className="mt-5 rounded-xl bg-[#5A3E2B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
         >
           新增
         </button>
@@ -169,35 +169,35 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
       {items.map((row) => (
         <section
           key={row.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
+          className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md"
         >
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                 {row.name || "（未命名）"} · sort {row.sort_order}
               </p>
-              <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+              <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
             </div>
             <button
               type="button"
               disabled={pending}
               onClick={() => save(row.id)}
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
             >
               儲存
             </button>
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="md:col-span-2 rounded-xl border border-white/10 bg-black/15 px-4 py-3">
+            <div className="md:col-span-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-white/90">首頁主教練</p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-white/45">
+                  <p className="text-sm font-semibold text-[#3A2A1E]">首頁主教練</p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-[#8B735C]">
                     首頁只會取第一位主教練；若設定這位為主教練，其他教練會自動取消主教練。
                   </p>
                 </div>
-                <label className="inline-flex items-center gap-2 text-sm font-semibold text-white/80">
+                <label className="inline-flex items-center gap-2 text-sm font-semibold text-[#5A3E2B]">
                   <input
                     type="checkbox"
                     checked={Boolean(row.is_main_featured)}
@@ -208,18 +208,18 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
                         is_featured: next ? true : row.is_featured,
                       });
                     }}
-                    className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-[rgba(205,162,116,0.35)]"
+                    className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B] focus:ring-[rgba(185,133,82,0.20)]"
                   />
                   首頁主教練
                 </label>
               </div>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">name *</label>
+              <label className="block text-xs font-medium text-[#8B735C]">name *</label>
               <input
                 value={row.name}
                 onChange={(e) => patch(row.id, { name: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
             <div className="md:col-span-2 space-y-3">
@@ -232,57 +232,61 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
                 helperText="PNG／JPG／WebP；最多 5MB。"
               />
               <div>
-                <label className="block text-xs font-medium text-white/55">avatar_url（手動）</label>
+                <label className="block text-xs font-medium text-[#8B735C]">
+                  avatar_url（手動）
+                </label>
                 <input
                   value={row.avatar_url}
                   onChange={(e) => patch(row.id, { avatar_url: e.target.value })}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                   placeholder="https://..."
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">city</label>
+              <label className="block text-xs font-medium text-[#8B735C]">city</label>
               <input
                 value={row.city}
                 onChange={(e) => patch(row.id, { city: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="桃園市"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">experience_years</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                experience_years
+              </label>
               <input
                 value={row.experience_years}
                 onChange={(e) => patch(row.id, { experience_years: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="8"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
+              <label className="block text-xs font-medium text-[#8B735C]">
                 specialties（逗號分隔）
               </label>
               <input
                 value={row.specialties_raw}
                 onChange={(e) => patch(row.id, { specialties_raw: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="步伐訓練, 殺球, 雙打輪轉"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
+              <label className="block text-xs font-medium text-[#8B735C]">
                 level_tags（逗號分隔）
               </label>
               <input
                 value={row.level_tags_raw}
                 onChange={(e) => patch(row.id, { level_tags_raw: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="新手, 初階, 中階"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
+              <label className="block text-xs font-medium text-[#8B735C]">
                 teaching_styles（逗號分隔）
               </label>
               <input
@@ -290,58 +294,64 @@ export function CoachesEditor({ rows }: { rows: unknown[] }) {
                 onChange={(e) =>
                   patch(row.id, { teaching_styles_raw: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="循序漸進, 高密度多球, 實戰情境"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">description</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                description
+              </label>
               <textarea
                 rows={3}
                 value={row.description}
                 onChange={(e) => patch(row.id, { description: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">line_contact_url</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                line_contact_url
+              </label>
               <input
                 value={row.line_contact_url}
                 onChange={(e) =>
                   patch(row.id, { line_contact_url: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#8B735C] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 placeholder="https://line.me/ti/p/..."
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">sort_order</label>
+              <label className="block text-xs font-medium text-[#8B735C]">
+                sort_order
+              </label>
               <input
                 value={String(row.sort_order)}
                 onChange={(e) =>
                   patch(row.id, { sort_order: Number(e.target.value || 0) })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
               />
             </div>
             <div className="flex items-center gap-3">
-              <label className="flex flex-1 items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+              <label className="flex flex-1 items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B]">
                 <input
                   type="checkbox"
                   checked={row.is_active}
                   onChange={(e) => patch(row.id, { is_active: e.target.checked })}
-                  className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+                  className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
                 />
                 is_active
               </label>
-              <label className="flex flex-1 items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+              <label className="flex flex-1 items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B]">
                 <input
                   type="checkbox"
                   checked={row.is_featured}
                   onChange={(e) =>
                     patch(row.id, { is_featured: e.target.checked })
                   }
-                  className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+                  className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
                 />
                 is_featured
               </label>

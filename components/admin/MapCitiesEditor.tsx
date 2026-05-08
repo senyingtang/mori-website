@@ -32,6 +32,32 @@ function prettyIds(ids: unknown): string {
   return "[]";
 }
 
+const card =
+  "rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md";
+
+const labelCls = "block text-xs font-medium text-[#8B735C]";
+
+const inputCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaMonoCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 font-mono text-xs text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const selectCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const primaryBtn =
+  "rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#B98552] disabled:opacity-60";
+
+const checkRow =
+  "flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/70 px-4 py-3 text-sm font-semibold text-[#5A3E2B]";
+
+const checkboxCls =
+  "h-4 w-4 rounded border-[rgba(90,62,43,0.25)] bg-[#FFF8ED]/80 text-[#5A3E2B] focus:ring-[#B98552]/20";
+
 export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
   const initial = useMemo(
     () =>
@@ -82,7 +108,7 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
 
   if (items.length === 0) {
     return (
-      <p className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-10 text-center text-sm text-white/50">
+      <p className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 text-center text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
         尚無 map_city_settings 資料，請先執行 migration seed。
       </p>
     );
@@ -91,28 +117,36 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
       {items.map((row) => (
-        <section
-          key={row.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
-        >
+        <section key={row.id} className={card}>
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
-                {row.tab_type} · {row.city}
-              </p>
-              <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
+                  {row.tab_type} · {row.city}
+                </p>
+                {row.is_enabled ? (
+                  <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-900/90">
+                    啟用
+                  </span>
+                ) : (
+                  <span className="inline-flex rounded-full border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-2 py-0.5 text-[11px] font-semibold text-[#8B735C]">
+                    停用
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
             </div>
             <button
               type="button"
               disabled={pending}
               onClick={() => save(row.id)}
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className={primaryBtn}
             >
               儲存
             </button>
@@ -120,9 +154,7 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                tab_type
-              </label>
+              <label className={labelCls}>tab_type</label>
               <select
                 value={row.tab_type}
                 onChange={(e) =>
@@ -131,104 +163,90 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
                       e.target.value === "dropin" ? "dropin" : "teaching",
                   })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={selectCls}
               >
-                <option value="teaching" className="bg-[#1a1028]">
-                  teaching
-                </option>
-                <option value="dropin" className="bg-[#1a1028]">
-                  dropin
-                </option>
+                <option value="teaching">teaching</option>
+                <option value="dropin">dropin</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                city
-              </label>
+              <label className={labelCls}>city</label>
               <input
                 value={row.city}
                 onChange={(e) => patch(row.id, { city: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
-            <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+            <label className={checkRow}>
               <input
                 type="checkbox"
                 checked={row.is_enabled}
-                onChange={(e) => patch(row.id, { is_enabled: e.target.checked })}
-                className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-brand-neon-purple/50"
+                onChange={(e) =>
+                  patch(row.id, { is_enabled: e.target.checked })
+                }
+                className={checkboxCls}
               />
               is_enabled
             </label>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                sort_order
-              </label>
+              <label className={labelCls}>sort_order</label>
               <input
                 type="number"
                 value={row.sort_order}
                 onChange={(e) =>
                   patch(row.id, { sort_order: Number(e.target.value) })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                glow_color
-              </label>
+              <label className={labelCls}>glow_color</label>
               <input
                 value={row.glow_color}
                 onChange={(e) => patch(row.id, { glow_color: e.target.value })}
                 placeholder="#2563EB"
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                hover_title
-              </label>
+              <label className={labelCls}>hover_title</label>
               <input
                 value={row.hover_title}
-                onChange={(e) => patch(row.id, { hover_title: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                onChange={(e) =>
+                  patch(row.id, { hover_title: e.target.value })
+                }
+                className={inputCls}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
-                hover_description
-              </label>
+              <label className={labelCls}>hover_description</label>
               <textarea
                 rows={3}
                 value={row.hover_description}
                 onChange={(e) =>
                   patch(row.id, { hover_description: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                className={textareaCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                cta_text
-              </label>
+              <label className={labelCls}>cta_text</label>
               <input
                 value={row.cta_text}
                 onChange={(e) => patch(row.id, { cta_text: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                cta_href
-              </label>
+              <label className={labelCls}>cta_href</label>
               <input
                 value={row.cta_href}
                 onChange={(e) => patch(row.id, { cta_href: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
+              <label className={labelCls}>
                 location_ids（JSON array 或逗號分隔）
               </label>
               <textarea
@@ -237,7 +255,7 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
                 onChange={(e) =>
                   patch(row.id, { location_ids_raw: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 font-mono text-xs text-white/85"
+                className={textareaMonoCls}
               />
             </div>
           </div>
@@ -246,4 +264,3 @@ export function MapCitiesEditor({ rows }: { rows: unknown[] }) {
     </div>
   );
 }
-

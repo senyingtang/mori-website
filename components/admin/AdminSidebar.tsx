@@ -30,8 +30,8 @@ export function AdminSidebar({ role }: { role: string }) {
     return true;
   });
   return (
-    <aside className="rounded-2xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-md">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/45">
+    <aside className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-4 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
         管理模組
       </p>
       <nav className="flex flex-col gap-1">
@@ -39,17 +39,17 @@ export function AdminSidebar({ role }: { role: string }) {
           item.disabled ? (
             <div
               key={item.href}
-              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-white/35"
+              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-[#9A846E]"
               aria-disabled
             >
               <span>{item.label}</span>
-              <span className="text-[11px] text-white/30">{item.note}</span>
+              <span className="text-[11px] text-[#9A846E]">{item.note}</span>
             </div>
           ) : (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
+              className="rounded-lg px-3 py-2 text-sm font-semibold text-[#5A3E2B] transition hover:bg-[rgba(185,133,82,0.10)] hover:text-[#3A2A1E]"
             >
               {item.label}
             </Link>

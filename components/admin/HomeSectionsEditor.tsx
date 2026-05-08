@@ -30,6 +30,26 @@ function pretty(v: unknown): string {
   }
 }
 
+const card =
+  "rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md";
+
+const labelCls = "block text-xs font-medium text-[#8B735C]";
+
+const inputCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaMonoCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 font-mono text-xs text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const primaryBtn =
+  "rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#B98552] disabled:opacity-60";
+
+const checkRow =
+  "flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/70 px-4 py-3 text-sm font-semibold text-[#5A3E2B]";
+
+const checkboxCls =
+  "h-4 w-4 rounded border-[rgba(90,62,43,0.25)] bg-[#FFF8ED]/80 text-[#5A3E2B] focus:ring-[#B98552]/20";
+
 export function HomeSectionsEditor({ rows }: { rows: unknown[] }) {
   const initial = useMemo(
     () =>
@@ -68,69 +88,75 @@ export function HomeSectionsEditor({ rows }: { rows: unknown[] }) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
       {items.map((row) => (
-        <section
-          key={row.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
-        >
+        <section key={row.id} className={card}>
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
-                {row.section_key}
-              </p>
-              <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-base font-semibold text-[#3A2A1E]">
+                  {row.section_key}
+                </h3>
+                {row.is_enabled ? (
+                  <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-900/90">
+                    啟用
+                  </span>
+                ) : (
+                  <span className="inline-flex rounded-full border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-2 py-0.5 text-[11px] font-semibold text-[#8B735C]">
+                    草稿
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
             </div>
             <button
               type="button"
               disabled={pending}
               onClick={() => save(row.id)}
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className={primaryBtn}
             >
               儲存
             </button>
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
+            <label className={`${checkRow} md:col-span-1`}>
               <input
                 type="checkbox"
                 checked={row.is_enabled}
-                onChange={(e) => patch(row.id, { is_enabled: e.target.checked })}
-                className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-brand-neon-purple/50"
+                onChange={(e) =>
+                  patch(row.id, { is_enabled: e.target.checked })
+                }
+                className={checkboxCls}
               />
               啟用（is_enabled）
             </label>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
-                sort_order
-              </label>
+              <label className={labelCls}>sort_order</label>
               <input
                 type="number"
                 value={row.sort_order}
                 onChange={(e) =>
                   patch(row.id, { sort_order: Number(e.target.value) })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
           </div>
 
           <div className="mt-6">
-            <label className="block text-xs font-medium text-white/55">
-              content（JSON）
-            </label>
+            <label className={labelCls}>content（JSON）</label>
             <textarea
               value={row.contentJson}
               onChange={(e) => patch(row.id, { contentJson: e.target.value })}
               rows={10}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 font-mono text-xs text-white/85 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+              className={textareaMonoCls}
             />
-            <p className="mt-2 text-xs text-white/40">
+            <p className="mt-2 text-xs text-[#9A846E]">
               儲存前會檢查 JSON 是否合法。
             </p>
           </div>
@@ -139,4 +165,3 @@ export function HomeSectionsEditor({ rows }: { rows: unknown[] }) {
     </div>
   );
 }
-

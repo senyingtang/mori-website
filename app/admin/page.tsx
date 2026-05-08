@@ -15,11 +15,11 @@ function QuickCard({
   return (
     <Link
       href={href}
-      className="group rounded-2xl border border-[rgba(255,255,255,0.10)] bg-white/[0.06] p-6 shadow-[0_0_30px_rgba(31,20,16,0.12)] backdrop-blur-md transition hover:border-[rgba(205,162,116,0.45)] hover:bg-white/[0.08]"
+      className="group rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md transition hover:border-[rgba(185,133,82,0.35)]"
     >
-      <p className="text-lg font-semibold text-white">{title}</p>
-      <p className="mt-2 text-sm text-white/60">{description}</p>
-      <p className="mt-4 text-sm font-semibold text-brand-neon-purple group-hover:underline">
+      <p className="text-lg font-semibold text-[#3A2A1E]">{title}</p>
+      <p className="mt-2 text-sm text-[#6F5A46]">{description}</p>
+      <p className="mt-4 text-sm font-semibold text-[#B98552] group-hover:underline">
         前往管理 →
       </p>
     </Link>
@@ -31,12 +31,12 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-8 backdrop-blur-md">
-        <h1 className="text-2xl font-bold text-white">後台總覽</h1>
-        <p className="mt-2 text-sm text-white/60">
-          目前角色：<span className="font-semibold">{profile?.role}</span>
+      <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-8 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h1 className="text-2xl font-bold text-[#3A2A1E]">後台總覽</h1>
+        <p className="mt-2 text-sm text-[#6F5A46]">
+          目前角色：<span className="font-semibold text-[#3A2A1E]">{profile?.role}</span>
         </p>
-        <p className="mt-2 text-sm text-white/50">
+        <p className="mt-2 text-sm text-[#8B735C]">
           地圖、據點、教練、商品管理將於後續階段開放。
         </p>
       </div>

@@ -134,67 +134,65 @@ export function FaqsEditor({ rows }: { rows: unknown[] }) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">新增 FAQ</h2>
+      <section className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">新增 FAQ</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div>
-            <label className="block text-xs font-medium text-white/55">page_key *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">page_key *</label>
             <select
               value={newItem.page_key}
               onChange={(e) => patchNew({ page_key: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
             >
               {PAGE_KEYS.map((k) => (
-                <option key={k} value={k} className="bg-[#1a1028]">
-                  {k}
-                </option>
+                <option key={k} value={k}>{k}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">sort_order</label>
+            <label className="block text-xs font-medium text-[#8B735C]">sort_order</label>
             <input
               value={newItem.sort_order}
               onChange={(e) => patchNew({ sort_order: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">question *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">question *</label>
             <input
               value={newItem.question}
               onChange={(e) => patchNew({ question: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">answer *</label>
+            <label className="block text-xs font-medium text-[#8B735C]">answer *</label>
             <textarea
               rows={4}
               value={newItem.answer}
               onChange={(e) => patchNew({ answer: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+              className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
             />
           </div>
-          <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80 md:col-span-2">
+          <label className="flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B] md:col-span-2">
             <input
               type="checkbox"
               checked={newItem.is_active}
               onChange={(e) => patchNew({ is_active: e.target.checked })}
-              className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+              className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
             />
             is_active
           </label>
         </div>
 
         {suggestion.length > 0 ? (
-          <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+          <div className="mt-5 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] p-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
               常見範例（點選快速帶入）
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -203,7 +201,7 @@ export function FaqsEditor({ rows }: { rows: unknown[] }) {
                   key={s.question}
                   type="button"
                   onClick={() => patchNew({ question: s.question, answer: s.answer })}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/75 hover:bg-white/10"
+                  className="rounded-full border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-3 py-1.5 text-xs font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)]"
                 >
                   {s.question}
                 </button>
@@ -216,35 +214,35 @@ export function FaqsEditor({ rows }: { rows: unknown[] }) {
           type="button"
           disabled={pending}
           onClick={create}
-          className="mt-5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className="mt-5 rounded-xl bg-[#5A3E2B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
         >
           新增
         </button>
       </section>
 
       {items.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-10 text-sm text-white/55 backdrop-blur-md">
+        <div className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
           目前尚無 FAQ。
         </div>
       ) : (
         items.map((row) => (
           <section
             key={row.id}
-            className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
+            className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md"
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
               <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                   {row.page_key} · {row.question.slice(0, 40)}
                   {row.question.length > 40 ? "…" : ""}
                 </p>
-                <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+                <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
               </div>
               <button
                 type="button"
                 disabled={pending}
                 onClick={() => save(row.id)}
-                className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+                className="rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#6B4A34] disabled:opacity-60"
               >
                 儲存
               </button>
@@ -252,52 +250,50 @@ export function FaqsEditor({ rows }: { rows: unknown[] }) {
 
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-xs font-medium text-white/55">page_key *</label>
+                <label className="block text-xs font-medium text-[#8B735C]">page_key *</label>
                 <select
                   value={row.page_key}
                   onChange={(e) => patch(row.id, { page_key: e.target.value })}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm font-semibold text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 >
                   {PAGE_KEYS.map((k) => (
-                    <option key={k} value={k} className="bg-[#1a1028]">
-                      {k}
-                    </option>
+                    <option key={k} value={k}>{k}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-white/55">sort_order</label>
+                <label className="block text-xs font-medium text-[#8B735C]">sort_order</label>
                 <input
                   value={String(row.sort_order)}
                   onChange={(e) =>
                     patch(row.id, { sort_order: Number(e.target.value || 0) })
                   }
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-white/55">question *</label>
+                <label className="block text-xs font-medium text-[#8B735C]">question *</label>
                 <input
                   value={row.question}
                   onChange={(e) => patch(row.id, { question: e.target.value })}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-2.5 text-sm text-[#3A2A1E] outline-none focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-white/55">answer *</label>
+                <label className="block text-xs font-medium text-[#8B735C]">answer *</label>
                 <textarea
                   rows={4}
                   value={row.answer}
                   onChange={(e) => patch(row.id, { answer: e.target.value })}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85"
+                  className="mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(255,248,237,0.78)] px-4 py-3 text-sm text-[#3A2A1E] outline-none placeholder:text-[#8B735C] focus:border-[rgba(185,133,82,0.35)] focus:ring-1 focus:ring-[rgba(185,133,82,0.18)]"
                 />
               </div>
-              <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80 md:col-span-2">
+              <label className="flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3 text-sm font-semibold text-[#5A3E2B] md:col-span-2">
                 <input
                   type="checkbox"
                   checked={row.is_active}
                   onChange={(e) => patch(row.id, { is_active: e.target.checked })}
-                  className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+                  className="h-4 w-4 rounded border-[rgba(90,62,43,0.22)] bg-[rgba(255,248,237,0.78)] text-[#5A3E2B]"
                 />
                 is_active
               </label>

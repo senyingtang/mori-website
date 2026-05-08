@@ -38,6 +38,35 @@ function pretty(v: unknown): string {
   }
 }
 
+const card =
+  "rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md";
+
+const labelCls = "block text-xs font-medium text-[#8B735C]";
+
+const inputCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaMonoCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 font-mono text-xs text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const primaryBtn =
+  "rounded-xl bg-[#5A3E2B] py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#B98552] disabled:opacity-60 px-5";
+
+const primaryBtnWide =
+  "rounded-xl bg-[#5A3E2B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#B98552] disabled:opacity-60";
+
+const secondaryChip =
+  "rounded-full border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/70 px-3 py-1.5 text-xs font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)] hover:bg-[#F3DFC3]/70";
+
+const checkRow =
+  "flex items-center gap-2 rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/70 px-4 py-3 text-sm font-semibold text-[#5A3E2B]";
+
+const checkboxCls =
+  "h-4 w-4 rounded border-[rgba(90,62,43,0.25)] bg-[#FFF8ED]/80 text-[#5A3E2B] focus:ring-[#B98552]/20";
+
 type Props = {
   rows: unknown[];
   missingKeys: string[];
@@ -133,15 +162,15 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
       {missingKeys.length > 0 ? (
-        <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-          <h2 className="text-lg font-semibold text-white">缺少常用 page_key</h2>
-          <p className="mt-2 text-sm text-white/55">
+        <section className={card}>
+          <h2 className="text-lg font-semibold text-[#3A2A1E]">缺少常用 page_key</h2>
+          <p className="mt-2 text-sm text-[#6F5A46]">
             建議補齊以下 SEO 設定（可先用下方「新增 SEO 設定」建立）。
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -150,7 +179,7 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
                 key={k}
                 type="button"
                 onClick={() => patchNew({ page_key: k })}
-                className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs font-semibold text-white/75 hover:bg-white/10"
+                className={secondaryChip}
               >
                 {k}
               </button>
@@ -159,61 +188,61 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md">
-        <h2 className="text-lg font-semibold text-white">新增 SEO 設定</h2>
-        <p className="mt-2 text-sm text-white/55">
+      <section className={card}>
+        <h2 className="text-lg font-semibold text-[#3A2A1E]">新增 SEO 設定</h2>
+        <p className="mt-2 text-sm text-[#6F5A46]">
           page_key / title / meta_description 必填；schema_json 會檢查 JSON，空白時存 {`{}` }。
         </p>
 
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">page_key *</label>
+            <label className={labelCls}>page_key *</label>
             <input
               value={newItem.page_key}
               onChange={(e) => patchNew({ page_key: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
               placeholder="locations"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">title *</label>
+            <label className={labelCls}>title *</label>
             <input
               value={newItem.title}
               onChange={(e) => patchNew({ title: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">meta_description *</label>
+            <label className={labelCls}>meta_description *</label>
             <textarea
               rows={3}
               value={newItem.meta_description}
               onChange={(e) => patchNew({ meta_description: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white"
+              className={textareaCls}
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-xs font-medium text-white/55">h1</label>
+            <label className={labelCls}>h1</label>
             <input
               value={newItem.h1}
               onChange={(e) => patchNew({ h1: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">og_title</label>
+            <label className={labelCls}>og_title</label>
             <input
               value={newItem.og_title}
               onChange={(e) => patchNew({ og_title: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">og_description</label>
+            <label className={labelCls}>og_description</label>
             <input
               value={newItem.og_description}
               onChange={(e) => patchNew({ og_description: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
             />
           </div>
           <div className="md:col-span-2 space-y-3">
@@ -226,40 +255,40 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
               helperText="建議 1200×630；PNG／JPG／WebP／SVG（SVG 限本 bucket）。"
             />
             <div>
-              <label className="block text-xs font-medium text-white/55">og_image_url（手動）</label>
+              <label className={labelCls}>og_image_url（手動）</label>
               <input
                 value={newItem.og_image_url}
                 onChange={(e) => patchNew({ og_image_url: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+                className={inputCls}
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-white/55">canonical_url</label>
+            <label className={labelCls}>canonical_url</label>
             <input
               value={newItem.canonical_url}
               onChange={(e) => patchNew({ canonical_url: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white"
+              className={inputCls}
             />
           </div>
-          <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80 md:col-span-2">
+          <label className={`${checkRow} md:col-span-2`}>
             <input
               type="checkbox"
               checked={newItem.noindex}
               onChange={(e) => patchNew({ noindex: e.target.checked })}
-              className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple"
+              className={checkboxCls}
             />
             noindex
           </label>
         </div>
 
         <div className="mt-6">
-          <label className="block text-xs font-medium text-white/55">schema_json（JSON）</label>
+          <label className={labelCls}>schema_json（JSON）</label>
           <textarea
             rows={10}
             value={newItem.schema_json}
             onChange={(e) => patchNew({ schema_json: e.target.value })}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 font-mono text-xs text-white/85"
+            className={textareaMonoCls}
           />
         </div>
 
@@ -267,29 +296,26 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
           type="button"
           disabled={pending}
           onClick={create}
-          className="mt-5 rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className={`mt-5 ${primaryBtnWide}`}
         >
           新增
         </button>
       </section>
 
       {items.map((row) => (
-        <section
-          key={row.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
-        >
+        <section key={row.id} className={card}>
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#8B735C]">
                 {row.page_key}
               </p>
-              <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+              <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
             </div>
             <button
               type="button"
               disabled={pending}
               onClick={() => save(row.id)}
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className={primaryBtn}
             >
               儲存
             </button>
@@ -297,66 +323,56 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
-                page_key（不可空白）
-              </label>
+              <label className={labelCls}>page_key（不可空白）</label>
               <input
                 value={row.page_key}
                 onChange={(e) => patch(row.id, { page_key: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
-                title
-              </label>
+              <label className={labelCls}>title</label>
               <input
                 value={row.title}
                 onChange={(e) => patch(row.id, { title: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">
-                meta_description
-              </label>
+              <label className={labelCls}>meta_description</label>
               <textarea
                 rows={3}
                 value={row.meta_description}
                 onChange={(e) =>
                   patch(row.id, { meta_description: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={textareaCls}
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-white/55">h1</label>
+              <label className={labelCls}>h1</label>
               <input
                 value={row.h1}
                 onChange={(e) => patch(row.id, { h1: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                og_title
-              </label>
+              <label className={labelCls}>og_title</label>
               <input
                 value={row.og_title}
                 onChange={(e) => patch(row.id, { og_title: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                og_description
-              </label>
+              <label className={labelCls}>og_description</label>
               <input
                 value={row.og_description}
                 onChange={(e) =>
                   patch(row.id, { og_description: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div className="md:col-span-2 space-y-3">
@@ -369,52 +385,46 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
                 helperText="與手動輸入欄位共用同一欄位；上傳後會覆寫 URL。"
               />
               <div>
-                <label className="block text-xs font-medium text-white/55">
-                  og_image_url（手動）
-                </label>
+                <label className={labelCls}>og_image_url（手動）</label>
                 <input
                   value={row.og_image_url}
                   onChange={(e) =>
                     patch(row.id, { og_image_url: e.target.value })
                   }
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                  className={inputCls}
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                canonical_url
-              </label>
+              <label className={labelCls}>canonical_url</label>
               <input
                 value={row.canonical_url}
                 onChange={(e) =>
                   patch(row.id, { canonical_url: e.target.value })
                 }
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
-            <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80 md:col-span-2">
+            <label className={`${checkRow} md:col-span-2`}>
               <input
                 type="checkbox"
                 checked={row.noindex}
                 onChange={(e) => patch(row.id, { noindex: e.target.checked })}
-                className="h-4 w-4 rounded border-white/20 bg-black/30 text-brand-purple focus:ring-brand-neon-purple/50"
+                className={checkboxCls}
               />
               noindex
             </label>
           </div>
 
           <div className="mt-6">
-            <label className="block text-xs font-medium text-white/55">
-              schema_json（JSON）
-            </label>
+            <label className={labelCls}>schema_json（JSON）</label>
             <textarea
               rows={10}
               value={row.schemaJson}
               onChange={(e) => patch(row.id, { schemaJson: e.target.value })}
-              className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 font-mono text-xs text-white/85 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+              className={textareaMonoCls}
             />
-            <p className="mt-2 text-xs text-white/40">
+            <p className="mt-2 text-xs text-[#9A846E]">
               儲存前會檢查 JSON 是否合法。
             </p>
           </div>
@@ -423,4 +433,3 @@ export function SeoSettingsEditor({ rows, missingKeys }: Props) {
     </div>
   );
 }
-

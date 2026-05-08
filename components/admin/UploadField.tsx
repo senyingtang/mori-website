@@ -77,19 +77,19 @@ export function UploadField({
   }
 
   return (
-    <div className="rounded-xl border border-[rgba(255,255,255,0.10)] bg-black/20 px-4 py-3">
+    <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[rgba(214,168,108,0.10)] px-4 py-3">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-medium text-white/55">{label}</p>
+          <p className="text-xs font-medium text-[#8B735C]">{label}</p>
           {helperText ? (
-            <p className="mt-1 text-[11px] text-white/40">{helperText}</p>
+            <p className="mt-1 text-[11px] text-[#8B735C]">{helperText}</p>
           ) : null}
         </div>
         <button
           type="button"
           disabled={disabled || uploading}
           onClick={() => inputRef.current?.click()}
-          className="rounded-lg border border-[rgba(255,255,255,0.12)] bg-brand-purple/15 px-3 py-1.5 text-xs font-semibold text-white/90 hover:border-[rgba(205,162,116,0.45)] hover:bg-brand-purple/25 disabled:opacity-50"
+          className="rounded-lg border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-3 py-1.5 text-xs font-semibold text-[#5A3E2B] transition hover:border-[rgba(185,133,82,0.35)] disabled:opacity-50"
         >
           {uploading ? "上傳中…" : "選擇檔案"}
         </button>
@@ -111,16 +111,16 @@ export function UploadField({
             <img
               src={value}
               alt=""
-              className="h-20 w-auto max-w-[120px] rounded-lg border border-white/10 object-contain"
+              className="h-20 w-auto max-w-[120px] rounded-lg border border-[rgba(90,62,43,0.14)] object-contain"
             />
           ) : null}
           <div className="min-w-0 flex-1">
-            <p className="break-all text-[11px] text-white/50">目前 URL</p>
-            <p className="break-all text-xs text-brand-neon-purple/90">{value}</p>
+            <p className="break-all text-[11px] text-[#8B735C]">目前 URL</p>
+            <p className="break-all text-xs font-semibold text-[#5A3E2B]">{value}</p>
           </div>
         </div>
       ) : (
-        <p className="mt-2 text-[11px] text-white/35">尚未選擇圖片</p>
+        <p className="mt-2 text-[11px] text-[#8B735C]">尚未選擇圖片</p>
       )}
 
       {localError ? (

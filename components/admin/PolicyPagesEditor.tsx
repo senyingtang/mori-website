@@ -21,6 +21,20 @@ function isRow(x: unknown): x is Row {
   );
 }
 
+const card =
+  "rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 p-6 shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md";
+
+const labelCls = "block text-xs font-medium text-[#8B735C]";
+
+const inputCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-2.5 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const textareaCls =
+  "mt-1 w-full rounded-xl border border-[rgba(90,62,43,0.18)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#3A2A1E] placeholder:text-[#9A846E] outline-none focus:border-[#B98552] focus:ring-1 focus:ring-[#B98552]/20";
+
+const primaryBtn =
+  "rounded-xl bg-[#5A3E2B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(90,62,43,0.22)] transition hover:bg-[#B98552] disabled:opacity-60";
+
 export function PolicyPagesEditor({ rows }: { rows: unknown[] }) {
   const initial = useMemo(
     () =>
@@ -56,7 +70,7 @@ export function PolicyPagesEditor({ rows }: { rows: unknown[] }) {
 
   if (items.length === 0) {
     return (
-      <p className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-10 text-center text-sm text-white/50">
+      <p className="rounded-2xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-6 py-10 text-center text-sm text-[#6F5A46] shadow-[0_22px_60px_rgba(90,62,43,0.10)] backdrop-blur-md">
         尚無 policy_pages 資料，請先執行 migration seed。
       </p>
     );
@@ -65,28 +79,25 @@ export function PolicyPagesEditor({ rows }: { rows: unknown[] }) {
   return (
     <div className="space-y-4">
       {status ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/80">
+        <div className="rounded-xl border border-[rgba(90,62,43,0.14)] bg-[#FFF8ED]/80 px-4 py-3 text-sm text-[#6F5A46]">
           {status}
         </div>
       ) : null}
 
       {items.map((row) => (
-        <section
-          key={row.id}
-          className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-md"
-        >
+        <section key={row.id} className={card}>
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
+              <h3 className="text-base font-semibold text-[#3A2A1E]">
                 {row.page_key}
-              </p>
-              <p className="mt-1 text-xs text-white/35">id: {row.id}</p>
+              </h3>
+              <p className="mt-1 text-xs text-[#8B735C]">id: {row.id}</p>
             </div>
             <button
               type="button"
               disabled={pending}
               onClick={() => save(row.id)}
-              className="rounded-xl bg-gradient-to-r from-brand-purple to-brand-neon-purple px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className={primaryBtn}
             >
               儲存
             </button>
@@ -94,24 +105,20 @@ export function PolicyPagesEditor({ rows }: { rows: unknown[] }) {
 
           <div className="mt-6 grid gap-4">
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                title
-              </label>
+              <label className={labelCls}>title</label>
               <input
                 value={row.title}
                 onChange={(e) => patch(row.id, { title: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-sm text-white focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-white/55">
-                content
-              </label>
+              <label className={labelCls}>content</label>
               <textarea
                 rows={12}
                 value={row.content}
                 onChange={(e) => patch(row.id, { content: e.target.value })}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/85 focus:border-brand-neon-purple/50 focus:outline-none focus:ring-1 focus:ring-brand-neon-purple/30"
+                className={textareaCls}
               />
             </div>
           </div>
@@ -120,4 +127,3 @@ export function PolicyPagesEditor({ rows }: { rows: unknown[] }) {
     </div>
   );
 }
-
